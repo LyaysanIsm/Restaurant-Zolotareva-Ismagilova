@@ -4,11 +4,11 @@ using System.Text;
 
 namespace RestaurantBusinessLogic.BindingModels
 {
-    public class FridgeProduct
+    public class FoodDish
     {
-        public int FridgeId { get; set; }
-        public int ProductId { get; set; }
+        public int? Id { get; set; }
+        public int FoodId { get; set; }
+        public int DishId { get; set; }
         public int Count { get; set; }
-        public int isReserved { get; set; }
     }
 }
