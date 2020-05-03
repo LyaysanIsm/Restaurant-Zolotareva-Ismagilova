@@ -4,7 +4,7 @@ using System.Text;
 
 namespace RestaurantBusinessLogic.BindingModels
 {
-    public class Fridge
+    public class FridgeBindingModel
     {
         public int? Id { get; set; }
         public int Capacity { get; set; }

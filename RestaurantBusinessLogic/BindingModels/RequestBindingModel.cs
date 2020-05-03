@@ -5,7 +5,7 @@ using System.Text;
 
 namespace RestaurantBusinessLogic.BindingModels
 {
-    public class Request
+    public class RequestBindingModel
     {
         public int? Id { get; set; }
         public DateTime DateCreate { get; set; }

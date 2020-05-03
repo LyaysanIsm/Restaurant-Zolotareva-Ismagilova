@@ -5,7 +5,7 @@ using System.Text;
 
 namespace RestaurantBusinessLogic.BindingModels
 {
-    public class Order
+    public class OrderBindingModel
     {
         public int? ID { get; set; }
         public DateTime CreationDate { get; set; }
