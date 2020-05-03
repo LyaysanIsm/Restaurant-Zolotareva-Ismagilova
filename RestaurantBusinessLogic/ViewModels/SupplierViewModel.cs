@@ -1,10 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 
 namespace RestaurantBusinessLogic.ViewModels
 {
-    class SupplierViewModel
+    public class SupplierViewModel
     {
+        public int Id { get; set; }
+        public int FridgeId { get; set; }
+        [DisplayName("ФИО")]
+        public string SupplierFIO { get; set; }
+        [DisplayName("Пароль")]
+        public int Password { get; set; }
     }
 }

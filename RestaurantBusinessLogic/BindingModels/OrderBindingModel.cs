@@ -7,7 +7,7 @@ namespace RestaurantBusinessLogic.BindingModels
 {
     public class OrderBindingModel
     {
-        public int? ID { get; set; }
+        public int? Id { get; set; }
         public DateTime CreationDate { get; set; }
         public decimal Amount { get; set; }
         public DateTime CompletionDate { get; set; }

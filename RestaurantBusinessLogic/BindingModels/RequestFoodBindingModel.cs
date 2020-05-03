@@ -4,7 +4,7 @@ using System.Text;
 
 namespace RestaurantBusinessLogic.BindingModels
 {
-    public class OrderFoodBindingModel
+    public class RequestFoodBindingModel
     {
         public int? Id { get; set; }
         public int RequestId { get; set; }
