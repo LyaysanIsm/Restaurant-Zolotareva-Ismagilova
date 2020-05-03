@@ -8,7 +8,7 @@ namespace RestaurantDatabaseImplement.Models
 {
     public class Request
     {
-        public int? Id { get; set; }
+        public int Id { get; set; }
         public int SupplierId { get; set; }
         [Required]
         public DateTime DateCreate { get; set; }

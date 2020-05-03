@@ -13,9 +13,9 @@ namespace RestaurantDatabaseImplement.Models
         public string FoodName { get; set; }
         [Required]
         public decimal Price { get; set; }
-        [ForeignKey("DishId")]
+        [ForeignKey("FoodId")]
         public virtual List<DishFood> DishFoods { get; set; }
-        [ForeignKey("RequestId")]
+        [ForeignKey("FoodId")]
         public virtual List<RequestFood> RequestFoods { get; set; }
     }
 }
