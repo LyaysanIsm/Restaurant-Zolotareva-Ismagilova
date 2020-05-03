@@ -8,7 +8,7 @@ namespace RestaurantBusinessLogic.ViewModels
 {
     public class RequestViewModel
     {
-        public int? Id { get; set; }
+        public int Id { get; set; }
         public int SupplierId { get; set; }
         [DisplayName("Дата создания")]
         public DateTime DateCreate { get; set; }

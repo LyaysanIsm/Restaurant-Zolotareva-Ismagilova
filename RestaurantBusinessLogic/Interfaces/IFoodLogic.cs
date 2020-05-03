@@ -6,10 +6,10 @@ using RestaurantBusinessLogic.ViewModels;
 
 namespace RestaurantBusinessLogic.Interfaces
 {
-    public interface IDish
+    public interface IFoodLogic
     {
-        List<DishViewModel> Read(DishBindingModel model);
-        void CreateOrUpdate(DishBindingModel model);
-        void Delete(DishBindingModel model);
+        List<FoodViewModel> Read(FoodBindingModel model);
+        void CreateOrUpdate(FoodBindingModel model);
+        void Delete(FoodBindingModel model);
     }
 }

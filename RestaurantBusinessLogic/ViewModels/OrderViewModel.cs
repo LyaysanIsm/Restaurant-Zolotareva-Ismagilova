@@ -8,7 +8,7 @@ namespace RestaurantBusinessLogic.ViewModels
 {
     public class OrderViewModel
     {
-        public int? Id { get; set; }
+        public int Id { get; set; }
         [DisplayName("Дата создание")]
         public DateTime CreationDate { get; set; }
         [DisplayName("Сумма")]

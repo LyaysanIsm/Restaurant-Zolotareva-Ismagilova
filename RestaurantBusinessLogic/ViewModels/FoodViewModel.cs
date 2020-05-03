@@ -7,7 +7,7 @@ namespace RestaurantBusinessLogic.ViewModels
 {
     public class FoodViewModel
     {
-        public int? Id { get; set; }
+        public int Id { get; set; }
         [DisplayName("Название продукта")]
         public string FoodName { get; set; }
         [DisplayName("Цена")]
