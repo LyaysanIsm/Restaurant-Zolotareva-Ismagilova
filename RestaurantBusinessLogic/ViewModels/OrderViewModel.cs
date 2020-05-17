@@ -13,10 +13,13 @@ namespace RestaurantBusinessLogic.ViewModels
         public DateTime CreationDate { get; set; }
         [DisplayName("Сумма")]
         public decimal Amount { get; set; }
+        [DisplayName("Название продукта")]
+        public decimal FoodName { get; set; }
         [DisplayName("Дата завершения")]
-        public DateTime CompletionDate { get; set; }
+        public DateTime? CompletionDate { get; set; }
         [DisplayName("Статус")]
         public Status Status { get; set; }
         public int DishId { get; set; }
+        public string DishName { get; set; }
     }
 }

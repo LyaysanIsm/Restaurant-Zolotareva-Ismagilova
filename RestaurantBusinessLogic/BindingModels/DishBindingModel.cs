@@ -9,5 +9,6 @@ namespace RestaurantBusinessLogic.BindingModels
         public int? Id { get; set; }
         public string DishName { get; set; }
         public decimal Price { get; set; }
+        public Dictionary<int, (string, int)> DishFoods { get; set; }
     }
 }
