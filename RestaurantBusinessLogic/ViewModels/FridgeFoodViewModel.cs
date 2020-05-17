@@ -7,8 +7,11 @@ namespace RestaurantBusinessLogic.ViewModels
 {
     public class FridgeFoodViewModel
     {
+        public int Id { get; set; }
         public int FridgeId { get; set; }
         public int FoodId { get; set; }
+        [DisplayName("Название продукта")]
+        public string FoodName { get; set; }
         [DisplayName("Количество")]
         public int Count { get; set; }
         [DisplayName("Резервация")]

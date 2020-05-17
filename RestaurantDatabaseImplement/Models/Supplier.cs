@@ -13,6 +13,8 @@ namespace RestaurantDatabaseImplement.Models
         [Required]
         public string SupplierFIO { get; set; }
         [Required]
+        public string Email { get; set; }
+        [Required]
         public int Password { get; set; }
         public Fridge Fridge { get; set; }
         [ForeignKey("SupplierId")]

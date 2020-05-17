@@ -12,6 +12,10 @@ namespace RestaurantDatabaseImplement.Models
         public int SupplierId { get; set; }
         [Required]
         public DateTime DateCreate { get; set; }
+        [Required]
+        public int Count { get; set; }
+        [Required]
+        public decimal Sum { get; set; }
         public DateTime? DateImplement { get; set; }
         [Required]
         public Status Status { get; set; }
