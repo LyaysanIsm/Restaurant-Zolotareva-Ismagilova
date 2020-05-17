@@ -11,6 +11,8 @@ namespace RestaurantBusinessLogic.ViewModels
         public int FridgeId { get; set; }
         [DisplayName("ФИО")]
         public string SupplierFIO { get; set; }
+        [DisplayName("Логин")]
+        public string Email { get; set; }
         [DisplayName("Пароль")]
         public int Password { get; set; }
     }

@@ -9,6 +9,7 @@ namespace RestaurantBusinessLogic.BindingModels
         public int? Id { get; set; }
         public int FridgeId { get; set; }
         public string SupplierFIO { get; set; }
+        public string Email { get; set; }
         public int Password { get; set; }
     }
 }
