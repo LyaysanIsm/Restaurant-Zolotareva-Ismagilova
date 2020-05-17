@@ -31,7 +31,8 @@ namespace RestaurantDatabaseImplement.Implements
                     context.Orders.Add(element);
                 }
                 element.DishId = model.DishId == 0 ? element.DishId : model.DishId;
-                element.Amount = model.Amount;
+                element.Count = model.Count;
+                element.Sum = model.Sum;
                 element.Status = model.Status;
                 element.CreationDate = model.CreationDate;
                 element.CompletionDate = model.CompletionDate;
@@ -68,7 +69,8 @@ namespace RestaurantDatabaseImplement.Implements
             {
                 Id = rec.Id,
                 DishName = rec.Dish.DishName,
-                Amount = rec.Amount,
+                Count = rec.Count,
+                Sum = rec.Sum,
                 Status = rec.Status,
                 CreationDate = rec.CreationDate,
                 CompletionDate = rec.CompletionDate

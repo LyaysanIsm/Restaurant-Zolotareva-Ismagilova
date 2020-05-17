@@ -16,9 +16,10 @@ namespace RestaurantBusinessLogic.ViewModels
         [DisplayName("Дата создания")]
         public DateTime CreationDate { get; set; }
         [DisplayName("Дата завершения")]
-        public DateTime CompletionDate { get; set; }
+        public DateTime? CompletionDate { get; set; }
         [DisplayName("Статус")]
         public Status Status { get; set; }
         public int DishId { get; set; }
+        public string DishName { get; set; }
     }
 }

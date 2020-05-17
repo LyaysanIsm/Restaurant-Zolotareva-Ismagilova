@@ -12,6 +12,8 @@ namespace RestaurantDatabaseImplement.Models
         [Required]
         public DateTime CreationDate { get; set; }
         [Required]
+        public int Count { get; set; }
+        [Required]
         public decimal Sum { get; set; }
         public DateTime? CompletionDate { get; set; }
         [Required]
