@@ -6,7 +6,7 @@ using RestaurantBusinessLogic.ViewModels;
 
 namespace RestaurantBusinessLogic.Interfaces
 {
-    interface IOrderLogic
+    public interface IOrderLogic
     {
         List<OrderViewModel> Read(OrderBindingModel model);
         void CreateOrUpdate(OrderBindingModel model);

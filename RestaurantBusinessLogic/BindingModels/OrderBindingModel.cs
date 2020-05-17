@@ -14,5 +14,7 @@ namespace RestaurantBusinessLogic.BindingModels
         public DateTime CompletionDate { get; set; }
         public Status Status { get; set; }
         public int DishId { get; set; }
+        public DateTime? DateFrom { get; set; }
+        public DateTime? DateTo { get; set; }
     }
 }
