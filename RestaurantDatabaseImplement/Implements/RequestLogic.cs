@@ -1,4 +1,5 @@
-﻿using RestaurantBusinessLogic.BindingModels;
+﻿using Microsoft.EntityFrameworkCore;
+using RestaurantBusinessLogic.BindingModels;
 using RestaurantBusinessLogic.Interfaces;
 using RestaurantBusinessLogic.ViewModels;
 using RestaurantDatabaseImplement.Models;

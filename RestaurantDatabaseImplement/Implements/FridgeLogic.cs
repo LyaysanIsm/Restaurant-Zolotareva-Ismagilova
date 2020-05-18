@@ -1,4 +1,5 @@
-﻿using RestaurantBusinessLogic.BindingModels;
+﻿using Microsoft.EntityFrameworkCore;
+using RestaurantBusinessLogic.BindingModels;
 using RestaurantBusinessLogic.Interfaces;
 using RestaurantBusinessLogic.ViewModels;
 using RestaurantDatabaseImplement.Models;
@@ -11,142 +12,34 @@ namespace RestaurantDatabaseImplement.Implements
 {
     public class FridgeLogic : IFridgeLogic
     {
-        public List<FridgeViewModel> GetList()
+        public void CreateOrUpdate(FridgeBindingModel model)
         {
             using (var context = new RestaurantDatabase())
             {
-                return context.Fridges
-                .ToList()
-               .Select(rec => new FridgeViewModel
-               {
-                   Id = rec.Id,
-                   FridgeName = rec.FridgeName,
-                   FridgeFoods = context.FridgeFoods,
-                   Capacity = rec.Capacity
-               .Include(recFF => recFF.Food)
-               .Where(recFF => recFF.FridgeId == rec.Id).
-               Select(x => new FridgeFoodViewModel
-               {
-                   Id = x.Id,
-                   FridgeId = x.FridgeId,
-                   FoodId = x.FoodId,
-                   FoodName = context.Foods.FirstOrDefault(y => y.Id == x.FoodId).FoodName,
-                   Count = x.Count,
-                   IsReserved = x.IsReserved
-               })
-               .ToList()
-               })
-            .ToList();
-            }
-        }
-        public FridgeViewModel GetElement(int id)
-        {
-            using (var context = new RestaurantDatabase())
-            {
-                var elem = context.Fridges.FirstOrDefault(x => x.Id == id);
-                if (elem == null)
+                Fridge element = context.Fridges.FirstOrDefault(rec => rec.FridgeName == model.FridgeName && rec.Id != model.Id);
+                if (element != null)
                 {
-                    throw new Exception("Элемент не найден");
+                    throw new Exception("Уже есть холодильник с таким названием");
                 }
-                else
+                if (model.Id.HasValue)
                 {
-                    return new FridgeViewModel
+                    element = context.Fridges.FirstOrDefault(rec => rec.Id == model.Id);
+                    if (element == null)
                     {
-                        Id = id,
-                        FridgeName = elem.FridgeName,
-                        FridgeFoods = context.FridgeFoods,
-                        Capacity = elem.Capacity
-                .Include(recSF => recSF.Food)
-                .Where(recSF => recSF.FridgeId == elem.Id)
-                        .Select(x => new FridgeFoodViewModel
-                        {
-                            Id = x.Id,
-                            FridgeId = x.FridgeId,
-                            FoodId = x.FoodId,
-                            FoodName = context.Foods.FirstOrDefault(y => y.Id == x.FoodId).FoodName,
-                            Count = x.Count,
-                            IsReserved = x.IsReserved
-                        }).ToList()
-                    };
+                        throw new Exception("Элемент не найден");
+                    }
                 }
-            }
-        }
-        public void AddElement(FridgeBindingModel model)
-        {
-            using (var context = new RestaurantDatabase())
-            {
-                var elem = context.Fridges.FirstOrDefault(x => x.FridgeName == model.FridgeName);
-                if (elem != null)
+                else
                 {
-                    throw new Exception("Уже есть склад с таким названием");
+                    element = new Fridge();
+                    context.Fridges.Add(element);
                 }
-                var fridge = new Fridge();
-                context.Fridges.Add(fridge);
-                fridge.FridgeName = model.FridgeName;
+                element.FridgeName = model.FridgeName;
                 context.SaveChanges();
             }
         }
-        public void UpdElement(FridgeBindingModel model)
-        {
-            using (var context = new RestaurantDatabase())
-            {
-                var elem = context.Fridges.FirstOrDefault(x => x.FridgeName == model.FridgeName && x.Id != model.Id);
-                if (elem != null)
-                {
-                    throw new Exception("Уже есть склад с таким названием");
-                }
-                var elemToUpdate = context.Fridges.FirstOrDefault(x => x.Id == model.Id);
-                if (elemToUpdate != null)
-                {
-                    elemToUpdate.FridgeName = model.FridgeName;
-                    context.SaveChanges();
-                }
-                else
-                {
-                    throw new Exception("Элемент не найден");
-                }
-            }
-        }
-        public void DelElement(int id)
-        {
-            using (var context = new RestaurantDatabase())
-            {
-                var elem = context.Fridges.FirstOrDefault(x => x.Id == id);
-                if (elem != null)
-                {
-                    context.Fridges.Remove(elem);
-                    context.SaveChanges();
-                }
-                else
-                {
-                    throw new Exception("Элемент не найден");
-                }
-            }
-        }
-        public void FillFridge(FridgeFoodBindingModel model)
-        {
-            using (var context = new RestaurantDatabase())
-            {
-                var item = context.FridgeFoods.FirstOrDefault(x => x.FoodId == model.FoodId
-    && x.FridgeId == model.FridgeId);
 
-                if (item != null)
-                {
-                    item.Count += model.Count;
-                }
-                else
-                {
-                    var elem = new FridgeFood();
-                    context.FridgeFoods.Add(elem);
-                    elem.FridgeId = model.FridgeId;
-                    elem.FoodId = model.FoodId;
-                    elem.Count = model.Count;
-                    elem.IsReserved = model.IsReserved;
-                }
-                context.SaveChanges();
-            }
-        }
-        public void RemoveFromFridge(OrderViewModel order)
+        public void Delete(FridgeBindingModel model)
         {
             using (var context = new RestaurantDatabase())
             {
@@ -154,31 +47,105 @@ namespace RestaurantDatabaseImplement.Implements
                 {
                     try
                     {
-                        var DishFoods = context.DishFoods.Where(x => x.DishId == order.DishId).ToList();
-                        var FridgeFoods = context.FridgeFoods.ToList();
-                        foreach (var food in DishFoods)
+                        context.FridgeFoods.RemoveRange(context.FridgeFoods.Where(rec => rec.FridgeId == model.Id));
+                        Fridge element = context.Fridges.FirstOrDefault(rec => rec.Id == model.Id);
+                        if (element != null)
                         {
-                            var foodCount = food.Count * order.Count;
-                            foreach (var sb in FridgeFoods)
-                            {
-                                if (sb.FoodId == food.FoodId && sb.Count >= foodCount)
-                                {
-                                    sb.Count -= foodCount;
-                                    foodCount = 0;
-                                    context.SaveChanges();
-                                    break;
-                                }
-                                else if (sb.FoodId == food.FoodId && sb.Count < foodCount)
-                                {
-                                    foodCount -= sb.Count;
-                                    sb.Count = 0;
-                                    context.SaveChanges();
-                                }
-                            }
-                            if (foodCount > 0)
-                                throw new Exception("Недостаточно продуктов на складе");
+                            context.Fridges.Remove(element);
+                            context.SaveChanges();
+                        }
+                        else
+                        {
+                            throw new Exception("Элемент не найден");
                         }
                         transaction.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+        }
+
+        public void AddFood(FridgeFoodBindingModel model)
+        {
+            using (var context = new RestaurantDatabase())
+            {
+                FridgeFood element = context.FridgeFoods.FirstOrDefault(rec => rec.FridgeId == model.FridgeId && rec.FoodId == model.FoodId);
+                if (element != null)
+                {
+                    element.Count += model.Count;
+                }
+                else
+                {
+                    element = new FridgeFood();
+
+                    context.FridgeFoods.Add(element);
+                }
+                element.FridgeId = model.FridgeId;
+                element.FoodId = model.FoodId;
+                element.Count = model.Count;
+                element.IsReserved = model.IsReserved;
+                context.SaveChanges();
+            }
+        }
+
+        public List<FridgeViewModel> Read(FridgeBindingModel model)
+        {
+            using (var context = new RestaurantDatabase())
+            {
+                return context.Fridges
+                .Where(rec => model == null || rec.Id == model.Id)
+                .ToList()
+                .Select(rec => new FridgeViewModel
+                {
+                    Id = rec.Id,
+                    FridgeName = rec.FridgeName,
+                    Capacity = rec.Capacity,
+                    FridgeFoods = context.FridgeFoods
+                    .Include(recFF => recFF.Food)
+                    .Where(recFF => recFF.FridgeId == rec.Id)
+                    .ToDictionary(recFF => recFF.FoodId, recFF => (
+                    recFF.Food?.FoodName, recFF.Count))
+                })
+                .ToList();
+            }
+        }
+
+        public void RemoveFromFridge(OrderViewModel model)
+        {
+            using (var context = new RestaurantDatabase())
+            {
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var dishFoods = context.DishFoods.Where(rec => rec.DishId == model.DishId).ToList();
+                        foreach (var pc in dishFoods)
+                        {
+                            var FridgeFood = context.FridgeFoods.Where(rec => rec.FoodId == pc.FoodId);
+                            int neededCount = pc.Count * model.Count;
+                            foreach (var FF in FridgeFood)
+                            {
+                                if (FF.Count >= neededCount)
+                                {
+                                    FF.Count -= neededCount;
+                                    neededCount = 0;
+                                    break;
+                                }
+                                else
+                                {
+                                    neededCount -= FF.Count;
+                                    FF.Count = 0;
+                                }
+                            }
+                            if (neededCount > 0)
+                            {
+                                throw new Exception("В холодильниках недостаточно продуктов");
+                            }
+                        }
                     }
                     catch (Exception)
                     {

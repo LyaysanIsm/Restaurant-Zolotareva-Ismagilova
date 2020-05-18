@@ -8,11 +8,10 @@ namespace RestaurantBusinessLogic.Interfaces
 {
     public interface IFridgeLogic
     {
-        List<FridgeViewModel> GetList();
-        FridgeViewModel GetElement(int id);
-        void AddElement(FridgeBindingModel model);
-        void UpdElement(FridgeBindingModel model);
-        void DelElement(int id);
-        void FillFridge(FridgeFoodBindingModel model);
+        List<FridgeViewModel> Read(FridgeBindingModel model);
+        void CreateOrUpdate(FridgeBindingModel model);
+        void Delete(FridgeBindingModel model);
+        void AddFood(FridgeFoodBindingModel model);
+        void RemoveFromFridge(OrderViewModel model);
     }
 }
