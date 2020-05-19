@@ -10,6 +10,8 @@ namespace RestaurantBusinessLogic.ViewModels
     {
         public int Id { get; set; }
         public int SupplierId { get; set; }
+        [DisplayName("ФИО")]
+        public string SupplierFIO { get; set; }
         [DisplayName("Количество")]
         public int Count { get; set; }
         [DisplayName("Сумма")]

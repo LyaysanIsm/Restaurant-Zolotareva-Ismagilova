@@ -65,7 +65,6 @@ model.Id);
                 .Where(rec => model == null || (rec.Id == model.Id && model.Id.HasValue)
                 || (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo) ||
                 (model.SupplierId.HasValue && rec.SupplierId == model.SupplierId))
-                .Include(rec => rec.Dish)
                 .Include(rec => rec.Supplier)
                 .Select(rec => new RequestViewModel
                 {
@@ -76,7 +75,6 @@ model.Id);
                     Status = rec.Status,
                     DateCreate = rec.DateCreate,
                     DateImplement = rec.DateImplement,
-                    DishName = rec.Dish.DishName,
                     SupplierFIO = rec.Supplier.SupplierFIO
                 })
             .ToList();

@@ -15,6 +15,6 @@ namespace RestaurantBusinessLogic.ViewModels
         public int Capacity { get; set; }
         [DisplayName("Тип холодильника")]
         public string Type { get; set; }
-        public List<FridgeFoodBindingModel> FridgeFoods { get; set; }
+        public Dictionary<int, (string, int)> FridgeFoods { get; set; }
     }
 }
