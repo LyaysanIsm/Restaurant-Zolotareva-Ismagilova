@@ -104,6 +104,7 @@ namespace RestaurantDatabaseImplement.Implements
                     Id = rec.Id,
                     FridgeName = rec.FridgeName,
                     Capacity = rec.Capacity,
+                    Type = rec.Type,
                     FridgeFoods = context.FridgeFoods
                     .Include(recFF => recFF.Food)
                     .Where(recFF => recFF.FridgeId == rec.Id)

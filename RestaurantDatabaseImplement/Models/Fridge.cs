@@ -13,6 +13,7 @@ namespace RestaurantDatabaseImplement.Models
         public string FridgeName { get; set; }
         [Required]
         public int Capacity { get; set; }
+        public string Type { get; set; }
         [ForeignKey("FridgeId")]
         public virtual List<FridgeFood> FridgeFoods { get; set; }
         public Supplier Supplier { get; set; }

@@ -9,6 +9,7 @@ namespace RestaurantBusinessLogic.BindingModels
         public int? Id { get; set; }
         public string FridgeName { get; set; }
         public int Capacity { get; set; }
+        public string Type { get; set; }
         public List<FridgeFoodBindingModel> FridgeFoods { get; set; }
     }
 }
