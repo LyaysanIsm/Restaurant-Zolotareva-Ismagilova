@@ -16,44 +16,86 @@ namespace RestaurantDatabaseImplement.Implements
         {
             using (var context = new RestaurantDatabase())
             {
-                Request element;
-                if (model.Id.HasValue)
+                using (var transaction = context.Database.BeginTransaction())
                 {
-                    element = context.Requests.FirstOrDefault(rec => rec.Id ==
-                   model.Id);
-                    if (element == null)
+                    try
                     {
-                        throw new Exception("Элемент не найден");
+                        Request element;
+                        if (model.Id.HasValue)
+                        {
+                            element = context.Requests.FirstOrDefault(rec => rec.Id ==
+                           model.Id);
+                            if (element == null)
+                            {
+                                throw new Exception("Элемент не найден");
+                            }
+                        }
+                        else
+                        {
+                            element = new Request();
+                            context.Requests.Add(element);
+                        }
+                        element.SupplierId = model.SupplierId == null ? element.SupplierId : (int)model.SupplierId;
+                       // element.Count = model.Count;
+                        element.Sum = model.Sum;
+                        element.Status = model.Status;
+                        element.DateCreate = model.DateCreate;
+                        element.DateImplement = model.DateImplement;
+                        var groupFoods = model.RequestFoods
+                        .GroupBy(rec => rec.FoodId)
+                        .Select(rec => new
+                        {
+                            FoodId = rec.Key,
+                            Count = rec.Sum(r => r.Count)
+                        });
+                        foreach (var groupFood in groupFoods)
+                        {
+                            context.RequestFoods.Add(new RequestFood
+                            {
+                                RequestId = element.Id,
+                                FoodId = groupFood.FoodId,
+                                Count = groupFood.Count
+                            });
+                            context.SaveChanges();
+                            transaction.Commit();
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        transaction.Rollback();
+                        throw;
                     }
                 }
-                else
-                {
-                    element = new Request();
-                    context.Requests.Add(element);
-                }
-                element.SupplierId = model.SupplierId == null ? element.SupplierId : (int)model.SupplierId;
-                element.Count = model.Count;
-                element.Sum = model.Sum;
-                element.Status = model.Status;
-                element.DateCreate = model.DateCreate;
-                element.DateImplement = model.DateImplement;
-                context.SaveChanges();
             }
         }
         public void Delete(RequestBindingModel model)
         {
             using (var context = new RestaurantDatabase())
             {
-                Request element = context.Requests.FirstOrDefault(rec => rec.Id ==
-model.Id);
-                if (element != null)
+                using (var transaction = context.Database.BeginTransaction())
                 {
-                    context.Requests.Remove(element);
-                    context.SaveChanges();
-                }
-                else
-                {
-                    throw new Exception("Элемент не найден");
+                    try
+                    {
+                        context.RequestFoods.RemoveRange(context.RequestFoods.Where(rec =>
+                        rec.RequestId == model.Id));
+                        Request element = context.Requests.FirstOrDefault(rec => rec.Id
+                        == model.Id);
+                        if (element != null)
+                        {
+                            context.Requests.Remove(element);
+                            context.SaveChanges();
+                        }
+                        else
+                        {
+                            throw new Exception("Элемент не найден");
+                        }
+                        transaction.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
                 }
             }
         }
@@ -61,23 +103,29 @@ model.Id);
         {
             using (var context = new RestaurantDatabase())
             {
-                return context.Requests
-                .Where(rec => model == null || (rec.Id == model.Id && model.Id.HasValue)
-                || (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo) ||
-                (model.SupplierId.HasValue && rec.SupplierId == model.SupplierId))
-                .Include(rec => rec.Supplier)
+                return context.Requests.Where(rec => model == null
+                    || rec.Id == model.Id && model.Id.HasValue)
                 .Select(rec => new RequestViewModel
                 {
                     Id = rec.Id,
-                    SupplierId = rec.SupplierId,
-                    Count = rec.Count,
+                    SupplierId = rec.SupplierId,                   
                     Sum = rec.Sum,
                     Status = rec.Status,
                     DateCreate = rec.DateCreate,
                     DateImplement = rec.DateImplement,
-                    SupplierFIO = rec.Supplier.SupplierFIO
+                    SupplierFIO = rec.Supplier.SupplierFIO,                    
+                    RequestFoods = context.RequestFoods
+                 .Where(recCI => recCI.RequestId == rec.Id)
+                 .Select(recCI => new RequestFoodViewModel
+                 {
+                     Id = recCI.Id,
+                     RequestId = recCI.RequestId,
+                     FoodId = recCI.FoodId,
+                     Count = recCI.Count
+                 })
+                    .ToList()
                 })
-            .ToList();
+                .ToList();
             }
         }
     }

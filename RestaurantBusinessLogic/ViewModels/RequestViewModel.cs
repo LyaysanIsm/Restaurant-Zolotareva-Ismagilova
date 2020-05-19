@@ -12,8 +12,6 @@ namespace RestaurantBusinessLogic.ViewModels
         public int SupplierId { get; set; }
         [DisplayName("ФИО")]
         public string SupplierFIO { get; set; }
-        [DisplayName("Количество")]
-        public int Count { get; set; }
         [DisplayName("Сумма")]
         public decimal Sum { get; set; }
         [DisplayName("Дата создания")]
@@ -22,5 +20,6 @@ namespace RestaurantBusinessLogic.ViewModels
         public DateTime? DateImplement { get; set; }
         [DisplayName("Статус")]
         public Status Status { get; set; }
+        public List<RequestFoodViewModel> RequestFoods { get; set; }
     }
 }

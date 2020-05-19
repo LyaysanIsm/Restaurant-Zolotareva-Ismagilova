@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -68,6 +69,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RestaurantBusinessLogic\RestaurantBusinessLogic.csproj">
+      <Project>{de3fdb6e-445d-4201-bc3c-bd590146ae37}</Project>
+      <Name>RestaurantBusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RestaurantDatabaseImplement\RestaurantDatabaseImplement.csproj">
+      <Project>{a8a59350-78ac-4987-8261-c8884c92ee48}</Project>
+      <Name>RestaurantDatabaseImplement</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
