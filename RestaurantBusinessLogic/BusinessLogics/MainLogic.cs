@@ -18,14 +18,13 @@ namespace RestaurantBusinessLogic.BusinessLogics
             this.fridgeLogic = fridgeLogic;
         }
 
-        public void CreateOrder(CreateOrderBindingModel model)
+        public void CreateOrder(DishFoodBindingModel model)
         {
             orderLogic.CreateOrUpdate(new OrderBindingModel
             {
                 DishId = model.DishId,
                 Count = model.Count,
-                Sum = model.Sum,
-                DateCreate = DateTime.Now,
+                CreationDate = DateTime.Now,
                 Status = Status.Принят
             });
         }
