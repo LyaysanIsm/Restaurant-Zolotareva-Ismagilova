@@ -36,7 +36,6 @@ namespace RestaurantDatabaseImplement.Implements
                             context.Requests.Add(element);
                         }
                         element.SupplierId = model.SupplierId == null ? element.SupplierId : (int)model.SupplierId;
-                       // element.Count = model.Count;
                         element.Sum = model.Sum;
                         element.Status = model.Status;
                         element.DateCreate = model.DateCreate;
@@ -108,12 +107,12 @@ namespace RestaurantDatabaseImplement.Implements
                 .Select(rec => new RequestViewModel
                 {
                     Id = rec.Id,
-                    SupplierId = rec.SupplierId,                   
+                    SupplierId = rec.SupplierId,
                     Sum = rec.Sum,
                     Status = rec.Status,
                     DateCreate = rec.DateCreate,
                     DateImplement = rec.DateImplement,
-                    SupplierFIO = rec.Supplier.SupplierFIO,                    
+                    SupplierFIO = rec.Supplier.SupplierFIO,
                     RequestFoods = context.RequestFoods
                  .Where(recCI => recCI.RequestId == rec.Id)
                  .Select(recCI => new RequestFoodViewModel

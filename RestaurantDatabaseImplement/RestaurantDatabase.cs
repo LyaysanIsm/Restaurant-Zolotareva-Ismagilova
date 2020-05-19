@@ -9,7 +9,7 @@ namespace RestaurantDatabaseImplement
         {
             if (optionsBuilder.IsConfigured == false)
             {
-                //optionsBuilder.UseSqlServer(@" ");
+                optionsBuilder.UseSqlServer(@"Data Source=LAPTOP-0755RO83\SQLEXPRESS;Initial Catalog=RestaurantDatabase;Integrated Security=True;MultipleActiveResultSets=True;");
             }
             base.OnConfiguring(optionsBuilder);
         }
