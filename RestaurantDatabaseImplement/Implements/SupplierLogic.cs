@@ -15,7 +15,7 @@ namespace RestaurantDatabaseImplement.Implements
         {
             using (var context = new RestaurantDatabase())
             {
-                Supplier element = context.Suppliers.FirstOrDefault(rec => rec.Email == model.Email && rec.Id != model.Id);
+                Supplier element = context.Suppliers.FirstOrDefault(rec => rec.SupplierFIO == model.SupplierFIO && rec.Id != model.Id);
                 if (element != null)
                 {
                     throw new Exception("Уже есть поставщик с таким логином");
@@ -33,9 +33,9 @@ namespace RestaurantDatabaseImplement.Implements
                     element = new Supplier();
                     context.Suppliers.Add(element);
                 }
-                element.Email = model.Email;
                 element.SupplierFIO = model.SupplierFIO;
                 element.Password = model.Password;
+                element.Email = model.Email;
                 context.SaveChanges();
             }
         }
@@ -62,17 +62,13 @@ namespace RestaurantDatabaseImplement.Implements
             using (var context = new RestaurantDatabase())
             {
                 return context.Suppliers
-                .Where(
-                    rec => model == null
-                    || rec.Id == model.Id
-                    || rec.Email == model.Email && rec.Password == model.Password
-                )
+                .Where(rec => (rec.SupplierFIO == model.SupplierFIO) && (model.Password == null || rec.Password == model.Password))
                 .Select(rec => new SupplierViewModel
                 {
                     Id = rec.Id,
                     SupplierFIO = rec.SupplierFIO,
-                    Email = rec.Email,
-                    Password = rec.Password
+                    Password = rec.Password,
+                    Email = rec.Email
                 })
                 .ToList();
             }
