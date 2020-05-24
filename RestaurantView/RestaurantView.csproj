@@ -147,14 +147,92 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormCreateOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCreateOrder.Designer.cs">
+      <DependentUpon>FormCreateOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormDish.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDish.Designer.cs">
+      <DependentUpon>FormDish.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormDishes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDishes.Designer.cs">
+      <DependentUpon>FormDishes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormDishesFood.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDishesFood.Designer.cs">
+      <DependentUpon>FormDishesFood.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormFood.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormFood.Designer.cs">
+      <DependentUpon>FormFood.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormFoods.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormFoods.Designer.cs">
+      <DependentUpon>FormFoods.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormLogin.Designer.cs">
+      <DependentUpon>FormLogin.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormReportDishFoods.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormReportDishFoods.Designer.cs">
+      <DependentUpon>FormReportDishFoods.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormReportDishOrders.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormReportDishOrders.Designer.cs">
+      <DependentUpon>FormReportDishOrders.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormCreateOrder.resx">
+      <DependentUpon>FormCreateOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDish.resx">
+      <DependentUpon>FormDish.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDishes.resx">
+      <DependentUpon>FormDishes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDishesFood.resx">
+      <DependentUpon>FormDishesFood.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormFood.resx">
+      <DependentUpon>FormFood.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormFoods.resx">
+      <DependentUpon>FormFoods.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormLogin.resx">
+      <DependentUpon>FormLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMain.resx">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

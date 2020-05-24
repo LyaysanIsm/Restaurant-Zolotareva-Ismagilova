@@ -70,7 +70,7 @@ namespace RestaurantDatabaseImplement.Implements
                 Id = rec.Id,
                 DishName = rec.Dish.DishName,
                 Count = rec.Count,
-                Sum = rec.Sum,
+                Sum = rec.Dish.Price,
                 Status = rec.Status,
                 CreationDate = rec.CreationDate,
                 CompletionDate = rec.CompletionDate

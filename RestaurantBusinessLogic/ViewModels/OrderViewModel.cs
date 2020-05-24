@@ -20,6 +20,7 @@ namespace RestaurantBusinessLogic.ViewModels
         [DisplayName("Статус")]
         public Status Status { get; set; }
         public int DishId { get; set; }
+        [DisplayName("Название блюда")]
         public string DishName { get; set; }
     }
 }

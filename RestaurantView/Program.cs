@@ -1,4 +1,5 @@
-﻿using RestaurantBusinessLogic.Interfaces;
+﻿using RestaurantBusinessLogic.BusinessLogics;
+using RestaurantBusinessLogic.Interfaces;
 using RestaurantDatabaseImplement.Implements;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace RestaurantView
 {
     static class Program
     {
+        public static bool Cheak;
         /// <summary>
         /// Главная точка входа для приложения.
         /// </summary>
@@ -21,7 +23,12 @@ namespace RestaurantView
             var container = BuildUnityContainer();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(container.Resolve<FormMain>());
+            var login = new FormLogin();
+            login.ShowDialog();
+            if (Cheak)
+            {
+                Application.Run(container.Resolve<FormMain>());
+            }
         }
         private static IUnityContainer BuildUnityContainer()
         {
@@ -30,6 +37,18 @@ namespace RestaurantView
            HierarchicalLifetimeManager());
             currentContainer.RegisterType<IRequestLogic, RequestLogic>(new
            HierarchicalLifetimeManager());
+            currentContainer.RegisterType<MainLogic>
+                (new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<ReportLogic>
+                (new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IOrderLogic, OrderLogic>
+                (new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IFridgeLogic, FridgeLogic>
+                (new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IDishLogic, DishLogic>
+                (new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<ISupplierLogic, SupplierLogic>
+                (new HierarchicalLifetimeManager());
             return currentContainer;
         }
     }

@@ -76,7 +76,7 @@ namespace RestaurantBusinessLogic.BusinessLogics
             return list;
         }
 
-        public void SaveDishsToWordFile(ReportBindingModel model)
+        public void SaveDishesToWordFile(ReportBindingModel model)
         {
             SaveToWord.CreateDoc(new WordInfo
             {

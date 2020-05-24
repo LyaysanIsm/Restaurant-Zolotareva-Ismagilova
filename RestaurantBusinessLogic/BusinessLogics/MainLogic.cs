@@ -18,7 +18,7 @@ namespace RestaurantBusinessLogic.BusinessLogics
             this.fridgeLogic = fridgeLogic;
         }
 
-        public void CreateOrder(DishFoodBindingModel model)
+        public void CreateOrder(OrderBindingModel model)
         {
             orderLogic.CreateOrUpdate(new OrderBindingModel
             {
