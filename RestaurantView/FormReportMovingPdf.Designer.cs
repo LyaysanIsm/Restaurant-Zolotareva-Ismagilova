@@ -1,6 +1,6 @@
 ﻿namespace RestaurantView
 {
-    partial class FormReportDishFoods
+    partial class FormReportMovingPdf
     {
         /// <summary>
         /// Required designer variable.

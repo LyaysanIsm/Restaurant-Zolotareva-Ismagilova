@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace RestaurantView
 {
-    public partial class FormReportDishOrders : Form
+    public partial class FormReportMovingPdf : Form
     {
-        public FormReportDishOrders()
+        public FormReportMovingPdf()
         {
             InitializeComponent();
         }

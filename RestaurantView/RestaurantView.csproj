@@ -195,17 +195,17 @@
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormReportDishFoods.cs">
+    <Compile Include="FormReportMovingPdf.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormReportDishFoods.Designer.cs">
-      <DependentUpon>FormReportDishFoods.cs</DependentUpon>
+    <Compile Include="FormReportMovingPdf.Designer.cs">
+      <DependentUpon>FormReportMovingPdf.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormReportDishOrders.cs">
+    <Compile Include="FormReportDishXls.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormReportDishOrders.Designer.cs">
-      <DependentUpon>FormReportDishOrders.cs</DependentUpon>
+    <Compile Include="FormReportDishXls.Designer.cs">
+      <DependentUpon>FormReportDishXls.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

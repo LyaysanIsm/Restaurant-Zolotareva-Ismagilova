@@ -127,7 +127,7 @@ namespace RestaurantView
 
         private void продуктыPdfToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = Container.Resolve<FormReportDishFoods>();
+            var form = Container.Resolve<FormReportMovingPdf>();
             form.ShowDialog();
         }
 
@@ -149,7 +149,7 @@ namespace RestaurantView
 
         private void блюдаXlsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = Container.Resolve<FormReportDishOrders>();
+            var form = Container.Resolve<FormReportDishXls>();
             form.ShowDialog();
         }
     }
