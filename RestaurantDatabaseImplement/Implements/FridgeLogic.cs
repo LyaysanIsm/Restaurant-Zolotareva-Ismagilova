@@ -12,6 +12,29 @@ namespace RestaurantDatabaseImplement.Implements
 {
     public class FridgeLogic : IFridgeLogic
     {
+        public List<FridgeViewModel> Read(FridgeBindingModel model)
+        {
+            using (var context = new RestaurantDatabase())
+            {
+                return context.Fridges
+                .Where(rec => model == null || rec.Id == model.Id)
+                .ToList()
+                .Select(rec => new FridgeViewModel
+                {
+                    Id = rec.Id,
+                    FridgeName = rec.FridgeName,
+                    Capacity = rec.Capacity,
+                    Type = rec.Type,
+                    Foods = context.FridgeFoods
+                            .Include(recCC => recCC.Food)
+                            .Where(recCC => recCC.FridgeId == rec.Id)
+                            .ToDictionary(recCC => recCC.FoodId, recCC =>
+                            (recCC.Food?.FoodName, recCC.Count, recCC.Reserved))
+                })
+                    .ToList();
+            }
+        }
+
         public void CreateOrUpdate(FridgeBindingModel model)
         {
             using (var context = new RestaurantDatabase())
@@ -19,14 +42,14 @@ namespace RestaurantDatabaseImplement.Implements
                 Fridge element = context.Fridges.FirstOrDefault(rec => rec.FridgeName == model.FridgeName && rec.Id != model.Id);
                 if (element != null)
                 {
-                    throw new Exception("Уже есть холодильник с таким названием");
+                    throw new Exception("There is already a fridge with this name");
                 }
                 if (model.Id.HasValue)
                 {
                     element = context.Fridges.FirstOrDefault(rec => rec.Id == model.Id);
                     if (element == null)
                     {
-                        throw new Exception("Элемент не найден");
+                        throw new Exception("Fridge not found");
                     }
                 }
                 else
@@ -35,6 +58,8 @@ namespace RestaurantDatabaseImplement.Implements
                     context.Fridges.Add(element);
                 }
                 element.FridgeName = model.FridgeName;
+                element.Capacity = model.Capacity;
+                element.Type = model.Type;
                 context.SaveChanges();
             }
         }
@@ -56,7 +81,7 @@ namespace RestaurantDatabaseImplement.Implements
                         }
                         else
                         {
-                            throw new Exception("Элемент не найден");
+                            throw new Exception("Fridge not found");
                         }
                         transaction.Commit();
                     }
@@ -69,53 +94,26 @@ namespace RestaurantDatabaseImplement.Implements
             }
         }
 
-        public void AddFood(FridgeFoodBindingModel model)
+        public void AddFood(ReserveFoodsBindingModel model)
         {
             using (var context = new RestaurantDatabase())
             {
-                FridgeFood element = context.FridgeFoods.FirstOrDefault(rec => rec.FridgeId == model.FridgeId && rec.FoodId == model.FoodId);
-                if (element != null)
-                {
-                    element.Count += model.Count;
-                }
+                var FridgeFood = context.FridgeFoods
+                    .FirstOrDefault(sm => sm.FoodId == model.FoodId && sm.FridgeId == model.FridgeId);
+                if (FridgeFood != null)
+                    FridgeFood.Count += model.Count;
                 else
-                {
-                    element = new FridgeFood();
-
-                    context.FridgeFoods.Add(element);
-                }
-                element.FridgeId = model.FridgeId;
-                element.FoodId = model.FoodId;
-                element.Count = model.Count;
-                element.IsReserved = model.IsReserved;
+                    context.FridgeFoods.Add(new FridgeFood()
+                    {
+                        FoodId = model.FoodId,
+                        FridgeId = model.FridgeId,
+                        Count = model.Count
+                    });
                 context.SaveChanges();
             }
         }
 
-        public List<FridgeViewModel> Read(FridgeBindingModel model)
-        {
-            using (var context = new RestaurantDatabase())
-            {
-                return context.Fridges
-                .Where(rec => model == null || rec.Id == model.Id)
-                .ToList()
-                .Select(rec => new FridgeViewModel
-                {
-                    Id = rec.Id,
-                    FridgeName = rec.FridgeName,
-                    Capacity = rec.Capacity,
-                    Type = rec.Type,
-                    FridgeFoods = context.FridgeFoods
-                    .Include(recFF => recFF.Food)
-                    .Where(recFF => recFF.FridgeId == rec.Id)
-                    .ToDictionary(recFF => recFF.FoodId, recFF => (
-                    recFF.Food?.FoodName, recFF.Count))
-                })
-                .ToList();
-            }
-        }
-
-        public void RemoveFromFridge(OrderViewModel model)
+        public void RemoveFoods(OrderViewModel order)
         {
             using (var context = new RestaurantDatabase())
             {
@@ -123,30 +121,31 @@ namespace RestaurantDatabaseImplement.Implements
                 {
                     try
                     {
-                        var dishFoods = context.DishFoods.Where(rec => rec.DishId == model.DishId).ToList();
-                        foreach (var pc in dishFoods)
+                        var dishfoods = context.DishFoods.Where(dm => dm.DishId == order.DishId).ToList();
+                        var FridgeFoods = context.DishFoods.ToList();
+                        foreach (var food in dishfoods)
                         {
-                            var FridgeFood = context.FridgeFoods.Where(rec => rec.FoodId == pc.FoodId);
-                            int neededCount = pc.Count * model.Count;
-                            foreach (var FF in FridgeFood)
+                            var foodCount = food.Count * order.Count;
+                            foreach (var df in dishfoods)
                             {
-                                if (FF.Count >= neededCount)
+                                if (df.FoodId == food.FoodId && df.Count >= foodCount)
                                 {
-                                    FF.Count -= neededCount;
-                                    neededCount = 0;
+                                    df.Count -= foodCount;
+                                    foodCount = 0;
+                                    context.SaveChanges();
                                     break;
                                 }
-                                else
+                                else if (df.FoodId == food.FoodId && df.Count < foodCount)
                                 {
-                                    neededCount -= FF.Count;
-                                    FF.Count = 0;
+                                    foodCount -= df.Count;
+                                    df.Count = 0;
+                                    context.SaveChanges();
                                 }
                             }
-                            if (neededCount > 0)
-                            {
-                                throw new Exception("В холодильниках недостаточно продуктов");
-                            }
+                            if (foodCount > 0)
+                                throw new Exception("Not enough foods in the fridges!");
                         }
+                        transaction.Commit();
                     }
                     catch (Exception)
                     {

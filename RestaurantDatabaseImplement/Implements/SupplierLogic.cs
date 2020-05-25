@@ -18,14 +18,14 @@ namespace RestaurantDatabaseImplement.Implements
                 Supplier element = context.Suppliers.FirstOrDefault(rec => rec.SupplierFIO == model.SupplierFIO && rec.Id != model.Id);
                 if (element != null)
                 {
-                    throw new Exception("Уже есть поставщик с таким логином");
+                    throw new Exception("There is already a supplier with this username");
                 }
                 if (model.Id.HasValue)
                 {
                     element = context.Suppliers.FirstOrDefault(rec => rec.Id == model.Id);
                     if (element == null)
                     {
-                        throw new Exception("Элемент не найден");
+                        throw new Exception("Supplier not found");
                     }
                 }
                 else
@@ -52,7 +52,7 @@ namespace RestaurantDatabaseImplement.Implements
                 }
                 else
                 {
-                    throw new Exception("Элемент не найден");
+                    throw new Exception("Supplier not found");
                 }
             }
         }

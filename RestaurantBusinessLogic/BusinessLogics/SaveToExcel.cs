@@ -154,7 +154,7 @@ namespace RestaurantBusinessLogic.BusinessLogic
 
                         rowIndex++;
 
-                        foreach (var component in warehouse.FridgeFoods.Values)
+                        foreach (var component in warehouse.Foods.Values)
                         {
                             InsertCellInWorksheet(new ExcelCellParameters
                             {

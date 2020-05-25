@@ -48,7 +48,7 @@ namespace RestaurantBusinessLogic.BusinessLogics
             var list = new List<ReportFridgeFoodViewModel>();
             foreach (var fridge in fridges)
             {
-                foreach (var ff in fridge.FridgeFoods)
+                foreach (var ff in fridge.Foods)
                 {
                     var record = new ReportFridgeFoodViewModel
                     {

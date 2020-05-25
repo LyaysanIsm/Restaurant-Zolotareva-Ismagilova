@@ -13,8 +13,8 @@ namespace RestaurantDatabaseImplement.Models
         [Required]
         public int Count { get; set; }
         [Required]
-        public int IsReserved { get; set; }
-        public Fridge Fridge { get; set; }
-        public Food Food { get; set; }
+        public int Reserved { get; set; }
+        public virtual Fridge Fridge { get; set; }
+        public virtual Food Food { get; set; }
     }
 }

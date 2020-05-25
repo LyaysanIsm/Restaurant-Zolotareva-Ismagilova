@@ -12,7 +12,7 @@ namespace RestaurantDatabaseImplement.Models
         public int FoodId { get; set; }
         [Required]
         public int Count { get; set; }
-        public Food Food { get; set; }
-        public Request Request { get; set; }
+        public virtual Request Request { get; set; }
+        public virtual Food Food { get; set; }
     }
 }

@@ -4,11 +4,8 @@ using System.Text;
 
 namespace RestaurantBusinessLogic.BindingModels
 {
-    public class RequestFoodBindingModel
+    public class ChangeRequestStatusBindingModel
     {
-        public int? Id { get; set; }
         public int RequestId { get; set; }
-        public int FoodId { get; set; }
-        public int Count { get; set; }
     }
 }
