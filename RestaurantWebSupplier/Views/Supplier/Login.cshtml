@@ -1,6 +1,6 @@
 ﻿@model RestaurantWebSupplier.Models.LoginModel
 @{
-    ViewData["Title"] = "Авторизация";
+    ViewData["Title"] = "Authorization";
 }
 <h1>@ViewData["Title"]</h1>
 
@@ -9,5 +9,5 @@
     @Html.ValidationSummary()
     <p>ФИО: @Html.EditorFor(x => x.SupplierFIO)</p>
     <p>Пароль: @Html.EditorFor(x => x.Password)</p>
-    <button type="submit">Войти</button>
+    <button type="submit">Log on</button>
 }

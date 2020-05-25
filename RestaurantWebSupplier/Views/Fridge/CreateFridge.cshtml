@@ -1,0 +1,31 @@
+﻿@model RestaurantWebSupplier.Models.CreateFridgeModel
+
+@{
+    ViewData["Title"] = "Create a fridge";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary()
+    <p>Complete data:</p>
+    <table class="table">
+        <tr>
+            <td>Fridge Name</td>
+            <td>Supplier Name</td>
+            <td>Capacity</td>
+            <td>Type</td>
+        </tr>
+        @foreach (RestaurantBusinessLogic.ViewModels.FridgeViewModel food in ViewBag.RequestFoods)
+        {
+            <tr>
+                <td>@food.FridgeName</td>
+                <td>@food.SupplierName</td>
+                <td>@food.Capacity</td>
+                <td>@food.Type</td>
+            </tr>
+        }
+    </table>
+    <button type="submit">Create</button>
+}
