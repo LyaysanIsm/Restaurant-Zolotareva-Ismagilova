@@ -1,6 +1,6 @@
 ﻿@model RestaurantWebSupplier.Models.RegistrationModel
 @{
-    ViewData["Title"] = "Регистрация";
+    ViewData["Title"] = "Registration";
 }
 <h1>@ViewData["Title"]</h1>
 
@@ -10,5 +10,5 @@
     <p>Пароль: @Html.TextBoxFor(x => x.Password)</p>
     <p>E-Mail: @Html.TextBoxFor(x => x.Email)</p>
     @Html.ValidationSummary()
-    <input type="submit" value="Зарегистрироваться" />
+    <input type="submit" value="Sign up" />
 }

@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestaurantBusinessLogic", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestaurantDatabaseImplement", "RestaurantDatabaseImplement\RestaurantDatabaseImplement.csproj", "{A8A59350-78AC-4987-8261-C8884C92EE48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantWebSupplier", "RestaurantWebSupplier\RestaurantWebSupplier.csproj", "{79E917FE-446F-4295-B9A9-0FA3059E978F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestaurantWebSupplier", "RestaurantWebSupplier\RestaurantWebSupplier.csproj", "{79E917FE-446F-4295-B9A9-0FA3059E978F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
