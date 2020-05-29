@@ -6,7 +6,7 @@ namespace RestaurantBusinessLogic.BindingModels
 {
     public class CreateRequestBindingModel
     {
-        public int SupplierId { get; set; }
+        public int? SupplierId { get; set; }
         public Dictionary<int, (string, int)> Foods { get; set; }
     }
 }

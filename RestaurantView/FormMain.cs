@@ -152,5 +152,17 @@ namespace RestaurantView
             var form = Container.Resolve<FormReportDishXls>();
             form.ShowDialog();
         }
+
+        private void заказатьПродуктыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormAddFoods>();
+            form.ShowDialog();
+        }
+
+        private void посмотретьДоступныеПродуктыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormOrder>();
+            form.ShowDialog();
+        }
     }
 }
