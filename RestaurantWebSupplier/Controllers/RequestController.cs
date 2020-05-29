@@ -10,35 +10,39 @@ using System.Threading.Tasks;
 
 namespace RestaurantWebSupplier.Controllers
 {
-    public class RequestController
+    public class RequestController : Controller
     {
-        private readonly IRequestLogic _requestLogic;
-        private readonly IFoodLogic _foodLogic;
-
-        public RequestController(IRequestLogic requestLogic, IFoodLogic foodLogic)
+        private readonly IRequestLogic requestLogic;
+        public RequestController(IRequestLogic requestLogic)
         {
-            _requestLogic = requestLogic;
-            _foodLogic = foodLogic;
+            this.requestLogic = requestLogic;
         }
-        /*
+
         public IActionResult Request()
         {
-            var requests = _requestLogic.Read(new RequestBindingModel
+            if (Program.Supplier == null)
+            {
+                return new UnauthorizedResult();
+            }
+            var кequests = requestLogic.Read(new RequestBindingModel
             {
                 SupplierId = Program.Supplier.Id
             });
-            var requestModels = new List<RequestModel>();
-            foreach (var request in requests)
+            return View(кequests);
+        }
+
+        public IActionResult RequestView(int ID)
+        {
+            if (Program.Supplier == null)
             {
-                var foods = new List<RequestFoodModel>();
-                foreach (var food in request.Foods)
-                {
-                    var foodata = _foodLogic.Read(new FoodBindingModel
-                    {
-                        Id = food.Key
-                    }).FirstOrDefault();
-                }
+                return new UnauthorizedResult();
             }
-        }*/
+            ViewBag.RequestID = ID;
+            var foods = requestLogic.Read(new RequestBindingModel
+            {
+                Id = ID
+            })?[0].Foods;
+            return View(foods);
+        }
     }
 }

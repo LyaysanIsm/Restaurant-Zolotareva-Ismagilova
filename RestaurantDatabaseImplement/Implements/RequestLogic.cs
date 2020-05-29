@@ -121,7 +121,7 @@ namespace RestaurantDatabaseImplement.Implements
             {
                 return context.Requests
                     .Include(rec => rec.Supplier)
-                    .Where(rec => model == null || rec.Id == model.Id)
+                    .Where(rec => model == null || rec.Id == model.Id || rec.SupplierId == model.SupplierId)
                     .ToList()
                     .Select(rec => new RequestViewModel
                     {
