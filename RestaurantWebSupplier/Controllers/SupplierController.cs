@@ -31,7 +31,7 @@ namespace RestaurantWebSupplier.Controllers
             }).FirstOrDefault();
             if (supplierView == null)
             {
-                ModelState.AddModelError("", "Вы ввели неверный пароль, либо пользователь не найден");
+                ModelState.AddModelError("", "Вы ввели неверный пароль, либо поставщик не найден");
                 return View(supplier);
             }
             Program.Supplier = supplierView;
