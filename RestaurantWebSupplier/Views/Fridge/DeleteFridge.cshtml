@@ -4,12 +4,19 @@
     ViewData["Title"] = "Удаление холодильника";
 }
 
-<h1>Удаление холодильника</h1>
+<h3>Удаление холодильника №@Model.Id</h3>
 
-<h3>Вы уверены, что хотите удалить холодильник? (удалятся все продукты в холодильнике)</h3>
+<div class="text-left">
+    <h5>Вы уверены, что хотите удалить холодильник?</h5>
+</div>
+
+<hr />
 <div>
-    <h4>Холодильник №@Model.Id</h4>
-    <hr />
+    <a class="text-dark" asp-action="ListFridges">Вернуться назад</a>
+</div>
+<hr />
+
+<div>
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.FridgeName)
@@ -33,10 +40,6 @@
 
     <form asp-action="DeleteFridge">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Удалить" class="btn btn-danger" />
-    </form>
-    <p></p>
-    <form asp-action="ListFridges">
-        <input type="submit" value="Вернуться назад" class="btn btn-primary" />
+        <input type="submit" value="Удалить" class="btn btn-dark" />
     </form>
 </div>

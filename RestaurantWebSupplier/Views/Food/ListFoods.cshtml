@@ -4,12 +4,18 @@
     ViewData["Title"] = "Продукты";
 }
 
-<h1>Пополнение холодильника №@ViewBag.FridgeId</h1>
+<div class="text-left">
+    <h4>Пополнение холодильника №@ViewBag.fridgeId</h4>
+</div>
 
-<h2>Список продуктов</h2>
+<hr />
+<div>
+    <a class="text-dark" asp-controller="Fridge" asp-action="Details" asp-route-id="@ViewBag.FridgeId">Вернуться назад</a>
+</div>
+<hr />
 
-<table class="table">
-    <thead>
+<table class="table table-striped table-bordered">
+    <thead class="thead thead-dark">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.FoodName)
@@ -31,7 +37,7 @@
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    <a asp-action="AddFood" asp-route-foodId="@item.Id" asp-route-fridgeId="@ViewBag.FridgeId">Пополнить</a>
+                    <a class="btn btn-primary btn-sm btn-block" asp-action="AddFood" asp-route-foodId="@item.Id" asp-route-fridgeId="@ViewBag.FridgeId">Пополнить</a>
                 </td>
             </tr>
         }

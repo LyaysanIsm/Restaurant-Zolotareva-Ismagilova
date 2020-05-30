@@ -16,19 +16,20 @@
         </ul>
     </div>
 }
+<div class="text-left">
+    <h4>Холодильник №@ViewBag.FridgeId</h4>
+</div>
 
-<h1>Список продуктов</h1>
+<hr />
+<div>
+    <a class="text-dark" asp-action="ListFridges">Вернуться назад</a>
+</div>
+<hr />
 
-<h2>
-    Холодильник №@ViewBag.FridgeId
-</h2>
+<p><a class="btn btn-primary" asp-controller="Food" asp-action="ListFoods" asp-route-fridgeId="@ViewBag.FridgeId">Пополнить холодильник</a></p>
 
-<p>
-    <a asp-controller="Food" asp-action="ListFoods" asp-route-fridgeId="@ViewBag.FridgeId">Пополнить холодильник</a>
-</p>
-
-<table class="table">
-    <thead>
+<table class="table table-hover table-bordered">
+    <thead class="thead thead-dark">
         <tr>
             <th>
                 Продукт
@@ -58,7 +59,3 @@
         }
     </tbody>
 </table>
-
-<div>
-    <a asp-action="ListFridges">Вернуться назад</a>
-</div>

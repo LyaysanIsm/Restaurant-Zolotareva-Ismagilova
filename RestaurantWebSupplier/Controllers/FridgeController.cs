@@ -227,7 +227,7 @@ namespace RestaurantWebSupplier.Controllers
                 }
                 catch (Exception exception)
                 {
-                    ModelState.AddModelError("", exception.Message);
+                    TempData["ErrorLackInFridge"] = exception.Message;
                     return RedirectToAction("AddFood", "Food", new
                     {
                         foodId = model.FoodId,

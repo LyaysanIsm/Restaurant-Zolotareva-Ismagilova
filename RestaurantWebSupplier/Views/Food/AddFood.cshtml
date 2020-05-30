@@ -4,10 +4,20 @@
     ViewData["Title"] = "Пополнение";
 }
 
-<h1>Пополнение склада №@ViewBag.FridgeId</h1>
+<div class="text-left">
+    <h4>Пополнение склада №@ViewBag.FridgeId</h4>
+</div>
 
-<h4>@ViewBag.FoodName</h4>
 <hr />
+<div>
+    <a class="text-dark" asp-action="ListFoods" asp-route-fridgeId="@ViewBag.FridgeId">Вернуться назад</a>
+</div>
+<hr />
+
+<div class="text-left">
+    <h4>@ViewBag.FoodName</h4>
+</div>
+
 <div class="row">
     <div class="col-md-4">
         <form asp-controller="Fridge" asp-action="AddFood">
@@ -20,12 +30,8 @@
                 <span asp-validation-for="Count" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Пополнить" class="btn btn-primary" />
+                <input type="submit" value="Пополнить" class="btn btn-dark" />
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="ListFoods" asp-route-fridgeId="@ViewBag.FridgeId">Вернуться назад</a>
 </div>

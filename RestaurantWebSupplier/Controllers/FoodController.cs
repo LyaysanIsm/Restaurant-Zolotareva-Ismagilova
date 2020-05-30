@@ -11,12 +11,10 @@ namespace RestaurantWebSupplier.Controllers
     public class FoodController : Controller
     {
         private readonly IFoodLogic foodLogic;
-        private readonly IFridgeLogic fridgeLogic;
 
-        public FoodController(IFoodLogic foodLogic, IFridgeLogic fridgeLogic)
+        public FoodController(IFoodLogic foodLogic)
         {
             this.foodLogic = foodLogic;
-            this.fridgeLogic = fridgeLogic;
         }
 
         public IActionResult ListFoods(int fridgeId)
@@ -39,6 +37,10 @@ namespace RestaurantWebSupplier.Controllers
             {
                 return NotFound();
             }
+            if (TempData["ErrorLackInFridge"] != null)
+            {
+                ModelState.AddModelError("", TempData["ErrorLackInFridge"].ToString());
+            }
             var food = foodLogic.Read(new FoodBindingModel
             {
                 Id = FoodId
@@ -54,33 +56,6 @@ namespace RestaurantWebSupplier.Controllers
                 FoodId = FoodId.Value,
                 FridgeId = FridgeId.Value,
             });
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult AddFood([Bind("FridgeId, FoodId, Count")] ReserveFoodsBindingModel model)
-        {
-            if (Program.Supplier == null)
-            {
-                return new UnauthorizedResult();
-            }
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    fridgeLogic.AddFood(model);
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("", ex.Message);
-                    return RedirectToAction("AddFood", "Food", new
-                    {
-                        FoodID = model.FoodId,
-                        FridgeID = model.FridgeId
-                    });
-                }
-            }
-            return RedirectToAction("Details", new { id = model.FridgeId });
         }
     }
 }
