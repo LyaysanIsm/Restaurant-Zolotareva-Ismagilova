@@ -11,7 +11,7 @@ namespace RestaurantBusinessLogic.ViewModels
         [DisplayName("ФИО")]
         public string SupplierFIO { get; set; }
         [DisplayName("Логин")]
-        public string Email { get; set; }
+        public string Login { get; set; }
         [DisplayName("Пароль")]
         public string Password { get; set; }
     }

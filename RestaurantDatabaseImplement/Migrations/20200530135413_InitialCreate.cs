@@ -42,7 +42,7 @@ namespace RestaurantDatabaseImplement.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SupplierFIO = table.Column<string>(nullable: false),
-                    Email = table.Column<string>(nullable: false),
+                    Login = table.Column<string>(nullable: false),
                     Password = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
@@ -109,8 +109,8 @@ namespace RestaurantDatabaseImplement.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FridgeName = table.Column<string>(nullable: false),
                     Capacity = table.Column<int>(nullable: false),
-                    Type = table.Column<string>(nullable: true),
-                    SupplierId = table.Column<int>(nullable: true)
+                    Type = table.Column<string>(nullable: false),
+                    SupplierId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -120,7 +120,7 @@ namespace RestaurantDatabaseImplement.Migrations
                         column: x => x.SupplierId,
                         principalTable: "Suppliers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -130,9 +130,6 @@ namespace RestaurantDatabaseImplement.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SupplierId = table.Column<int>(nullable: false),
-                    DateCreate = table.Column<DateTime>(nullable: false),
-                    Sum = table.Column<decimal>(nullable: false),
-                    DateImplement = table.Column<DateTime>(nullable: true),
                     Status = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -154,8 +151,8 @@ namespace RestaurantDatabaseImplement.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FridgeId = table.Column<int>(nullable: false),
                     FoodId = table.Column<int>(nullable: false),
-                    Count = table.Column<int>(nullable: false),
-                    IsReserved = table.Column<int>(nullable: false)
+                    Free = table.Column<int>(nullable: false),
+                    Reserved = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {

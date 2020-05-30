@@ -8,6 +8,6 @@ namespace RestaurantBusinessLogic.BindingModels
     {
         public int? Id { get; set; }
         public string FoodName { get; set; }
-        public decimal Price { get; set; }
+        public decimal? Price { get; set; }
     }
 }

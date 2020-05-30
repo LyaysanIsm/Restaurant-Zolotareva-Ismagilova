@@ -1,5 +1,22 @@
 ﻿@model IEnumerable<RestaurantBusinessLogic.ViewModels.RequestViewModel>
 
+@{
+    ViewData["Title"] = "Список заявок";
+}
+
+@section Links {
+    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+        <ul class="navbar-nav flex-grow-1">
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Fridge" asp-action="ListFridges">Холодильники</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Supplier" asp-action="Logout">Выход</a>
+            </li>
+        </ul>
+    </div>
+}
+
 <h5>Список заявок</h5>
 
 <table class="table">
@@ -25,7 +42,7 @@
                     @Html.DisplayFor(modelItem => item.Status)
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.Id">More details</a>
+                    <a asp-action="RequestView" asp-route-id="@item.Id">Подробнее</a>
                 </td>
             </tr>
         }

@@ -35,7 +35,7 @@ namespace RestaurantDatabaseImplement.Implements
                     context.Foods.Add(element);
                 }
                 element.FoodName = model.FoodName;
-                element.Price = model.Price;
+                element.Price = model.Price.Value;
                 context.SaveChanges();
             }
         }

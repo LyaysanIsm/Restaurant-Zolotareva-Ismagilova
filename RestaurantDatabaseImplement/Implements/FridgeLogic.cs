@@ -17,7 +17,8 @@ namespace RestaurantDatabaseImplement.Implements
             using (var context = new RestaurantDatabase())
             {
                 return context.Fridges
-                .Where(rec => model == null || rec.Id == model.Id)
+                .Where(rec => model == null || rec.Id == model.Id
+                    || rec.SupplierId == model.SupplierId)
                 .ToList()
                 .Select(rec => new FridgeViewModel
                 {
@@ -29,7 +30,7 @@ namespace RestaurantDatabaseImplement.Implements
                             .Include(recCC => recCC.Food)
                             .Where(recCC => recCC.FridgeId == rec.Id)
                             .ToDictionary(recCC => recCC.FoodId, recCC =>
-                            (recCC.Food?.FoodName, recCC.Count, recCC.Reserved))
+                            (recCC.Food?.FoodName, recCC.Free, recCC.Reserved))
                 })
                     .ToList();
             }
@@ -42,14 +43,22 @@ namespace RestaurantDatabaseImplement.Implements
                 Fridge element = context.Fridges.FirstOrDefault(rec => rec.FridgeName == model.FridgeName && rec.Id != model.Id);
                 if (element != null)
                 {
-                    throw new Exception("There is already a fridge with this name");
+                    throw new Exception("Уже существует холодильник с таким названием");
                 }
                 if (model.Id.HasValue)
                 {
                     element = context.Fridges.FirstOrDefault(rec => rec.Id == model.Id);
+                    int free = context.FridgeFoods.Where(rec =>
+                    rec.FridgeId == model.Id).Sum(rec => rec.Free);
+                    int res = context.FridgeFoods.Where(rec =>
+                    rec.FridgeId == model.Id).Sum(rec => rec.Reserved);
+                    if ((free + res) > model.Capacity)
+                    {
+                        throw new Exception("Вместимость не может быть меньше количества продуктов в холодильнике");
+                    }
                     if (element == null)
                     {
-                        throw new Exception("Fridge not found");
+                        throw new Exception("Холодильник не найден");
                     }
                 }
                 else
@@ -57,6 +66,7 @@ namespace RestaurantDatabaseImplement.Implements
                     element = new Fridge();
                     context.Fridges.Add(element);
                 }
+                element.SupplierId = model.SupplierId;
                 element.FridgeName = model.FridgeName;
                 element.Capacity = model.Capacity;
                 element.Type = model.Type;
@@ -81,7 +91,7 @@ namespace RestaurantDatabaseImplement.Implements
                         }
                         else
                         {
-                            throw new Exception("Fridge not found");
+                            throw new Exception("Холодильник не найден");
                         }
                         transaction.Commit();
                     }
@@ -98,60 +108,58 @@ namespace RestaurantDatabaseImplement.Implements
         {
             using (var context = new RestaurantDatabase())
             {
-                var FridgeFood = context.FridgeFoods
-                    .FirstOrDefault(sm => sm.FoodId == model.FoodId && sm.FridgeId == model.FridgeId);
-                if (FridgeFood != null)
-                    FridgeFood.Count += model.Count;
-                else
-                    context.FridgeFoods.Add(new FridgeFood()
+                var fridgeFoods = context.FridgeFoods.FirstOrDefault(rec =>
+                 rec.FridgeId == model.FridgeId && rec.FoodId == model.FoodId);
+                var fridge = context.Fridges.FirstOrDefault(rec => rec.Id == model.FridgeId);
+
+                int free = context.FridgeFoods.Where(rec =>
+                rec.FridgeId == model.FridgeId).Sum(rec => rec.Free);
+                int res = context.FridgeFoods.Where(rec =>
+                rec.FridgeId == model.FridgeId).Sum(rec => rec.Reserved);
+                if ((free + res + model.Count) > fridge.Capacity)
+                {
+                    throw new Exception("Недостаточно места в холодильнике");
+                }
+                if (fridgeFoods == null)
+                {
+                    context.FridgeFoods.Add(new FridgeFood
                     {
-                        FoodId = model.FoodId,
                         FridgeId = model.FridgeId,
-                        Count = model.Count
+                        FoodId = model.FoodId,
+                        Free = model.Count,
+                        Reserved = 0
                     });
+                }
+                else
+                {
+                    fridgeFoods.Free += model.Count;
+                }
                 context.SaveChanges();
             }
         }
 
-        public void RemoveFoods(OrderViewModel order)
+        public void ReserveFoods(ReserveFoodsBindingModel model)
         {
             using (var context = new RestaurantDatabase())
             {
-                using (var transaction = context.Database.BeginTransaction())
+                var fridgeFoods = context.FridgeFoods.FirstOrDefault(rec =>
+                rec.FridgeId == model.FridgeId && rec.FoodId == model.FoodId);
+                if (fridgeFoods != null)
                 {
-                    try
+                    if (fridgeFoods.Free >= model.Count)
                     {
-                        var dishfoods = context.DishFoods.Where(dm => dm.DishId == order.DishId).ToList();
-                        var FridgeFoods = context.DishFoods.ToList();
-                        foreach (var food in dishfoods)
-                        {
-                            var foodCount = food.Count * order.Count;
-                            foreach (var df in dishfoods)
-                            {
-                                if (df.FoodId == food.FoodId && df.Count >= foodCount)
-                                {
-                                    df.Count -= foodCount;
-                                    foodCount = 0;
-                                    context.SaveChanges();
-                                    break;
-                                }
-                                else if (df.FoodId == food.FoodId && df.Count < foodCount)
-                                {
-                                    foodCount -= df.Count;
-                                    df.Count = 0;
-                                    context.SaveChanges();
-                                }
-                            }
-                            if (foodCount > 0)
-                                throw new Exception("Not enough foods in the fridges!");
-                        }
-                        transaction.Commit();
+                        fridgeFoods.Free -= model.Count;
+                        fridgeFoods.Reserved += model.Count;
+                        context.SaveChanges();
                     }
-                    catch (Exception)
+                    else
                     {
-                        transaction.Rollback();
-                        throw;
+                        throw new Exception("Недостаточно продуктов для резервирования");
                     }
+                }
+                else
+                {
+                    throw new Exception("На складе не существует таких продуктов");
                 }
             }
         }

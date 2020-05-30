@@ -8,12 +8,10 @@ namespace RestaurantBusinessLogic.ViewModels
 {
     public class FridgeViewModel
     {
+        [DisplayName("Номер холодильника")]
         public int Id { get; set; }
         [DisplayName("Название холодильника")]
         public string FridgeName { get; set; }
-        public int SupplierId { get; set; }
-        [DisplayName("Поставщик")]
-        public string SupplierName { get; set; }
         [DisplayName("Вместимость")]
         public int Capacity { get; set; }
         [DisplayName("Тип холодильника")]

@@ -96,10 +96,11 @@ namespace RestaurantDatabaseImplement.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("SupplierId")
+                    b.Property<int>("SupplierId")
                         .HasColumnType("int");
 
                     b.Property<string>("Type")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -116,16 +117,16 @@ namespace RestaurantDatabaseImplement.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Count")
+                    b.Property<int>("FoodId")
                         .HasColumnType("int");
 
-                    b.Property<int>("FoodId")
+                    b.Property<int>("Free")
                         .HasColumnType("int");
 
                     b.Property<int>("FridgeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("IsReserved")
+                    b.Property<int>("Reserved")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -176,17 +177,8 @@ namespace RestaurantDatabaseImplement.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("DateCreate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateImplement")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("Status")
                         .HasColumnType("int");
-
-                    b.Property<decimal>("Sum")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("SupplierId")
                         .HasColumnType("int");
@@ -230,7 +222,7 @@ namespace RestaurantDatabaseImplement.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Email")
+                    b.Property<string>("Login")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -256,7 +248,7 @@ namespace RestaurantDatabaseImplement.Migrations
                         .IsRequired();
 
                     b.HasOne("RestaurantDatabaseImplement.Models.Food", "Food")
-                        .WithMany("DishFoods")
+                        .WithMany()
                         .HasForeignKey("FoodId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -265,14 +257,16 @@ namespace RestaurantDatabaseImplement.Migrations
             modelBuilder.Entity("RestaurantDatabaseImplement.Models.Fridge", b =>
                 {
                     b.HasOne("RestaurantDatabaseImplement.Models.Supplier", "Supplier")
-                        .WithMany()
-                        .HasForeignKey("SupplierId");
+                        .WithMany("Fridges")
+                        .HasForeignKey("SupplierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("RestaurantDatabaseImplement.Models.FridgeFood", b =>
                 {
                     b.HasOne("RestaurantDatabaseImplement.Models.Food", "Food")
-                        .WithMany()
+                        .WithMany("FridgeFoods")
                         .HasForeignKey("FoodId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -311,7 +305,7 @@ namespace RestaurantDatabaseImplement.Migrations
                         .IsRequired();
 
                     b.HasOne("RestaurantDatabaseImplement.Models.Request", "Request")
-                        .WithMany()
+                        .WithMany("RequestFoods")
                         .HasForeignKey("RequestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

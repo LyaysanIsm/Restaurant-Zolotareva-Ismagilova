@@ -15,17 +15,17 @@ namespace RestaurantDatabaseImplement.Implements
         {
             using (var context = new RestaurantDatabase())
             {
-                Supplier element = context.Suppliers.FirstOrDefault(rec => rec.SupplierFIO == model.SupplierFIO && rec.Id != model.Id);
+                Supplier element = context.Suppliers.FirstOrDefault(rec => rec.Login == model.Login && rec.Id != model.Id);
                 if (element != null)
                 {
-                    throw new Exception("There is already a supplier with this username");
+                    throw new Exception("Поставщик с таким логином уже существует");
                 }
                 if (model.Id.HasValue)
                 {
                     element = context.Suppliers.FirstOrDefault(rec => rec.Id == model.Id);
                     if (element == null)
                     {
-                        throw new Exception("Supplier not found");
+                        throw new Exception("Поставщик не найден");
                     }
                 }
                 else
@@ -34,8 +34,8 @@ namespace RestaurantDatabaseImplement.Implements
                     context.Suppliers.Add(element);
                 }
                 element.SupplierFIO = model.SupplierFIO;
+                element.Login = model.Login;
                 element.Password = model.Password;
-                element.Email = model.Email;
                 context.SaveChanges();
             }
         }
@@ -52,7 +52,7 @@ namespace RestaurantDatabaseImplement.Implements
                 }
                 else
                 {
-                    throw new Exception("Supplier not found");
+                    throw new Exception("Поставщик не найден");
                 }
             }
         }
@@ -62,13 +62,14 @@ namespace RestaurantDatabaseImplement.Implements
             using (var context = new RestaurantDatabase())
             {
                 return context.Suppliers
-                .Where(rec => (rec.SupplierFIO == model.SupplierFIO) && (model.Password == null || rec.Password == model.Password))
+                 .Where(rec => model == null || rec.Id == model.Id
+                || rec.Login == model.Login && rec.Password == model.Password)
                 .Select(rec => new SupplierViewModel
                 {
                     Id = rec.Id,
                     SupplierFIO = rec.SupplierFIO,
-                    Password = rec.Password,
-                    Email = rec.Email
+                    Login = rec.Login,
+                    Password = rec.Password
                 })
                 .ToList();
             }

@@ -1,7 +1,7 @@
 ﻿@model RestaurantDatabaseImplement.Models.Fridge
 
 @{
-    ViewData["Title"] = "Создание холодильника";
+    ViewData["Title"] = "Изменение холодильника";
 }
 
 @section Links {
@@ -14,13 +14,15 @@
     </div>
 }
 
-<h2>Добавление нового холодильника</h2>
+<h1>Изменение холодильника</h1>
 
+<h4>Холодильник №@Model.Id</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="CreateFridge">
+        <form asp-action="ChangeFridge">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="FridgeName" class="control-label"></label>
                 <input asp-for="FridgeName" class="form-control" />
@@ -37,7 +39,7 @@
                 <span asp-validation-for="Type" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Создать" class="btn btn-primary" />
+                <input type="submit" value="Сохранить" class="btn btn-primary" />
             </div>
         </form>
     </div>

@@ -1,0 +1,31 @@
+﻿@model RestaurantBusinessLogic.BindingModels.ReserveFoodsBindingModel
+
+@{
+    ViewData["Title"] = "Пополнение";
+}
+
+<h1>Пополнение склада №@ViewBag.FridgeId</h1>
+
+<h4>@ViewBag.FoodName</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="Fridge" asp-action="AddFood">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="FridgeId" />
+            <input type="hidden" asp-for="FoodId" />
+            <div class="form-group">
+                <label asp-for="Count" class="control-label">Количество</label>
+                <input asp-for="Count" class="form-control" />
+                <span asp-validation-for="Count" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Пополнить" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="ListFoods" asp-route-fridgeId="@ViewBag.FridgeId">Вернуться назад</a>
+</div>

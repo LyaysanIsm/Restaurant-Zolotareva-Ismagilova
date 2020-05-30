@@ -11,7 +11,7 @@ namespace RestaurantDatabaseImplement.Models
         public int FridgeId { get; set; }
         public int FoodId { get; set; }
         [Required]
-        public int Count { get; set; }
+        public int Free { get; set; }
         [Required]
         public int Reserved { get; set; }
         public virtual Fridge Fridge { get; set; }

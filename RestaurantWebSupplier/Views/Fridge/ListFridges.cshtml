@@ -1,0 +1,54 @@
+﻿@model IEnumerable<RestaurantBusinessLogic.ViewModels.FridgeViewModel>
+
+@{
+    ViewData["Title"] = "Холодильники";
+}
+
+<h2>Список холодильников</h2>
+
+<p>
+    <a asp-action="CreateFridge">Создание холодильника</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FridgeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Capacity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FridgeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Capacity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id" asp-r>Открыть</a>|
+                    <a asp-action="ChangeFridge" asp-route-id="@item.Id">Изменить</a>|
+                    <a asp-action="DeleteFridge" asp-route-id="@item.Id">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -13,7 +13,7 @@ namespace RestaurantDatabaseImplement.Models
         public int SupplierId { get; set; }
         [Required]
         public RequestStatus Status { get; set; }
-        [ForeignKey("RequestID")]
+        [ForeignKey("RequestId")]
         public virtual List<RequestFood> RequestFoods { get; set; }
         public virtual Supplier Supplier { get; set; }
     }

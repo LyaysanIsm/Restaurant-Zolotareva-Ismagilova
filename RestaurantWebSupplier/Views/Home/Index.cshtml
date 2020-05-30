@@ -1,4 +1,21 @@
-﻿<div class="text-center">
+﻿@{
+    ViewData["Title"] = "Столовая Рога и копыта";
+}
+
+@section Links {
+    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+        <ul class="navbar-nav flex-grow-1">
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Supplier" asp-action="Login">Вход</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Supplier" asp-action="Registration">Регистрация</a>
+            </li>
+        </ul>
+    </div>
+}
+
+<div class="text-center">
     <h1 class="display-4">Добро пожаловать</h1>
-    <p>Программа Столовая "Рога и копыта" предназначена для ведения учета продуктов</p>
+    <p> Программа Столовая "Рога и копыта" предназначена для ведения учета выдаваемых заказчикам продуктов для приготовления блюд. Поставщики могут управлять запасами продуктов в холодильнике. Программа предоставляет возможность получения отчетов по выдаваемым продуктам для поставщиков</p>
 </div>

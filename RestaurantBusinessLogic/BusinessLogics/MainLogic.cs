@@ -43,8 +43,6 @@ namespace RestaurantBusinessLogic.BusinessLogics
                 throw new Exception("Заказ не в статусе \"Принят\"");
             }
 
-            fridgeLogic.RemoveFoods(order);
-
             orderLogic.CreateOrUpdate(new OrderBindingModel
             {
                 Id = order.Id,

@@ -12,7 +12,7 @@ namespace RestaurantWebSupplier
 {
     public class Program
     {
-        public static SupplierViewModel Supplier = null;
+        public static SupplierViewModel Supplier { get; set; }
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();

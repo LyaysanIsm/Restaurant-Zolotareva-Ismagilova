@@ -1,0 +1,39 @@
+﻿@model IEnumerable<RestaurantBusinessLogic.ViewModels.FoodViewModel>
+
+@{
+    ViewData["Title"] = "Продукты";
+}
+
+<h1>Пополнение холодильника №@ViewBag.FridgeId</h1>
+
+<h2>Список продуктов</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FoodName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FoodName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    <a asp-action="AddFood" asp-route-foodId="@item.Id" asp-route-fridgeId="@ViewBag.FridgeId">Пополнить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
