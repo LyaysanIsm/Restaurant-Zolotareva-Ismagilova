@@ -34,10 +34,10 @@ namespace RestaurantView
             try
             {
                 //Логика загрузки списка компонент в выпадающий список
-                var listDishses = logicP.Read(null);
+                List<DishViewModel> listDishses = logicP.Read(null);
                 if (listDishses != null)
                 {
-                    comboBoxProduct.DisplayMember = "DishsName";
+                    comboBoxProduct.DisplayMember = "DishName";
                     comboBoxProduct.ValueMember = "Id";
                     comboBoxProduct.DataSource = listDishses;
                     comboBoxProduct.SelectedItem = null;
@@ -90,7 +90,7 @@ namespace RestaurantView
             }
             if (comboBoxProduct.SelectedValue == null)
             {
-                MessageBox.Show("Выберите изделие", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Выберите продукт", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             try

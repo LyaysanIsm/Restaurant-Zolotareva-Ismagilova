@@ -37,8 +37,8 @@ namespace RestaurantView
             List<FoodViewModel> list = logic.Read(null);
             if (list != null)
             {
-                comboBoxFood.DisplayMember = "Name";
-                comboBoxFood.ValueMember = "ID";
+                comboBoxFood.DisplayMember = "FoodName";
+                comboBoxFood.ValueMember = "Id";
                 comboBoxFood.DataSource = list;
                 comboBoxFood.SelectedItem = null;
             }

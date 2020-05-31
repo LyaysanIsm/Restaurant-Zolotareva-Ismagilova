@@ -118,16 +118,20 @@ namespace RestaurantDatabaseImplement.Implements
         {
             using (var context = new RestaurantDatabase())
             {
-                return context.Dishes.Where(rec => model == null || rec.Id == model.Id)
+                return context.Dishes
+                .Where(rec => model == null || rec.Id == model.Id)
                 .ToList()
                 .Select(rec => new DishViewModel
                 {
                     Id = rec.Id,
                     DishName = rec.DishName,
                     Price = rec.Price,
-                    DishFoods = context.DishFoods.Include(recPC => recPC.Food)
-                                                           .Where(recPC => recPC.DishId == rec.Id)
-                                                           .ToDictionary(recPC => recPC.FoodId, recPC => (recPC.Food?.FoodName, recPC.Count))
+                    DishFoods = context.DishFoods
+                                        .Include(recPC => recPC.Food)
+                                        .Where(recPC => recPC.DishId == rec.Id)
+                                        .ToDictionary(recPC => recPC.FoodId, recPC => (
+                                            recPC.Food?.FoodName, recPC.Count
+                                         ))
                 }).ToList();
             }
         }

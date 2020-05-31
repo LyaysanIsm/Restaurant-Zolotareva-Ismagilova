@@ -32,7 +32,6 @@ namespace RestaurantBusinessLogic.BusinessLogics
         public void TakeOrderInWork(ChangeStatusBindingModel model)
         {
             var order = orderLogic.Read(new OrderBindingModel { Id = model.OrderId })?[0];
-
             if (order == null)
             {
                 throw new Exception("Не найден заказ");
@@ -42,7 +41,6 @@ namespace RestaurantBusinessLogic.BusinessLogics
             {
                 throw new Exception("Заказ не в статусе \"Принят\"");
             }
-
             orderLogic.CreateOrUpdate(new OrderBindingModel
             {
                 Id = order.Id,
