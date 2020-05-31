@@ -44,5 +44,34 @@ namespace RestaurantWebSupplier.Controllers
             })?[0].Foods;
             return View(foods);
         }
+
+        public IActionResult ReserveFoods(int? FoodId, int? FridgeId)
+        {
+            if (Program.Supplier == null)
+            {
+                return new UnauthorizedResult();
+            }
+            if (FoodId == null && FridgeId == null)
+            {
+                return NotFound();
+            }
+            if (TempData["ErrorLackFoods"] != null)
+            {
+                ModelState.AddModelError("", TempData["ErrorLackFoods"].ToString());
+            }
+            var request = requestLogic.Read(new RequestBindingModel
+            {
+                Id = FoodId
+            })?[0];
+            if (request == null)
+            {
+                return NotFound();
+            }
+            return View(new ReserveFoodsBindingModel
+            {
+                FoodId = FoodId.Value,
+                FridgeId = FridgeId.Value,
+            });
+        }
     }
 }

@@ -159,7 +159,7 @@ namespace RestaurantDatabaseImplement.Implements
                 }
                 else
                 {
-                    throw new Exception("На складе не существует таких продуктов");
+                    throw new Exception("В холодильнике не существует таких продуктов");
                 }
             }
         }

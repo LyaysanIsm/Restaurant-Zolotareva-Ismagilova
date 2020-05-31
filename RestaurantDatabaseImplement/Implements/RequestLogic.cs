@@ -27,7 +27,7 @@ namespace RestaurantDatabaseImplement.Implements
                             request = context.Requests.FirstOrDefault(rec => rec.Id == model.Id);
                             if (request == null)
                             {
-                                throw new Exception("Request not found");
+                                throw new Exception("Заявка не найдена");
                             }
                             else if (model.Status == RequestStatus.Created)
                             {
@@ -44,8 +44,8 @@ namespace RestaurantDatabaseImplement.Implements
                             }
                             else
                             {
-                                throw new Exception("It isn't possible to change request. " +
-                                    "Request is processed or executed");
+                                throw new Exception("Заявку невозможно изменить. " +
+                                    "Заявка в процессе или создана");
                             }
                         }
                         else
@@ -97,7 +97,7 @@ namespace RestaurantDatabaseImplement.Implements
                             }
                             else
                             {
-                                throw new Exception("Request not found");
+                                throw new Exception("Заявка не найдена");
                             }
                             transaction.Commit();
                         }
@@ -111,7 +111,7 @@ namespace RestaurantDatabaseImplement.Implements
             }
             else
             {
-                throw new Exception("It isn't possible to delete request. Request is processed");
+                throw new Exception("Заявку невозможно удалить. Заявка в процессе");
             }
         }
 

@@ -60,8 +60,17 @@ namespace RestaurantWebSupplier.Controllers
         }
 
         [HttpPost]
-        public IActionResult Registration(Supplier supplier)
+        public IActionResult Registration(RegistrationModel supplier)
         {
+            var existSupplier = supplierLogic.Read(new SupplierBindingModel
+            {
+                Login = supplier.Login
+            }).FirstOrDefault();
+            if (existSupplier != null)
+            {
+                ModelState.AddModelError("", "Такая почта уже существует");
+                return View(supplier);
+            }
             if (String.IsNullOrEmpty(supplier.SupplierFIO)
             || String.IsNullOrEmpty(supplier.Login)
             || String.IsNullOrEmpty(supplier.Password))

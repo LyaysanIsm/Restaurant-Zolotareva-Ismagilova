@@ -237,5 +237,28 @@ namespace RestaurantWebSupplier.Controllers
             }
             return RedirectToAction("Details", new { id = model.FridgeId });
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ReserveFoods([Bind("FoodId, Count")] ReserveFoodsBindingModel model)
+        {
+            if (Program.Supplier == null)
+            {
+                return new UnauthorizedResult();
+            }
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    fridgeLogic.ReserveFoods(model);
+                }
+                catch (Exception exception)
+                {
+                    TempData["ErrorLackFoods"] = exception.Message;
+                   
+                }
+            }
+            return RedirectToAction("Details", new { id = model.FridgeId });
+        }
     }
 }

@@ -11,5 +11,6 @@ namespace RestaurantBusinessLogic.HelperModels
         public string Title { get; set; }
         public List<DishViewModel> Dishes { get; set; }
         public List<FridgeViewModel> Fridges { get; set; }
+        public List<RequestViewModel> Foods { get; set; }
     }
 }
