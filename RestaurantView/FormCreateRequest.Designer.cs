@@ -1,11 +1,13 @@
-﻿namespace RestaurantView
+﻿using System.Windows.Forms;
+
+namespace RestaurantView
 {
     partial class FormCreateRequest
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private System.ComponentModel.IContainer foods = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -13,9 +15,9 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
+            if (disposing && (foods != null))
             {
-                components.Dispose();
+                foods.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -28,11 +30,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.buttonRefresh = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonUpdate = new System.Windows.Forms.Button();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.foodsGridView = new System.Windows.Forms.DataGridView();
+            this.foodId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.foodNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.foodCountColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.comboBoxSupplier = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonCancel = new System.Windows.Forms.Button();
@@ -86,13 +92,57 @@
             // 
             // foodsGridView
             // 
+            this.foodsGridView.AllowUserToAddRows = false;
+            this.foodsGridView.AllowUserToDeleteRows = false;
+            this.foodsGridView.AllowUserToResizeRows = false;
+            this.foodsGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.foodsGridView.BackgroundColor = System.Drawing.Color.White;
             this.foodsGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.foodsGridView.Location = new System.Drawing.Point(0, 65);
-            this.foodsGridView.Margin = new System.Windows.Forms.Padding(4);
+            this.foodsGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.foodId,
+            this.foodNameColumn,
+            this.foodCountColumn});
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 10.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.DarkGray;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.foodsGridView.DefaultCellStyle = dataGridViewCellStyle1;
+            this.foodsGridView.Location = new System.Drawing.Point(15, 68);
+            this.foodsGridView.MultiSelect = false;
             this.foodsGridView.Name = "foodsGridView";
+            this.foodsGridView.ReadOnly = true;
             this.foodsGridView.RowHeadersWidth = 51;
-            this.foodsGridView.Size = new System.Drawing.Size(600, 298);
+            this.foodsGridView.Size = new System.Drawing.Size(585, 282);
             this.foodsGridView.TabIndex = 10;
+            // 
+            // foodId
+            // 
+            this.foodId.HeaderText = "Id";
+            this.foodId.MinimumWidth = 6;
+            this.foodId.Name = "foodId";
+            this.foodId.ReadOnly = true;
+            this.foodId.Visible = false;
+            // 
+            // foodNameColumn
+            // 
+            this.foodNameColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.foodNameColumn.FillWeight = 80F;
+            this.foodNameColumn.HeaderText = "Название";
+            this.foodNameColumn.MinimumWidth = 6;
+            this.foodNameColumn.Name = "foodNameColumn";
+            this.foodNameColumn.ReadOnly = true;
+            // 
+            // foodCountColumn
+            // 
+            this.foodCountColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.foodCountColumn.FillWeight = 20F;
+            this.foodCountColumn.HeaderText = "Количество";
+            this.foodCountColumn.MinimumWidth = 6;
+            this.foodCountColumn.Name = "foodCountColumn";
+            this.foodCountColumn.ReadOnly = true;
             // 
             // comboBoxSupplier
             // 
@@ -167,9 +217,13 @@
         private System.Windows.Forms.Button buttonUpdate;
         private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.DataGridView foodsGridView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn foodId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn foodNameColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn countColumn;
         private System.Windows.Forms.ComboBox comboBoxSupplier;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonSave;
+        private DataGridViewTextBoxColumn foodCountColumn;
     }
 }
