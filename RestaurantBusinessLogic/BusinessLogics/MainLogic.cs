@@ -10,12 +10,12 @@ namespace RestaurantBusinessLogic.BusinessLogics
     public class MainLogic
     {
         private readonly IOrderLogic orderLogic;
-        private readonly IFridgeLogic fridgeLogic;
+        private readonly IRequestLogic requestLogic;
 
-        public MainLogic(IOrderLogic orderLogic, IFridgeLogic fridgeLogic)
+        public MainLogic(IOrderLogic orderLogic, IRequestLogic requestLogic)
         {
             this.orderLogic = orderLogic;
-            this.fridgeLogic = fridgeLogic;
+            this.requestLogic = requestLogic;
         }
 
         public void CreateOrder(OrderBindingModel model)
@@ -100,9 +100,15 @@ namespace RestaurantBusinessLogic.BusinessLogics
             });
         }
 
-        public void ReplanishFridge(ReserveFoodsBindingModel model)
+        public void CreateOrUpdateRequest(RequestBindingModel model)
         {
-            fridgeLogic.AddFood(model);
+            requestLogic.CreateOrUpdate(new RequestBindingModel
+            {
+                Id = model.Id,
+                SupplierId = model.SupplierId,
+                Status = RequestStatus.Created,
+                Foods = model.Foods
+            });
         }
     }
 }

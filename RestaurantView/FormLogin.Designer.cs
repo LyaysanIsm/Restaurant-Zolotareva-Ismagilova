@@ -38,7 +38,7 @@
             // textBoxLogin
             // 
             this.textBoxLogin.Location = new System.Drawing.Point(105, 15);
-            this.textBoxLogin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxLogin.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxLogin.Name = "textBoxLogin";
             this.textBoxLogin.Size = new System.Drawing.Size(277, 22);
             this.textBoxLogin.TabIndex = 0;
@@ -46,7 +46,7 @@
             // textBoxPassword
             // 
             this.textBoxPassword.Location = new System.Drawing.Point(105, 47);
-            this.textBoxPassword.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxPassword.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.Size = new System.Drawing.Size(277, 22);
             this.textBoxPassword.TabIndex = 1;
@@ -74,7 +74,7 @@
             // buttonEnter
             // 
             this.buttonEnter.Location = new System.Drawing.Point(254, 94);
-            this.buttonEnter.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonEnter.Margin = new System.Windows.Forms.Padding(4);
             this.buttonEnter.Name = "buttonEnter";
             this.buttonEnter.Size = new System.Drawing.Size(128, 27);
             this.buttonEnter.TabIndex = 4;
@@ -92,9 +92,9 @@
             this.Controls.Add(this.labelLogin);
             this.Controls.Add(this.textBoxPassword);
             this.Controls.Add(this.textBoxLogin);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormLogin";
-            this.Text = "FormLogin";
+            this.Text = "Администратор";
             this.ResumeLayout(false);
             this.PerformLayout();
 

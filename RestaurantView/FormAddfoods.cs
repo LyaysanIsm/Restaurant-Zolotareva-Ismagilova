@@ -17,48 +17,53 @@ namespace RestaurantView
 {
     public partial class FormAddFoods : Form
     {
-        private readonly MainLogic mainLogic;
-        private readonly IRequestLogic requestLogic;
-        private readonly IFoodLogic foodLogic;
-        private List<RequestViewModel> requestViews;
-        private List<FoodViewModel> foodViews;
-
-        public FormAddFoods(MainLogic mainLogic, IRequestLogic requestLogic, IFoodLogic foodLogic)
+        [Dependency]
+        public new IUnityContainer Container { get; set; }
+        public int Id
         {
-            InitializeComponent();
-            this.mainLogic = mainLogic;
-            this.requestLogic = requestLogic;
-            this.foodLogic = foodLogic;
-            LoadData();
+            get { return Convert.ToInt32(comboBoxFood.SelectedValue); }
+            set { comboBoxFood.SelectedValue = value; }
+        }
+        public string FoodName { get { return comboBoxFood.Text; } }
+        public int Count
+        {
+            get { return Convert.ToInt32(textBoxCount.Text); }
+            set { textBoxCount.Text = value.ToString(); }
         }
 
-        private void LoadData()
+        public FormAddFoods(IFoodLogic logic)
         {
-            requestViews = requestLogic.Read(null);
-            if (requestViews != null)
+            InitializeComponent();
+            List<FoodViewModel> list = logic.Read(null);
+            if (list != null)
             {
-                comboBoxStorages.DataSource = requestViews;
-                comboBoxStorages.DisplayMember = "SupplierName";
-            }
-            foodViews = foodLogic.Read(null);
-            if (foodViews != null)
-            {
-                comboBoxComponent.DataSource = foodViews;
-                comboBoxComponent.DisplayMember = "FoodName";
+                comboBoxFood.DisplayMember = "Name";
+                comboBoxFood.ValueMember = "ID";
+                comboBoxFood.DataSource = list;
+                comboBoxFood.SelectedItem = null;
             }
         }
 
         private void ButtonSave_Click(object sender, EventArgs e)
         {
-            if (textBoxCountComponent.Text == string.Empty)
-                throw new Exception("Введите количество продуктов");
-
-            mainLogic.ReplanishFridge(new ReserveFoodsBindingModel()
+            if (string.IsNullOrEmpty(textBoxCount.Text))
             {
-                FridgeId = (comboBoxStorages.SelectedItem as FridgeViewModel).Id,
-                FoodId = (comboBoxComponent.SelectedItem as FoodViewModel).Id,
-                Count = Convert.ToInt32(textBoxCountComponent.Text)
-            });
+                MessageBox.Show(
+                    "Поле \"Количество\" не заполнено",
+                    "Ошибка",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                return;
+            }
+            if (comboBoxFood.SelectedValue == null)
+            {
+                MessageBox.Show(
+                    "Комплектующее не выбрано",
+                    "Ошибка",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                return;
+            }
             DialogResult = DialogResult.OK;
             Close();
         }
