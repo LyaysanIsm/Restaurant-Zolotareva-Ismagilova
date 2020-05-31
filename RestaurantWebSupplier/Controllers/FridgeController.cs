@@ -238,27 +238,27 @@ namespace RestaurantWebSupplier.Controllers
             return RedirectToAction("Details", new { id = model.FridgeId });
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult ReserveFoods([Bind("FoodId, Count")] ReserveFoodsBindingModel model)
+        public IActionResult ReserveFoods(int fridgeId, int foodId, int count, int requestId)
         {
             if (Program.Supplier == null)
             {
                 return new UnauthorizedResult();
             }
-            if (ModelState.IsValid)
+            try
             {
-                try
+                fridgeLogic.ReserveFoods(new ReserveFoodsBindingModel
                 {
-                    fridgeLogic.ReserveFoods(model);
-                }
-                catch (Exception exception)
-                {
-                    TempData["ErrorLackFoods"] = exception.Message;
-                   
-                }
+                    FridgeId = fridgeId,
+                    FoodId = foodId,
+                    Count = count
+                });
             }
-            return RedirectToAction("Details", new { id = model.FridgeId });
+            catch (Exception ex)
+            {
+                TempData["ErrorFoodReserve"] = ex.Message;
+                return RedirectToAction("RequestView", "Request", new { id = requestId });
+            }
+            return RedirectToAction("RequestView", "Request", new { id = requestId });
         }
     }
 }
