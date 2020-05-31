@@ -104,6 +104,24 @@ namespace RestaurantDatabaseImplement.Implements
             }
         }
 
+        public List<FridgeAvailableViewModel> GetFridgeAvailable(ReserveFoodsBindingModel model)
+        {
+            using (var context = new RestaurantDatabase())
+            {
+                return context.FridgeFoods
+                .Include(rec => rec.Fridge)
+                .Where(rec => rec.FoodId == model.FoodId
+                && rec.Free >= model.Count)
+                .Select(rec => new FridgeAvailableViewModel
+                {
+                    FridgeId = rec.FridgeId,
+                    FridgeName = rec.Fridge.FridgeName,
+                    Count = rec.Free
+                })
+                .ToList();
+            }
+        }
+
         public void AddFood(ReserveFoodsBindingModel model)
         {
             using (var context = new RestaurantDatabase())

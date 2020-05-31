@@ -51,7 +51,11 @@
                     @Html.DisplayFor(modelItem => item.Value.Item2)
                 </td>
                 <td>
-                    <a class="btn btn-primary btn-sm btn-block" asp-action="ReserveFoods" asp-route-id="@item.Key">Зарезервировать</a>
+                    <a class="btn btn-primary btn-sm btn-block" asp-action="ListFoodAvailable"
+                       asp-route-id="@item.Key" asp-route-name="@item.Value.Item1"
+                       asp-route-count="@item.Value.Item2" asp-route-requestId="@ViewBag.RequestId">
+                        Зарезервировать
+                    </a>
                 </td>
             </tr>
         }

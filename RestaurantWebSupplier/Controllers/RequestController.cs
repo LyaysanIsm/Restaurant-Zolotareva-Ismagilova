@@ -13,9 +13,11 @@ namespace RestaurantWebSupplier.Controllers
     public class RequestController : Controller
     {
         private readonly IRequestLogic requestLogic;
-        public RequestController(IRequestLogic requestLogic)
+        private readonly IFridgeLogic fridgeLogic;
+        public RequestController(IRequestLogic requestLogic, IFridgeLogic fridgeLogic)
         {
             this.requestLogic = requestLogic;
+            this.fridgeLogic = fridgeLogic;
         }
 
         public IActionResult Request()
@@ -37,6 +39,10 @@ namespace RestaurantWebSupplier.Controllers
             {
                 return new UnauthorizedResult();
             }
+            if (TempData["ErrorFoodReserve"] != null)
+            {
+                ModelState.AddModelError("", TempData["ErrorFoodReserve"].ToString());
+            }
             ViewBag.RequestID = ID;
             var foods = requestLogic.Read(new RequestBindingModel
             {
@@ -45,33 +51,22 @@ namespace RestaurantWebSupplier.Controllers
             return View(foods);
         }
 
-        public IActionResult ReserveFoods(int? FoodId, int? FridgeId)
+        public IActionResult ListFoodAvailable(int id, int count, string name, int requestId)
         {
             if (Program.Supplier == null)
             {
                 return new UnauthorizedResult();
             }
-            if (FoodId == null && FridgeId == null)
+            ViewBag.FoodName = name;
+            ViewBag.Count = count;
+            ViewBag.FoodId = id;
+            ViewBag.RequestId = requestId;
+            var fridges = fridgeLogic.GetFridgeAvailable(new ReserveFoodsBindingModel
             {
-                return NotFound();
-            }
-            if (TempData["ErrorLackFoods"] != null)
-            {
-                ModelState.AddModelError("", TempData["ErrorLackFoods"].ToString());
-            }
-            var request = requestLogic.Read(new RequestBindingModel
-            {
-                Id = FoodId
-            })?[0];
-            if (request == null)
-            {
-                return NotFound();
-            }
-            return View(new ReserveFoodsBindingModel
-            {
-                FoodId = FoodId.Value,
-                FridgeId = FridgeId.Value,
+                FoodId = id,
+                Count = count
             });
+            return View(fridges);
         }
     }
 }

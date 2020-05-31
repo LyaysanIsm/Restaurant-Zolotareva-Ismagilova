@@ -1,0 +1,51 @@
+﻿@model IEnumerable<RestaurantBusinessLogic.ViewModels.FridgeAvailableViewModel>
+
+@{
+    ViewData["Title"] = "Список холодильников";
+}
+
+<div class="text-left">
+    <h4>@ViewBag.FoodName</h4>
+</div>
+
+<hr />
+<div class="text-left">
+    <h6>@ViewBag.Count продуктов в наличии</h6>
+</div>
+<hr />
+
+<table class="table table-striped table-bordered">
+    <thead class="thead thead-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FridgeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Count)
+            </th>
+            <th>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FridgeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Count)
+                </td>
+                <td class="text-center">
+                    <a class="btn btn-primary btn-sm" asp-controller="Fridge"
+                       asp-action="ReserveFoods" asp-route-fridgeId="@item.FridgeId"
+                       asp-route-foodId="@ViewBag.FoodId" asp-route-count="@ViewBag.Count"
+                       asp-route-requestId="@ViewBag.RequestId">
+                        Зарезервировать
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
