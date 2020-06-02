@@ -1,6 +1,10 @@
-﻿@model Dictionary<int, (string, int)>
+﻿@model Dictionary<int, (string, int, bool)>
 @{
     ViewData["Title"] = "Заявка";
+}
+
+@{
+    bool completed = true;
 }
 
 @section Links {
@@ -51,13 +55,35 @@
                     @Html.DisplayFor(modelItem => item.Value.Item2)
                 </td>
                 <td>
-                    <a class="btn btn-primary btn-sm btn-block" asp-action="ListFoodAvailable"
-                       asp-route-id="@item.Key" asp-route-name="@item.Value.Item1"
-                       asp-route-count="@item.Value.Item2" asp-route-requestId="@ViewBag.RequestId">
-                        Зарезервировать
-                    </a>
+                    @if (!item.Value.Item3)
+                    {
+                        completed = false;
+                        <a class="btn btn-primary btn-sm btn-block" asp-action="ListFoodAvailable"
+                           asp-route-id="@item.Key" asp-route-name="@item.Value.Item1"
+                           asp-route-count="@item.Value.Item2" asp-route-requestId="@ViewBag.RequestId">
+                            Зарезервировать
+                        </a>
+                    }
+                    else
+                    {
+                        <button type="button" class="btn btn-primary btn-sm btn-block" disabled>Зарезервировано</button>
+                    }
                 </td>
             </tr>
         }
     </tbody>
 </table>
+@if (completed)
+{
+    <hr />
+    <div class="row justify-content-center">
+        <a class="btn btn-primary btn-sm btn-block" asp-action="CompleteRequest" asp-route-id="@ViewBag.RequestId">Выполнить</a>
+    </div>
+    <hr />
+    <p>
+        <a href="/Request/SendWordReport/@ViewBag.RequestId">Отправить список продуктов в формате .docx</a>
+    </p>
+    <p>
+        <a href="/Request/SendExcelReport/@ViewBag.RequestId">Отправить список продуктов в формате .xslx</a>
+    </p>
+}  

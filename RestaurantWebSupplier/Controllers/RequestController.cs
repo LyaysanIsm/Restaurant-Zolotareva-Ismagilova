@@ -1,6 +1,7 @@
 ﻿using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantBusinessLogic.BindingModels;
+using RestaurantBusinessLogic.BusinessLogics;
 using RestaurantBusinessLogic.Interfaces;
 using RestaurantWebSupplier.Models;
 using System;
@@ -14,10 +15,14 @@ namespace RestaurantWebSupplier.Controllers
     {
         private readonly IRequestLogic requestLogic;
         private readonly IFridgeLogic fridgeLogic;
-        public RequestController(IRequestLogic requestLogic, IFridgeLogic fridgeLogic)
+        private readonly SupplierBusinessLogic supplierLogic;
+        private readonly SupplierReportLogic reportLogic;
+        public RequestController(IRequestLogic requestLogic, IFridgeLogic fridgeLogic, SupplierBusinessLogic supplierLogic, SupplierReportLogic reportLogic)
         {
             this.requestLogic = requestLogic;
             this.fridgeLogic = fridgeLogic;
+            this.supplierLogic = supplierLogic;
+            this.reportLogic = reportLogic;
         }
 
         public IActionResult Request()
@@ -51,6 +56,46 @@ namespace RestaurantWebSupplier.Controllers
             return View(foods);
         }
 
+        public IActionResult Reserve(int requestId, int foodId)
+        {
+            if (Program.Supplier == null)
+            {
+                return new UnauthorizedResult();
+            }
+            supplierLogic.ReserveFoods(new ReserveFoodsBindingModel
+            {
+                RequestId = requestId,
+                FoodId = foodId
+            });
+            return RedirectToAction("RequestView", new { id = requestId });
+        }
+
+        public IActionResult AcceptRequest(int id)
+        {
+            if (Program.Supplier == null)
+            {
+                return new UnauthorizedResult();
+            }
+            supplierLogic.AcceptRequest(new ChangeRequestStatusBindingModel
+            {
+                RequestId = id
+            });
+            return RedirectToAction("Request");
+        }
+
+        public IActionResult CompleteRequest(int id)
+        {
+            if (Program.Supplier == null)
+            {
+                return new UnauthorizedResult();
+            }
+            supplierLogic.CompleteRequest(new ChangeRequestStatusBindingModel
+            {
+                RequestId = id
+            });
+            return RedirectToAction("Request");
+        }
+
         public IActionResult ListFoodAvailable(int id, int count, string name, int requestId)
         {
             if (Program.Supplier == null)
@@ -61,12 +106,27 @@ namespace RestaurantWebSupplier.Controllers
             ViewBag.Count = count;
             ViewBag.FoodId = id;
             ViewBag.RequestId = requestId;
-            var fridges = fridgeLogic.GetFridgeAvailable(new ReserveFoodsBindingModel
+            var fridges = fridgeLogic.GetFridgeAvailable(new RequestFoodBindingModel
             {
                 FoodId = id,
                 Count = count
             });
             return View(fridges);
+        }
+
+        public IActionResult SendWordReport(int id)
+        {
+            var request = requestLogic.Read(new RequestBindingModel { Id = id }).FirstOrDefault();
+            string fileName = "D:\\data\\" + request.Id + ".docx";
+            reportLogic.SaveNeedFoodToWordFile(fileName, request, Program.Supplier.Login);
+            return RedirectToAction("RequestView");
+        }
+        public IActionResult SendExcelReport(int id)
+        {
+            var request = requestLogic.Read(new RequestBindingModel { Id = id }).FirstOrDefault();
+            string fileName = "D:\\data\\" + request.Id + ".xlsx";
+            reportLogic.SaveNeedFoodToExcelFile(fileName, request, Program.Supplier.Login);
+            return RedirectToAction("RequestView");
         }
     }
 }

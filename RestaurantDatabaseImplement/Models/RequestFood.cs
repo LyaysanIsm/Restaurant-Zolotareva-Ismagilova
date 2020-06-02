@@ -12,6 +12,8 @@ namespace RestaurantDatabaseImplement.Models
         public int FoodId { get; set; }
         [Required]
         public int Count { get; set; }
+        [Required]
+        public bool Inres { get; set; }
         public virtual Request Request { get; set; }
         public virtual Food Food { get; set; }
     }

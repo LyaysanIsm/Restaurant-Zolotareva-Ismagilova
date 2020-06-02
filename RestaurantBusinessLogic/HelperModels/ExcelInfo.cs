@@ -11,5 +11,6 @@ namespace RestaurantBusinessLogic.HelperModels
         public string Title { get; set; }
         public List<IGrouping<DateTime, OrderViewModel>> Orders { get; set; }
         public List<FridgeViewModel> Fridges { get; set; }
+        public List<FoodViewModel> Foods { get; set; }
     }
 }

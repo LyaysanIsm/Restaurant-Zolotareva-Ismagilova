@@ -50,7 +50,14 @@
                     @Html.DisplayFor(modelItem => item.Status)
                 </td>
                 <td>
-                    <a class="btn btn-primary btn-sm btn-block" asp-action="RequestView" asp-route-id="@item.Id">Подробнее</a>
+                    @if (item.Status == RestaurantBusinessLogic.Enums.RequestStatus.Выполняется)
+                    {
+                        <a class="btn btn-outline-info btn-sm" asp-action="RequestView" asp-route-id="@item.Id">Просмотр заявки</a>
+                    }
+                    @if (item.Status == RestaurantBusinessLogic.Enums.RequestStatus.Создана)
+                    {
+                        <a class="btn btn-outline-info btn-sm" asp-action="AcceptRequest" asp-route-id="@item.Id">Принять в обработку</a>
+                    }
                 </td>
             </tr>
         }

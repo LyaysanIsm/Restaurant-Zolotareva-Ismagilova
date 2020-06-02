@@ -104,7 +104,7 @@ namespace RestaurantDatabaseImplement.Implements
             }
         }
 
-        public List<FridgeAvailableViewModel> GetFridgeAvailable(ReserveFoodsBindingModel model)
+        public List<FridgeAvailableViewModel> GetFridgeAvailable(RequestFoodBindingModel model)
         {
             using (var context = new RestaurantDatabase())
             {
@@ -122,7 +122,7 @@ namespace RestaurantDatabaseImplement.Implements
             }
         }
 
-        public void AddFood(ReserveFoodsBindingModel model)
+        public void AddFood(RequestFoodBindingModel model)
         {
             using (var context = new RestaurantDatabase())
             {
@@ -156,7 +156,7 @@ namespace RestaurantDatabaseImplement.Implements
             }
         }
 
-        public void ReserveFoods(ReserveFoodsBindingModel model)
+        public void ReserveFoods(RequestFoodBindingModel model)
         {
             using (var context = new RestaurantDatabase())
             {

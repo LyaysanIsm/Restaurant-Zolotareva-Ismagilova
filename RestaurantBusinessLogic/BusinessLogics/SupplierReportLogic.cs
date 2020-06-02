@@ -1,9 +1,11 @@
-﻿using RestaurantBusinessLogic.BusinessLogic;
+﻿using RestaurantBusinessLogic.BindingModels;
+using RestaurantBusinessLogic.BusinessLogic;
 using RestaurantBusinessLogic.HelperModels;
 using RestaurantBusinessLogic.Interfaces;
 using RestaurantBusinessLogic.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
@@ -21,50 +23,45 @@ namespace RestaurantBusinessLogic.BusinessLogics
             this.foodLogic = foodLogic;
             this.requestLogic = requestLogic;
             this.fridgeLogic = fridgeLogic;
-
         }
-        public List<ReportFridgeFoodViewModel> GetFoods()
+
+        public List<FoodViewModel> GetReserveFoods(RequestViewModel request)
         {
-            var fridges = fridgeLogic.Read(null);
-            var list = new List<ReportFridgeFoodViewModel>();
-            foreach (var fridge in fridges)
+            var foods = new List<FoodViewModel>();
+            foreach (var food in request.Foods)
             {
-                foreach (var ff in fridge.Foods)
+                foods.Add(foodLogic.Read(new FoodBindingModel
                 {
-                    var record = new ReportFridgeFoodViewModel
-                    {
-                        FridgeName = fridge.FridgeName,
-                        FoodName = ff.Value.Item1,
-                        Count = ff.Value.Item2
-                    };
-                    list.Add(record);
-                }
+                    Id = food.Key
+                }).FirstOrDefault());
             }
-            return list;
+            return foods;
         }
 
         public void SaveNeedFoodToWordFile(string fileName, RequestViewModel request, string email)
         {
-            string title = "Список требуемых продуктов";
-            SaveToWord.CreateDoc(new WordInfo
+            string title = "Список требуемых продуктов по заявке" + "" + request.Id;
+            SupplierSaveToWord.CreateDoc(new WordInfo
             {
                 FileName = fileName,
                 Title = title,
-                //Foods = GetFoods()
+                Foods = GetReserveFoods(request)
             });
             SendMail(email, fileName, title);
         }
-        public void SaveTravelToursToExcelFile(string fileName, RequestViewModel request, string email)
+
+        public void SaveNeedFoodToExcelFile(string fileName, RequestViewModel request, string email)
         {
-            string title = "Список требуемых продуктов";
-            SaveToExcel.CreateDoc(new ExcelInfo
+            string title = "Список требуемых продуктов по заявке" + "" + request.Id;
+            SupplierSaveToExcel.CreateDoc(new ExcelInfo
             {
                 FileName = fileName,
                 Title = title,
-                //Foods = GetFoods()
+                Foods = GetReserveFoods(request)
             });
             SendMail(email, fileName, title);
         }
+
         public void SendMail(string email, string fileName, string subject)
         {
             MailAddress from = new MailAddress("lyaysanlabs@gmail.com", "Столовая Рога и Копыта");
@@ -73,7 +70,7 @@ namespace RestaurantBusinessLogic.BusinessLogics
             m.Subject = subject;
             m.Attachments.Add(new Attachment(fileName));
             SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
-            smtp.Credentials = new NetworkCredential("lyaysanlabs@gmail.com", "");
+            smtp.Credentials = new NetworkCredential("lyaysanlabs@gmail.com", "987-654lL");
             smtp.EnableSsl = true;
             smtp.Send(m);
         }

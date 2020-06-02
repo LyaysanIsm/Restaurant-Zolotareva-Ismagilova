@@ -213,7 +213,7 @@ namespace RestaurantWebSupplier.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AddFood([Bind("FridgeId, FoodId, Count")] ReserveFoodsBindingModel model)
+        public IActionResult AddFood([Bind("FridgeId, FoodId, Count")] RequestFoodBindingModel model)
         {
             if (Program.Supplier == null)
             {
@@ -246,7 +246,7 @@ namespace RestaurantWebSupplier.Controllers
             }
             try
             {
-                fridgeLogic.ReserveFoods(new ReserveFoodsBindingModel
+                fridgeLogic.ReserveFoods(new RequestFoodBindingModel
                 {
                     FridgeId = fridgeId,
                     FoodId = foodId,
@@ -258,7 +258,11 @@ namespace RestaurantWebSupplier.Controllers
                 TempData["ErrorFoodReserve"] = ex.Message;
                 return RedirectToAction("RequestView", "Request", new { id = requestId });
             }
-            return RedirectToAction("RequestView", "Request", new { id = requestId });
+            return RedirectToAction("Reserve", "Request", new
+            {
+                RequestId = requestId,
+                FoodId = foodId
+            });
         }
     }
 }

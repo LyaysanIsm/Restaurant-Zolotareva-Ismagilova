@@ -10,7 +10,7 @@ namespace RestaurantBusinessLogic.HelperModels
         public string FileName { get; set; }
         public string Title { get; set; }
         public List<DishViewModel> Dishes { get; set; }
-        public List<FridgeViewModel> Fridges { get; set; }
-        public List<RequestViewModel> Foods { get; set; }
+        public List<FridgeViewModel> Fridges { get; set; }        
+        public List<FoodViewModel> Foods { get; set; }
     }
 }
