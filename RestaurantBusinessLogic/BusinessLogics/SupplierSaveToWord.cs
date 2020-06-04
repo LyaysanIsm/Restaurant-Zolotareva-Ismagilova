@@ -27,15 +27,35 @@ namespace RestaurantBusinessLogic.BusinessLogics
                         JustificationValues = JustificationValues.Center
                     }
                 }));
+                docBody.AppendChild(CreateParagraph(new WordParagraph
+                {
+                    Texts = new List<string> { "Поставщик:" + " " + info.SupplierFIO },
+                    TextProperties = new WordParagraphProperties
+                    {
+                        Bold = false,
+                        Size = "20",
+                        JustificationValues = JustificationValues.Left
+                    }
+                }));
+                docBody.AppendChild(CreateParagraph(new WordParagraph
+                {
+                    Texts = new List<string> { "Дата выполнения:" + " " + info.DateComplete },
+                    TextProperties = new WordParagraphProperties
+                    {
+                        Bold = false,
+                        Size = "18",
+                        JustificationValues = JustificationValues.Left
+                    }
+                }));
                 Table table = new Table();
                 TableProperties tblProp = new TableProperties(
                     new TableBorders(
-                        new TopBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 8 },
-                        new BottomBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 8 },
-                        new LeftBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 8 },
-                        new RightBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 8 },
-                        new InsideHorizontalBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 8 },
-                        new InsideVerticalBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 8 }
+                        new TopBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 10 },
+                        new BottomBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 10 },
+                        new LeftBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 10 },
+                        new RightBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 10 },
+                        new InsideHorizontalBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 10 },
+                        new InsideVerticalBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 10 }
                     )
                 );
                 table.AppendChild<TableProperties>(tblProp);
@@ -48,15 +68,15 @@ namespace RestaurantBusinessLogic.BusinessLogics
                 headerRow.Append(headerCountryCell);
                 table.Append(headerRow);
                 int i = 1;
-                foreach (var food in info.Foods)
+                foreach (var food in info.RequestFoods)
                 {
                     TableRow foodRow = new TableRow();
-                    TableCell numberCell = new TableCell(new Paragraph(new Run(new Text(i.ToString()))));
-                    TableCell foodnameCell = new TableCell(new Paragraph(new Run(new Text(food.FoodName))));
-                    //TableCell countCell = new TableCell(new Paragraph(new Run(new Text(food.Count))));                    
+                    TableCell numberCell = new TableCell(new Paragraph(new Run(new Text(food.Key.ToString()))));
+                    TableCell foodnameCell = new TableCell(new Paragraph(new Run(new Text(food.Value.Item1))));
+                    TableCell countCell = new TableCell(new Paragraph(new Run(new Text(food.Value.Item2.ToString()))));
                     foodRow.Append(numberCell);
                     foodRow.Append(foodnameCell);
-                    //foodRow.Append(countCell);
+                    foodRow.Append(countCell);
                     table.Append(foodRow);
                     i++;
                 }

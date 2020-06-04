@@ -46,18 +46,48 @@ namespace RestaurantBusinessLogic.BusinessLogics
                     Text = info.Title,
                     StyleIndex = 2U
                 });
-                MergeCells(new ExcelMergeParameters
-                {
-                    Worksheet = worksheetPart.Worksheet,
-                    CellFromName = "A1",
-                    CellToName = "C1"
-                });
                 InsertCellInWorksheet(new ExcelCellParameters
                 {
                     Worksheet = worksheetPart.Worksheet,
                     ShareStringPart = shareStringPart,
                     ColumnName = "A",
                     RowIndex = 2,
+                    Text = info.SupplierFIO,
+                    StyleIndex = 0U
+                });
+                InsertCellInWorksheet(new ExcelCellParameters
+                {
+                    Worksheet = worksheetPart.Worksheet,
+                    ShareStringPart = shareStringPart,
+                    ColumnName = "A",
+                    RowIndex = 3,
+                    Text = info.DateComplete.ToString(),
+                    StyleIndex = 0U
+                });
+                MergeCells(new ExcelMergeParameters
+                {
+                    Worksheet = worksheetPart.Worksheet,
+                    CellFromName = "A1",
+                    CellToName = "C1"
+                });
+                MergeCells(new ExcelMergeParameters
+                {
+                    Worksheet = worksheetPart.Worksheet,
+                    CellFromName = "A2",
+                    CellToName = "C2"
+                });
+                MergeCells(new ExcelMergeParameters
+                {
+                    Worksheet = worksheetPart.Worksheet,
+                    CellFromName = "A3",
+                    CellToName = "C3"
+                });
+                InsertCellInWorksheet(new ExcelCellParameters
+                {
+                    Worksheet = worksheetPart.Worksheet,
+                    ShareStringPart = shareStringPart,
+                    ColumnName = "A",
+                    RowIndex = 4,
                     Text = "№ продукта",
                     StyleIndex = 0U
                 });
@@ -66,7 +96,7 @@ namespace RestaurantBusinessLogic.BusinessLogics
                     Worksheet = worksheetPart.Worksheet,
                     ShareStringPart = shareStringPart,
                     ColumnName = "B",
-                    RowIndex = 2,
+                    RowIndex = 4,
                     Text = "Название продукта",
                     StyleIndex = 0U
                 });
@@ -75,20 +105,20 @@ namespace RestaurantBusinessLogic.BusinessLogics
                     Worksheet = worksheetPart.Worksheet,
                     ShareStringPart = shareStringPart,
                     ColumnName = "C",
-                    RowIndex = 2,
+                    RowIndex = 4,
                     Text = "Количество",
                     StyleIndex = 0U
                 });
                 uint i = 1;
-                foreach (var food in info.Foods)
+                foreach (var food in info.RequestFoods)
                 {
                     InsertCellInWorksheet(new ExcelCellParameters
                     {
                         Worksheet = worksheetPart.Worksheet,
                         ShareStringPart = shareStringPart,
                         ColumnName = "A",
-                        RowIndex = i + 2,
-                        Text = i.ToString(),
+                        RowIndex = i + 4,
+                        Text = food.Key.ToString(),
                         StyleIndex = 0U
                     });
                     InsertCellInWorksheet(new ExcelCellParameters
@@ -96,8 +126,8 @@ namespace RestaurantBusinessLogic.BusinessLogics
                         Worksheet = worksheetPart.Worksheet,
                         ShareStringPart = shareStringPart,
                         ColumnName = "B",
-                        RowIndex = i + 2,
-                        Text = food.FoodName,
+                        RowIndex = i + 4,
+                        Text = food.Value.Item1,
                         StyleIndex = 0U
                     });
                     InsertCellInWorksheet(new ExcelCellParameters
@@ -105,8 +135,8 @@ namespace RestaurantBusinessLogic.BusinessLogics
                         Worksheet = worksheetPart.Worksheet,
                         ShareStringPart = shareStringPart,
                         ColumnName = "C",
-                        RowIndex = i + 2,
-                        //Text = food.Count,
+                        RowIndex = i + 4,
+                        Text = food.Value.Item2.ToString(),
                         StyleIndex = 0U
                     });
                     i++;
@@ -356,6 +386,5 @@ namespace RestaurantBusinessLogic.BusinessLogics
             };
             mergeCells.Append(mergeCell);
         }
-
     }
 }

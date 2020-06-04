@@ -14,52 +14,41 @@ namespace RestaurantBusinessLogic.BusinessLogics
 {
     public class SupplierReportLogic
     {
-        private readonly IFoodLogic foodLogic;
         private readonly IRequestLogic requestLogic;
-        private readonly IFridgeLogic fridgeLogic;
-
-        public SupplierReportLogic(IFoodLogic foodLogic, IRequestLogic requestLogic, IFridgeLogic fridgeLogic)
+        public SupplierReportLogic(IRequestLogic requestLogic)
         {
-            this.foodLogic = foodLogic;
             this.requestLogic = requestLogic;
-            this.fridgeLogic = fridgeLogic;
         }
 
-        public List<FoodViewModel> GetReserveFoods(RequestViewModel request)
+        public Dictionary<int, (string, int, bool)> GetRequestFoods(int requestId)
         {
-            var foods = new List<FoodViewModel>();
-            foreach (var food in request.Foods)
+            var requestFoods = requestLogic.Read(new RequestBindingModel
             {
-                foods.Add(foodLogic.Read(new FoodBindingModel
-                {
-                    Id = food.Key
-                }).FirstOrDefault());
-            }
-            return foods;
+                Id = requestId
+            })?[0].Foods;
+            return requestFoods;
         }
 
-        public void SaveNeedFoodToWordFile(string fileName, RequestViewModel request, string email)
+        public void SaveNeedFoodToWordFile(WordInfo wordInfo, string email)
         {
-            string title = "Список требуемых продуктов по заявке" + "" + request.Id;
-            SupplierSaveToWord.CreateDoc(new WordInfo
-            {
-                FileName = fileName,
-                Title = title,
-                Foods = GetReserveFoods(request)
-            });
-            SendMail(email, fileName, title);
+            string title = "Список требуемых продуктов по заявке №" + wordInfo.RequestId;
+            wordInfo.Title = title;
+            wordInfo.FileName = wordInfo.FileName;
+            wordInfo.DateComplete = DateTime.Now;
+            wordInfo.RequestFoods = GetRequestFoods(wordInfo.RequestId);
+            SupplierSaveToWord.CreateDoc(wordInfo);
+            SendMail(email, wordInfo.FileName, title);
         }
 
-        public void SaveNeedFoodToExcelFile(string fileName, RequestViewModel request, string email)
+        public void SaveNeedFoodToExcelFile(ExcelInfo excelInfo, string email)
         {
-            string title = "Список требуемых продуктов по заявке" + "" + request.Id;
-            SupplierSaveToExcel.CreateDoc(new ExcelInfo
-            {
-                FileName = fileName,
-                Title = title,
-                Foods = GetReserveFoods(request)
-            });
-            SendMail(email, fileName, title);
+            string title = "Список требуемых продуктов по заявке №" + excelInfo.RequestId;
+            excelInfo.Title = title;
+            excelInfo.FileName = excelInfo.FileName;
+            excelInfo.DateComplete = DateTime.Now;
+            excelInfo.RequestFoods = GetRequestFoods(excelInfo.RequestId);
+            SupplierSaveToExcel.CreateDoc(excelInfo);
+            SendMail(email, excelInfo.FileName, title);
         }
 
         public void SendMail(string email, string fileName, string subject)

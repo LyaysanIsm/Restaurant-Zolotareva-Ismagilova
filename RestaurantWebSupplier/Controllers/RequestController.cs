@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RestaurantBusinessLogic.BindingModels;
 using RestaurantBusinessLogic.BusinessLogics;
+using RestaurantBusinessLogic.HelperModels;
 using RestaurantBusinessLogic.Interfaces;
 using RestaurantWebSupplier.Models;
 using System;
@@ -116,17 +117,25 @@ namespace RestaurantWebSupplier.Controllers
 
         public IActionResult SendWordReport(int id)
         {
-            var request = requestLogic.Read(new RequestBindingModel { Id = id }).FirstOrDefault();
-            string fileName = "D:\\data\\" + request.Id + ".docx";
-            reportLogic.SaveNeedFoodToWordFile(fileName, request, Program.Supplier.Login);
-            return RedirectToAction("RequestView");
+            string fileName = "D:\\data\\" + id + ".docx";
+            reportLogic.SaveNeedFoodToWordFile(new WordInfo
+            {
+                FileName = fileName,
+                RequestId = id,
+                SupplierFIO = Program.Supplier.SupplierFIO
+            }, Program.Supplier.Login);
+            return RedirectToAction("Request");
         }
         public IActionResult SendExcelReport(int id)
         {
-            var request = requestLogic.Read(new RequestBindingModel { Id = id }).FirstOrDefault();
-            string fileName = "D:\\data\\" + request.Id + ".xlsx";
-            reportLogic.SaveNeedFoodToExcelFile(fileName, request, Program.Supplier.Login);
-            return RedirectToAction("RequestView");
+            string fileName = "D:\\data\\" + id + ".xlsx";
+            reportLogic.SaveNeedFoodToExcelFile(new ExcelInfo
+            {
+                FileName = fileName,
+                RequestId = id,
+                SupplierFIO = Program.Supplier.SupplierFIO
+            }, Program.Supplier.Login);
+            return RedirectToAction("Request");
         }
     }
 }
