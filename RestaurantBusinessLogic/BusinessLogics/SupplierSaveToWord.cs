@@ -61,7 +61,7 @@ namespace RestaurantBusinessLogic.BusinessLogics
                 table.AppendChild<TableProperties>(tblProp);
                 TableRow headerRow = new TableRow();
                 TableCell headerNumberCell = new TableCell(new Paragraph(new Run(new Text("№ продукта"))));
-                TableCell headerNameCell = new TableCell(new Paragraph(new Run(new Text("Название продукта"))));
+                TableCell headerNameCell = new TableCell(new Paragraph(new Run(new Text("Продукт"))));
                 TableCell headerCountryCell = new TableCell(new Paragraph(new Run(new Text("Количество"))));
                 headerRow.Append(headerNumberCell);
                 headerRow.Append(headerNameCell);

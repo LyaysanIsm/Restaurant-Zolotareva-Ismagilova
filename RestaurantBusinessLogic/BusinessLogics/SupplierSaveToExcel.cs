@@ -52,7 +52,7 @@ namespace RestaurantBusinessLogic.BusinessLogics
                     ShareStringPart = shareStringPart,
                     ColumnName = "A",
                     RowIndex = 2,
-                    Text = info.SupplierFIO,
+                    Text = "Поставщик:" + " " + info.SupplierFIO,
                     StyleIndex = 0U
                 });
                 InsertCellInWorksheet(new ExcelCellParameters
@@ -61,7 +61,7 @@ namespace RestaurantBusinessLogic.BusinessLogics
                     ShareStringPart = shareStringPart,
                     ColumnName = "A",
                     RowIndex = 3,
-                    Text = info.DateComplete.ToString(),
+                    Text = "Дата выполнения:" + " " + info.DateComplete.ToString(),
                     StyleIndex = 0U
                 });
                 MergeCells(new ExcelMergeParameters
@@ -97,7 +97,7 @@ namespace RestaurantBusinessLogic.BusinessLogics
                     ShareStringPart = shareStringPart,
                     ColumnName = "B",
                     RowIndex = 4,
-                    Text = "Название продукта",
+                    Text = "Продукт",
                     StyleIndex = 0U
                 });
                 InsertCellInWorksheet(new ExcelCellParameters
