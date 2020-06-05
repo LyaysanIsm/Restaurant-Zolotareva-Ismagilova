@@ -5,29 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20200519163254_InitialCreate.cs" />
-    <Compile Remove="Migrations\20200519163254_InitialCreate.Designer.cs" />
-    <Compile Remove="Migrations\20200521123310_InitialCreate.cs" />
-    <Compile Remove="Migrations\20200521123310_InitialCreate.Designer.cs" />
-    <Compile Remove="Migrations\20200521125646_InitialCreate.cs" />
-    <Compile Remove="Migrations\20200521125646_InitialCreate.Designer.cs" />
-    <Compile Remove="Migrations\20200530054605_InitialCreate.cs" />
-    <Compile Remove="Migrations\20200530054605_InitialCreate.Designer.cs" />
-    <Compile Remove="Migrations\20200530060326_InitialCreate.cs" />
-    <Compile Remove="Migrations\20200530060326_InitialCreate.Designer.cs" />
-    <Compile Remove="Migrations\20200530060711_InitialCreate.cs" />
-    <Compile Remove="Migrations\20200530060711_InitialCreate.Designer.cs" />
-    <Compile Remove="Migrations\20200530085140_InitialCreate.cs" />
-    <Compile Remove="Migrations\20200530085140_InitialCreate.Designer.cs" />
-    <Compile Remove="Migrations\20200530094202_InitialCreate.cs" />
-    <Compile Remove="Migrations\20200530094202_InitialCreate.Designer.cs" />
-    <Compile Remove="Migrations\20200530095611_InitialCreate.cs" />
-    <Compile Remove="Migrations\20200530095611_InitialCreate.Designer.cs" />
-    <Compile Remove="Migrations\20200530135413_InitialCreate.cs" />
-    <Compile Remove="Migrations\20200530135413_InitialCreate.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.4">

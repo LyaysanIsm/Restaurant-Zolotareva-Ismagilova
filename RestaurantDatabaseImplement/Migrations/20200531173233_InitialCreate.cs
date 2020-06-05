@@ -41,9 +41,9 @@ namespace RestaurantDatabaseImplement.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SupplierFIO = table.Column<string>(nullable: false),
-                    Login = table.Column<string>(nullable: false),
-                    Password = table.Column<string>(nullable: false)
+                    SupplierFIO = table.Column<string>(nullable: true),
+                    Login = table.Column<string>(nullable: true),
+                    Password = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
