@@ -264,6 +264,12 @@
     <Compile Include="FormReportDishXls.Designer.cs">
       <DependentUpon>FormReportDishXls.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormRequestFood.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRequestFood.Designer.cs">
+      <DependentUpon>FormRequestFood.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
@@ -297,11 +303,17 @@
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormReportDishXls.resx">
+      <DependentUpon>FormReportDishXls.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormRequest.resx">
       <DependentUpon>FormRequest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormReportMovingPdf.resx">
       <DependentUpon>FormReportMovingPdf.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRequestFood.resx">
+      <DependentUpon>FormRequestFood.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

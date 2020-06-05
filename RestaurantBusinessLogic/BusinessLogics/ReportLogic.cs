@@ -76,6 +76,24 @@ namespace RestaurantBusinessLogic.BusinessLogics
             return list;
         }
 
+        public List<ReportOrdersViewModel> GetOrder(ReportBindingModel model)
+        {
+            return orderLogic.Read(new OrderBindingModel
+            {
+                DateFrom = model.DateFrom,
+                DateTo = model.DateTo
+            })
+            .Select(x => new ReportOrdersViewModel
+            {
+                CreationDate = x.CreationDate,
+                DishName = x.DishName,
+                Count = x.Count,
+                Amount = x.Sum,
+                Status = x.Status
+            })
+            .ToList();
+        }
+
         public void SaveDishesToWordFile(ReportBindingModel model)
         {
             SaveToWord.CreateDoc(new WordInfo

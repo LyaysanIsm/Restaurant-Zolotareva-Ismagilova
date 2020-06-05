@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormDish));
             this.labelNameProduct = new System.Windows.Forms.Label();
             this.labelPrice = new System.Windows.Forms.Label();
             this.textBoxNameProduct = new System.Windows.Forms.TextBox();
@@ -57,7 +58,7 @@
             // labelPrice
             // 
             this.labelPrice.AutoSize = true;
-            this.labelPrice.Location = new System.Drawing.Point(57, 62);
+            this.labelPrice.Location = new System.Drawing.Point(25, 61);
             this.labelPrice.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelPrice.Name = "labelPrice";
             this.labelPrice.Size = new System.Drawing.Size(47, 17);
@@ -66,16 +67,16 @@
             // 
             // textBoxNameProduct
             // 
-            this.textBoxNameProduct.Location = new System.Drawing.Point(113, 22);
-            this.textBoxNameProduct.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxNameProduct.Location = new System.Drawing.Point(109, 23);
+            this.textBoxNameProduct.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxNameProduct.Name = "textBoxNameProduct";
             this.textBoxNameProduct.Size = new System.Drawing.Size(229, 22);
             this.textBoxNameProduct.TabIndex = 2;
             // 
             // textBoxPrice
             // 
-            this.textBoxPrice.Location = new System.Drawing.Point(113, 58);
-            this.textBoxPrice.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxPrice.Location = new System.Drawing.Point(80, 53);
+            this.textBoxPrice.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxPrice.Name = "textBoxPrice";
             this.textBoxPrice.Size = new System.Drawing.Size(111, 22);
             this.textBoxPrice.TabIndex = 3;
@@ -88,9 +89,9 @@
             this.groupBoxComponents.Controls.Add(this.buttonAddComponent);
             this.groupBoxComponents.Controls.Add(this.dataGridViewComponents);
             this.groupBoxComponents.Location = new System.Drawing.Point(16, 103);
-            this.groupBoxComponents.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBoxComponents.Margin = new System.Windows.Forms.Padding(4);
             this.groupBoxComponents.Name = "groupBoxComponents";
-            this.groupBoxComponents.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBoxComponents.Padding = new System.Windows.Forms.Padding(4);
             this.groupBoxComponents.Size = new System.Drawing.Size(621, 270);
             this.groupBoxComponents.TabIndex = 4;
             this.groupBoxComponents.TabStop = false;
@@ -98,84 +99,92 @@
             // 
             // buttonDelete
             // 
+            this.buttonDelete.BackColor = System.Drawing.Color.AliceBlue;
             this.buttonDelete.Location = new System.Drawing.Point(517, 97);
-            this.buttonDelete.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonDelete.Margin = new System.Windows.Forms.Padding(4);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(96, 30);
             this.buttonDelete.TabIndex = 4;
             this.buttonDelete.Text = "Удалить";
-            this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.UseVisualStyleBackColor = false;
             this.buttonDelete.Click += new System.EventHandler(this.ButtonDel_Click);
             // 
             // buttonRefresh
             // 
+            this.buttonRefresh.BackColor = System.Drawing.Color.AliceBlue;
             this.buttonRefresh.Location = new System.Drawing.Point(517, 134);
-            this.buttonRefresh.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonRefresh.Margin = new System.Windows.Forms.Padding(4);
             this.buttonRefresh.Name = "buttonRefresh";
             this.buttonRefresh.Size = new System.Drawing.Size(96, 30);
             this.buttonRefresh.TabIndex = 3;
             this.buttonRefresh.Text = "Обновить";
-            this.buttonRefresh.UseVisualStyleBackColor = true;
+            this.buttonRefresh.UseVisualStyleBackColor = false;
             this.buttonRefresh.Click += new System.EventHandler(this.ButtonRef_Click);
             // 
             // buttonUpdate
             // 
+            this.buttonUpdate.BackColor = System.Drawing.Color.AliceBlue;
             this.buttonUpdate.Location = new System.Drawing.Point(517, 60);
-            this.buttonUpdate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonUpdate.Margin = new System.Windows.Forms.Padding(4);
             this.buttonUpdate.Name = "buttonUpdate";
             this.buttonUpdate.Size = new System.Drawing.Size(96, 30);
             this.buttonUpdate.TabIndex = 2;
             this.buttonUpdate.Text = "Изменить";
-            this.buttonUpdate.UseVisualStyleBackColor = true;
+            this.buttonUpdate.UseVisualStyleBackColor = false;
             this.buttonUpdate.Click += new System.EventHandler(this.ButtonUpd_Click);
             // 
             // buttonAddComponent
             // 
+            this.buttonAddComponent.BackColor = System.Drawing.Color.AliceBlue;
             this.buttonAddComponent.Location = new System.Drawing.Point(517, 23);
-            this.buttonAddComponent.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonAddComponent.Margin = new System.Windows.Forms.Padding(4);
             this.buttonAddComponent.Name = "buttonAddComponent";
             this.buttonAddComponent.Size = new System.Drawing.Size(96, 30);
             this.buttonAddComponent.TabIndex = 1;
             this.buttonAddComponent.Text = "Добавить";
-            this.buttonAddComponent.UseVisualStyleBackColor = true;
+            this.buttonAddComponent.UseVisualStyleBackColor = false;
             this.buttonAddComponent.Click += new System.EventHandler(this.ButtonAdd_Click);
             // 
             // dataGridViewComponents
             // 
+            this.dataGridViewComponents.BackgroundColor = System.Drawing.Color.AliceBlue;
             this.dataGridViewComponents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewComponents.Location = new System.Drawing.Point(11, 27);
-            this.dataGridViewComponents.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridViewComponents.Location = new System.Drawing.Point(8, 23);
+            this.dataGridViewComponents.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridViewComponents.Name = "dataGridViewComponents";
             this.dataGridViewComponents.RowHeadersWidth = 51;
-            this.dataGridViewComponents.Size = new System.Drawing.Size(499, 241);
+            this.dataGridViewComponents.Size = new System.Drawing.Size(501, 235);
             this.dataGridViewComponents.TabIndex = 0;
             // 
             // buttonSave
             // 
+            this.buttonSave.BackColor = System.Drawing.Color.AliceBlue;
             this.buttonSave.Location = new System.Drawing.Point(413, 379);
-            this.buttonSave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonSave.Margin = new System.Windows.Forms.Padding(4);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(96, 30);
             this.buttonSave.TabIndex = 5;
             this.buttonSave.Text = "Сохранить";
-            this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.UseVisualStyleBackColor = false;
             this.buttonSave.Click += new System.EventHandler(this.ButtonSave_Click);
             // 
             // buttonCancel
             // 
+            this.buttonCancel.BackColor = System.Drawing.Color.AliceBlue;
             this.buttonCancel.Location = new System.Drawing.Point(533, 379);
-            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(96, 30);
             this.buttonCancel.TabIndex = 6;
             this.buttonCancel.Text = "Отмена";
-            this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.UseVisualStyleBackColor = false;
             this.buttonCancel.MouseCaptureChanged += new System.EventHandler(this.ButtonCancel_Click);
             // 
             // FormDish
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.AliceBlue;
             this.ClientSize = new System.Drawing.Size(653, 412);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonSave);
@@ -184,8 +193,10 @@
             this.Controls.Add(this.textBoxNameProduct);
             this.Controls.Add(this.labelPrice);
             this.Controls.Add(this.labelNameProduct);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormDish";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Блюдо";
             this.Load += new System.EventHandler(this.FormProduct_Load);
             this.groupBoxComponents.ResumeLayout(false);

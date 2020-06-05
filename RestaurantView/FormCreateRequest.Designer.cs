@@ -30,7 +30,8 @@ namespace RestaurantView
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormCreateRequest));
             this.buttonRefresh = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonUpdate = new System.Windows.Forms.Button();
@@ -48,46 +49,50 @@ namespace RestaurantView
             // 
             // buttonRefresh
             // 
+            this.buttonRefresh.BackColor = System.Drawing.Color.AliceBlue;
             this.buttonRefresh.Location = new System.Drawing.Point(604, 193);
             this.buttonRefresh.Margin = new System.Windows.Forms.Padding(4);
             this.buttonRefresh.Name = "buttonRefresh";
             this.buttonRefresh.Size = new System.Drawing.Size(103, 34);
             this.buttonRefresh.TabIndex = 14;
             this.buttonRefresh.Text = "Обновить";
-            this.buttonRefresh.UseVisualStyleBackColor = true;
+            this.buttonRefresh.UseVisualStyleBackColor = false;
             this.buttonRefresh.Click += new System.EventHandler(this.UpdateFoodButton_Click);
             // 
             // buttonDelete
             // 
+            this.buttonDelete.BackColor = System.Drawing.Color.AliceBlue;
             this.buttonDelete.Location = new System.Drawing.Point(604, 151);
             this.buttonDelete.Margin = new System.Windows.Forms.Padding(4);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(103, 34);
             this.buttonDelete.TabIndex = 13;
             this.buttonDelete.Text = "Удалить";
-            this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.UseVisualStyleBackColor = false;
             this.buttonDelete.Click += new System.EventHandler(this.DeleteFoodButton_Click);
             // 
             // buttonUpdate
             // 
+            this.buttonUpdate.BackColor = System.Drawing.Color.AliceBlue;
             this.buttonUpdate.Location = new System.Drawing.Point(604, 109);
             this.buttonUpdate.Margin = new System.Windows.Forms.Padding(4);
             this.buttonUpdate.Name = "buttonUpdate";
             this.buttonUpdate.Size = new System.Drawing.Size(103, 34);
             this.buttonUpdate.TabIndex = 12;
             this.buttonUpdate.Text = "Изменить";
-            this.buttonUpdate.UseVisualStyleBackColor = true;
+            this.buttonUpdate.UseVisualStyleBackColor = false;
             this.buttonUpdate.Click += new System.EventHandler(this.RefreshFoodsButton_Click);
             // 
             // buttonAdd
             // 
+            this.buttonAdd.BackColor = System.Drawing.Color.AliceBlue;
             this.buttonAdd.Location = new System.Drawing.Point(604, 68);
             this.buttonAdd.Margin = new System.Windows.Forms.Padding(4);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(103, 33);
             this.buttonAdd.TabIndex = 11;
             this.buttonAdd.Text = "Добавить";
-            this.buttonAdd.UseVisualStyleBackColor = true;
+            this.buttonAdd.UseVisualStyleBackColor = false;
             this.buttonAdd.Click += new System.EventHandler(this.AddFoodButton_Click);
             // 
             // foodsGridView
@@ -96,26 +101,27 @@ namespace RestaurantView
             this.foodsGridView.AllowUserToDeleteRows = false;
             this.foodsGridView.AllowUserToResizeRows = false;
             this.foodsGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.foodsGridView.BackgroundColor = System.Drawing.Color.White;
+            this.foodsGridView.BackgroundColor = System.Drawing.Color.AliceBlue;
             this.foodsGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.foodsGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.foodId,
             this.foodNameColumn,
             this.foodCountColumn});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 10.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.DarkGray;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.foodsGridView.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 10.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.DarkGray;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.foodsGridView.DefaultCellStyle = dataGridViewCellStyle1;
+            this.foodsGridView.GridColor = System.Drawing.SystemColors.Control;
             this.foodsGridView.Location = new System.Drawing.Point(15, 68);
             this.foodsGridView.MultiSelect = false;
             this.foodsGridView.Name = "foodsGridView";
             this.foodsGridView.ReadOnly = true;
             this.foodsGridView.RowHeadersWidth = 51;
-            this.foodsGridView.Size = new System.Drawing.Size(585, 282);
+            this.foodsGridView.Size = new System.Drawing.Size(582, 239);
             this.foodsGridView.TabIndex = 10;
             // 
             // foodId
@@ -165,30 +171,33 @@ namespace RestaurantView
             // 
             // buttonCancel
             // 
+            this.buttonCancel.BackColor = System.Drawing.Color.AliceBlue;
             this.buttonCancel.Location = new System.Drawing.Point(604, 315);
             this.buttonCancel.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(103, 35);
             this.buttonCancel.TabIndex = 18;
             this.buttonCancel.Text = "Отмена";
-            this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.UseVisualStyleBackColor = false;
             this.buttonCancel.Click += new System.EventHandler(this.СancelButton_Click);
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(604, 270);
+            this.buttonSave.BackColor = System.Drawing.Color.AliceBlue;
+            this.buttonSave.Location = new System.Drawing.Point(493, 315);
             this.buttonSave.Margin = new System.Windows.Forms.Padding(4);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(103, 37);
             this.buttonSave.TabIndex = 17;
             this.buttonSave.Text = "Сохранить";
-            this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.UseVisualStyleBackColor = false;
             this.buttonSave.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // FormCreateRequest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.AliceBlue;
             this.ClientSize = new System.Drawing.Size(720, 363);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonSave);
@@ -199,6 +208,7 @@ namespace RestaurantView
             this.Controls.Add(this.buttonUpdate);
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.foodsGridView);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormCreateRequest";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

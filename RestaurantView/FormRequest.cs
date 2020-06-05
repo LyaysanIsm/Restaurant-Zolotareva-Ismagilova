@@ -31,6 +31,7 @@ namespace RestaurantView
                 dataGridViewComponents.DataSource = listRequest;
                 dataGridViewComponents.Columns[0].Visible = false;
                 dataGridViewComponents.Columns[1].Visible = false;
+                dataGridViewComponents.Columns[4].Visible = false;
                 dataGridViewComponents.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             }
             dataGridViewComponents.Update();
@@ -45,6 +46,19 @@ namespace RestaurantView
         private void buttonUpdate_Click(object sender, EventArgs e)
         {
             LoadData();
+        }
+
+        private void buttonContent_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewComponents.SelectedRows.Count == 1)
+            {
+                var form = Container.Resolve<FormRequestFood>();
+                form.Id = Convert.ToInt32(dataGridViewComponents.SelectedRows[0].Cells[0].Value);
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    LoadData();
+                }
+            }
         }
     }
 }

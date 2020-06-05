@@ -28,23 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormRequest));
             this.buttonOk = new System.Windows.Forms.Button();
             this.groupBoxComponents = new System.Windows.Forms.GroupBox();
             this.dataGridViewComponents = new System.Windows.Forms.DataGridView();
             this.buttonUpdate = new System.Windows.Forms.Button();
+            this.buttonContent = new System.Windows.Forms.Button();
             this.groupBoxComponents.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewComponents)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOk
             // 
-            this.buttonOk.Location = new System.Drawing.Point(435, 300);
+            this.buttonOk.BackColor = System.Drawing.Color.AliceBlue;
+            this.buttonOk.Location = new System.Drawing.Point(435, 291);
             this.buttonOk.Margin = new System.Windows.Forms.Padding(4);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(96, 30);
             this.buttonOk.TabIndex = 13;
             this.buttonOk.Text = "Ок";
-            this.buttonOk.UseVisualStyleBackColor = true;
+            this.buttonOk.UseVisualStyleBackColor = false;
             this.buttonOk.Click += new System.EventHandler(this.ButtonOk_Click);
             // 
             // groupBoxComponents
@@ -61,6 +64,7 @@
             // 
             // dataGridViewComponents
             // 
+            this.dataGridViewComponents.BackgroundColor = System.Drawing.Color.AliceBlue;
             this.dataGridViewComponents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewComponents.Location = new System.Drawing.Point(10, 21);
             this.dataGridViewComponents.Margin = new System.Windows.Forms.Padding(4);
@@ -71,25 +75,42 @@
             // 
             // buttonUpdate
             // 
-            this.buttonUpdate.Location = new System.Drawing.Point(319, 300);
+            this.buttonUpdate.BackColor = System.Drawing.Color.AliceBlue;
+            this.buttonUpdate.Location = new System.Drawing.Point(319, 291);
             this.buttonUpdate.Margin = new System.Windows.Forms.Padding(4);
             this.buttonUpdate.Name = "buttonUpdate";
             this.buttonUpdate.Size = new System.Drawing.Size(96, 30);
             this.buttonUpdate.TabIndex = 14;
             this.buttonUpdate.Text = "Обновить";
-            this.buttonUpdate.UseVisualStyleBackColor = true;
+            this.buttonUpdate.UseVisualStyleBackColor = false;
             this.buttonUpdate.Click += new System.EventHandler(this.buttonUpdate_Click);
+            // 
+            // buttonContent
+            // 
+            this.buttonContent.BackColor = System.Drawing.Color.AliceBlue;
+            this.buttonContent.Location = new System.Drawing.Point(22, 291);
+            this.buttonContent.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonContent.Name = "buttonContent";
+            this.buttonContent.Size = new System.Drawing.Size(148, 30);
+            this.buttonContent.TabIndex = 15;
+            this.buttonContent.Text = "Содержимое заказа";
+            this.buttonContent.UseVisualStyleBackColor = false;
+            this.buttonContent.Click += new System.EventHandler(this.buttonContent_Click);
             // 
             // FormRequest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(555, 353);
+            this.BackColor = System.Drawing.Color.AliceBlue;
+            this.ClientSize = new System.Drawing.Size(555, 335);
+            this.Controls.Add(this.buttonContent);
             this.Controls.Add(this.buttonUpdate);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.groupBoxComponents);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormRequest";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Заказы продуктов";
             this.Load += new System.EventHandler(this.FormDisplayStorageMaterials_Load);
             this.groupBoxComponents.ResumeLayout(false);
@@ -104,5 +125,6 @@
         private System.Windows.Forms.GroupBox groupBoxComponents;
         private System.Windows.Forms.DataGridView dataGridViewComponents;
         private System.Windows.Forms.Button buttonUpdate;
+        private System.Windows.Forms.Button buttonContent;
     }
 }

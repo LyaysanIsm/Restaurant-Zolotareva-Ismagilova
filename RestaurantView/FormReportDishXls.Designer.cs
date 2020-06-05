@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormReportDishXls));
             this.dataGridViewFoodToDish = new System.Windows.Forms.DataGridView();
             this.buttonSaveToExcel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFoodToDish)).BeginInit();
@@ -35,31 +36,40 @@
             // 
             // dataGridViewFoodToDish
             // 
+            this.dataGridViewFoodToDish.BackgroundColor = System.Drawing.Color.AliceBlue;
             this.dataGridViewFoodToDish.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewFoodToDish.Location = new System.Drawing.Point(0, 32);
+            this.dataGridViewFoodToDish.Location = new System.Drawing.Point(13, 49);
+            this.dataGridViewFoodToDish.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridViewFoodToDish.Name = "dataGridViewFoodToDish";
-            this.dataGridViewFoodToDish.Size = new System.Drawing.Size(536, 418);
+            this.dataGridViewFoodToDish.RowHeadersWidth = 51;
+            this.dataGridViewFoodToDish.Size = new System.Drawing.Size(687, 252);
             this.dataGridViewFoodToDish.TabIndex = 0;
             // 
             // buttonSaveToExcel
             // 
-            this.buttonSaveToExcel.Location = new System.Drawing.Point(12, 3);
+            this.buttonSaveToExcel.BackColor = System.Drawing.Color.AliceBlue;
+            this.buttonSaveToExcel.Location = new System.Drawing.Point(517, 13);
+            this.buttonSaveToExcel.Margin = new System.Windows.Forms.Padding(4);
             this.buttonSaveToExcel.Name = "buttonSaveToExcel";
-            this.buttonSaveToExcel.Size = new System.Drawing.Size(137, 23);
+            this.buttonSaveToExcel.Size = new System.Drawing.Size(183, 28);
             this.buttonSaveToExcel.TabIndex = 1;
             this.buttonSaveToExcel.Text = "Сохранить в Excel";
-            this.buttonSaveToExcel.UseVisualStyleBackColor = true;
+            this.buttonSaveToExcel.UseVisualStyleBackColor = false;
             this.buttonSaveToExcel.Click += new System.EventHandler(this.ButtonSaveToExcel_Click);
             // 
-            // FormReportFoodsToDishes
+            // FormReportDishXls
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(535, 450);
+            this.BackColor = System.Drawing.Color.AliceBlue;
+            this.ClientSize = new System.Drawing.Size(713, 314);
             this.Controls.Add(this.buttonSaveToExcel);
             this.Controls.Add(this.dataGridViewFoodToDish);
-            this.Name = "FormReportFoodsToDishes";
-            this.Text = "Заказы платьев";
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Name = "FormReportDishXls";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Состав блюда";
             this.Load += new System.EventHandler(this.FormReportFoodsToDishes_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFoodToDish)).EndInit();
             this.ResumeLayout(false);
