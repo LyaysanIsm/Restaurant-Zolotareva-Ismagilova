@@ -15,6 +15,6 @@ namespace RestaurantBusinessLogic.ViewModels
         public string SupplierFIO { get; set; }
         [DisplayName("Статус")]
         public RequestStatus Status { get; set; }
-        public Dictionary<int, (string, int)> Foods { get; set; }
+        public Dictionary<int, (string, int, bool)> Foods { get; set; }
     }
 }

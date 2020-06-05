@@ -51,7 +51,7 @@ namespace RestaurantWebSupplier.Controllers
             }
             ViewBag.FoodName = food.FoodName;
             ViewBag.FridgeId = FridgeId;
-            return View(new ReserveFoodsBindingModel
+            return View(new RequestFoodBindingModel
             {
                 FoodId = FoodId.Value,
                 FridgeId = FridgeId.Value,

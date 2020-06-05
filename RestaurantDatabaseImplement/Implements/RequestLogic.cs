@@ -29,24 +29,17 @@ namespace RestaurantDatabaseImplement.Implements
                             {
                                 throw new Exception("Заявка не найдена");
                             }
-                            else if (model.Status == RequestStatus.Created)
+                            var requestFoods = context.RequestFoods
+                                .Where(rec => rec.RequestId == model.Id.Value).ToList();
+                            context.RequestFoods.RemoveRange(requestFoods.Where(rec =>
+                                !model.Foods.ContainsKey(rec.FoodId)).ToList());
+                            foreach (var updFood in requestFoods)
                             {
-                                var requestFoods = context.RequestFoods
-                                    .Where(rec => rec.RequestId == model.Id.Value).ToList();
-                                context.RequestFoods.RemoveRange(requestFoods.Where(rec =>
-                                    !model.Foods.ContainsKey(rec.FoodId)).ToList());
-                                foreach (var updFood in requestFoods)
-                                {
-                                    updFood.Count = model.Foods[updFood.FoodId].Item2;
-                                    model.Foods.Remove(updFood.FoodId);
-                                }
-                                context.SaveChanges();
+                                updFood.Count = model.Foods[updFood.FoodId].Item2;
+                                updFood.Inres = model.Foods[updFood.FoodId].Item3;
+                                model.Foods.Remove(updFood.FoodId);
                             }
-                            else
-                            {
-                                throw new Exception("Заявку невозможно изменить. " +
-                                    "Заявка в процессе или создана");
-                            }
+                            context.SaveChanges();
                         }
                         else
                         {
@@ -62,7 +55,8 @@ namespace RestaurantDatabaseImplement.Implements
                             {
                                 RequestId = request.Id,
                                 FoodId = Food.Key,
-                                Count = Food.Value.Item2
+                                Count = Food.Value.Item2,
+                                Inres = false
                             });
                             context.SaveChanges();
                         }
@@ -79,7 +73,7 @@ namespace RestaurantDatabaseImplement.Implements
 
         public void Delete(RequestBindingModel model)
         {
-            if (model.Status != RequestStatus.Processed)
+            if (model.Status != RequestStatus.Выполняется)
             {
                 using (var context = new RestaurantDatabase())
                 {
@@ -127,14 +121,29 @@ namespace RestaurantDatabaseImplement.Implements
                     {
                         Id = rec.Id,
                         SupplierFIO = rec.Supplier.SupplierFIO,
+                        SupplierId = rec.SupplierId,
                         Status = rec.Status,
                         Foods = context.RequestFoods
-                            .Include(recRC => recRC.Food)
-                            .Where(recRC => recRC.RequestId == rec.Id)
-                            .ToDictionary(recRC => recRC.FoodId, recPC =>
-                            (recPC.Food?.FoodName, recPC.Count))
+                            .Include(recRF => recRF.Food)
+                            .Where(recRF => recRF.RequestId == rec.Id)
+                            .ToDictionary(recRF => recRF.FoodId, recRF =>
+                            (recRF.Food?.FoodName, recRF.Count, recRF.Inres))
                     })
                     .ToList();
+            }
+        }
+        public void Reserve(ReserveFoodsBindingModel model)
+        {
+            using (var context = new RestaurantDatabase())
+            {
+                var requestFoods = context.RequestFoods.FirstOrDefault(rec =>
+                rec.RequestId == model.RequestId && rec.FoodId == model.FoodId);
+                if (requestFoods == null)
+                {
+                    throw new Exception("Продукта нет в заявке");
+                }
+                requestFoods.Inres = true;
+                context.SaveChanges();
             }
         }
     }

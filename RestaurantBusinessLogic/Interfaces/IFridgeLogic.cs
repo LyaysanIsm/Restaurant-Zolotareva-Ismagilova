@@ -11,8 +11,8 @@ namespace RestaurantBusinessLogic.Interfaces
         List<FridgeViewModel> Read(FridgeBindingModel model);
         void CreateOrUpdate(FridgeBindingModel model);
         void Delete(FridgeBindingModel model);
-        void AddFood(ReserveFoodsBindingModel model);
-        void ReserveFoods(ReserveFoodsBindingModel model);
-        List<FridgeAvailableViewModel> GetFridgeAvailable(ReserveFoodsBindingModel model);
+        void AddFood(RequestFoodBindingModel model);
+        void ReserveFoods(RequestFoodBindingModel model);
+        List<FridgeAvailableViewModel> GetFridgeAvailable(RequestFoodBindingModel model);
     }
 }

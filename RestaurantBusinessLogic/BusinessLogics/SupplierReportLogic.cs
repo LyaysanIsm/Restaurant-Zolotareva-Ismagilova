@@ -1,9 +1,11 @@
-﻿using RestaurantBusinessLogic.BusinessLogic;
+﻿using RestaurantBusinessLogic.BindingModels;
+using RestaurantBusinessLogic.BusinessLogic;
 using RestaurantBusinessLogic.HelperModels;
 using RestaurantBusinessLogic.Interfaces;
 using RestaurantBusinessLogic.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
@@ -12,59 +14,43 @@ namespace RestaurantBusinessLogic.BusinessLogics
 {
     public class SupplierReportLogic
     {
-        private readonly IFoodLogic foodLogic;
         private readonly IRequestLogic requestLogic;
-        private readonly IFridgeLogic fridgeLogic;
-
-        public SupplierReportLogic(IFoodLogic foodLogic, IRequestLogic requestLogic, IFridgeLogic fridgeLogic)
+        public SupplierReportLogic(IRequestLogic requestLogic)
         {
-            this.foodLogic = foodLogic;
             this.requestLogic = requestLogic;
-            this.fridgeLogic = fridgeLogic;
-
-        }
-        public List<ReportFridgeFoodViewModel> GetFoods()
-        {
-            var fridges = fridgeLogic.Read(null);
-            var list = new List<ReportFridgeFoodViewModel>();
-            foreach (var fridge in fridges)
-            {
-                foreach (var ff in fridge.Foods)
-                {
-                    var record = new ReportFridgeFoodViewModel
-                    {
-                        FridgeName = fridge.FridgeName,
-                        FoodName = ff.Value.Item1,
-                        Count = ff.Value.Item2
-                    };
-                    list.Add(record);
-                }
-            }
-            return list;
         }
 
-        public void SaveNeedFoodToWordFile(string fileName, RequestViewModel request, string email)
+        public Dictionary<int, (string, int, bool)> GetRequestFoods(int requestId)
         {
-            string title = "Список требуемых продуктов";
-            SaveToWord.CreateDoc(new WordInfo
+            var requestFoods = requestLogic.Read(new RequestBindingModel
             {
-                FileName = fileName,
-                Title = title,
-                //Foods = GetFoods()
-            });
-            SendMail(email, fileName, title);
+                Id = requestId
+            })?[0].Foods;
+            return requestFoods;
         }
-        public void SaveTravelToursToExcelFile(string fileName, RequestViewModel request, string email)
+
+        public void SaveNeedFoodToWordFile(WordInfo wordInfo, string email)
         {
-            string title = "Список требуемых продуктов";
-            SaveToExcel.CreateDoc(new ExcelInfo
-            {
-                FileName = fileName,
-                Title = title,
-                //Foods = GetFoods()
-            });
-            SendMail(email, fileName, title);
+            string title = "Список требуемых продуктов по заявке №" + wordInfo.RequestId;
+            wordInfo.Title = title;
+            wordInfo.FileName = wordInfo.FileName;
+            wordInfo.DateComplete = DateTime.Now;
+            wordInfo.RequestFoods = GetRequestFoods(wordInfo.RequestId);
+            SupplierSaveToWord.CreateDoc(wordInfo);
+            SendMail(email, wordInfo.FileName, title);
         }
+
+        public void SaveNeedFoodToExcelFile(ExcelInfo excelInfo, string email)
+        {
+            string title = "Список требуемых продуктов по заявке №" + excelInfo.RequestId;
+            excelInfo.Title = title;
+            excelInfo.FileName = excelInfo.FileName;
+            excelInfo.DateComplete = DateTime.Now;
+            excelInfo.RequestFoods = GetRequestFoods(excelInfo.RequestId);
+            SupplierSaveToExcel.CreateDoc(excelInfo);
+            SendMail(email, excelInfo.FileName, title);
+        }
+
         public void SendMail(string email, string fileName, string subject)
         {
             MailAddress from = new MailAddress("lyaysanlabs@gmail.com", "Столовая Рога и Копыта");
@@ -73,7 +59,7 @@ namespace RestaurantBusinessLogic.BusinessLogics
             m.Subject = subject;
             m.Attachments.Add(new Attachment(fileName));
             SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
-            smtp.Credentials = new NetworkCredential("lyaysanlabs@gmail.com", "");
+            smtp.Credentials = new NetworkCredential("lyaysanlabs@gmail.com", "987-654lL");
             smtp.EnableSsl = true;
             smtp.Send(m);
         }

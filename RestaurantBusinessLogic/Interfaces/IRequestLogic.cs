@@ -11,5 +11,6 @@ namespace RestaurantBusinessLogic.Interfaces
         List<RequestViewModel> Read(RequestBindingModel model);
         void CreateOrUpdate(RequestBindingModel model);
         void Delete(RequestBindingModel model);
+        void Reserve(ReserveFoodsBindingModel model);
     }
 }

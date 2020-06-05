@@ -32,6 +32,7 @@ namespace RestaurantWebSupplier
             services.AddTransient<IFoodLogic, FoodLogic>();
             services.AddTransient<IFridgeLogic, FridgeLogic>();
             services.AddTransient<SupplierBusinessLogic>();
+            services.AddTransient<SupplierReportLogic>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

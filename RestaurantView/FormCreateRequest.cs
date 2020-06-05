@@ -24,7 +24,7 @@ namespace RestaurantView
         private readonly MainLogic mainLogic;
         public int ID { set { Id = value; } }
         private int? Id;
-        private Dictionary<int, (string, int)> requestFoods;
+        private Dictionary<int, (string, int, bool)> requestFoods;
 
         public FormCreateRequest(MainLogic mainLogic,
             IRequestLogic requestLogic, ISupplierLogic supplierLogic)
@@ -65,7 +65,7 @@ namespace RestaurantView
             }
             else
             {
-                requestFoods = new Dictionary<int, (string, int)>();
+                requestFoods = new Dictionary<int, (string, int, bool)>();
             }
         }
 
@@ -126,11 +126,11 @@ namespace RestaurantView
             {
                 if (requestFoods.ContainsKey(form.Id))
                 {
-                    requestFoods[form.Id] = (form.FoodName, form.Count);
+                    requestFoods[form.Id] = (form.FoodName, form.Count, false);
                 }
                 else
                 {
-                    requestFoods.Add(form.Id, (form.FoodName, form.Count));
+                    requestFoods.Add(form.Id, (form.FoodName, form.Count, false));
                 }
                 LoadFoods();
             }
@@ -146,7 +146,7 @@ namespace RestaurantView
                 form.Count = requestFoods[Id].Item2;
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    requestFoods[form.Id] = (form.FoodName, form.Count);
+                    requestFoods[form.Id] = (form.FoodName, form.Count, false);
                     LoadFoods();
                 }
             }

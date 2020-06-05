@@ -104,7 +104,7 @@ namespace RestaurantBusinessLogic.BusinessLogics
             {
                 Id = model.Id,
                 SupplierId = model.SupplierId,
-                Status = RequestStatus.Created,
+                Status = RequestStatus.Создана,
                 Foods = model.Foods
             });
         }

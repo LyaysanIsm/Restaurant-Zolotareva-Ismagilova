@@ -23,17 +23,17 @@ namespace RestaurantBusinessLogic.BusinessLogics
             })?[0];
             if (request == null)
             {
-                throw new Exception("Request not found");
+                throw new Exception("Заявка не найдена");
             }
-            if (request.Status != RequestStatus.Created)
+            if (request.Status != RequestStatus.Создана)
             {
-                throw new Exception("Request is not in status \"Created\"");
+                throw new Exception("Заявка не в статусе \"Создана\"");
             }
             requestLogic.CreateOrUpdate(new RequestBindingModel
             {
                 Id = request.Id,
                 SupplierId = request.SupplierId,
-                Status = RequestStatus.Processed,
+                Status = RequestStatus.Выполняется,
                 Foods = request.Foods
             });
         }
@@ -46,19 +46,36 @@ namespace RestaurantBusinessLogic.BusinessLogics
             })?[0];
             if (request == null)
             {
-                throw new Exception("Request not found");
+                throw new Exception("Заявка не найдена");
             }
-            if (request.Status != RequestStatus.Processed)
+            if (request.Status != RequestStatus.Выполняется)
             {
-                throw new Exception("Request is not in status \"Processed\"");
+                throw new Exception("Заявка не в статусе \"Выполняется\"");
             }
             requestLogic.CreateOrUpdate(new RequestBindingModel
             {
                 Id = request.Id,
                 SupplierId = request.SupplierId,
-                Status = RequestStatus.Executed,
+                Status = RequestStatus.Готова,
                 Foods = request.Foods
             });
+        }
+
+        public void ReserveFoods(ReserveFoodsBindingModel model)
+        {
+            var request = requestLogic.Read(new RequestBindingModel
+            {
+                Id = model.RequestId
+            })?[0];
+            if (request == null)
+            {
+                throw new Exception("Заявка не найдена");
+            }
+            if (request.Status != RequestStatus.Выполняется)
+            {
+                throw new Exception("Заявка не в статусе \"Выполняется\"");
+            }
+            requestLogic.Reserve(model);
         }
     }
 }
