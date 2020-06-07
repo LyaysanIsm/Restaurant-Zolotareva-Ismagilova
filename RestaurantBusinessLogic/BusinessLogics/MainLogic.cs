@@ -18,12 +18,12 @@ namespace RestaurantBusinessLogic.BusinessLogics
             this.requestLogic = requestLogic;
         }
 
-        public void CreateOrder(OrderBindingModel model)
+        public void CreateOrder(OrderBindingModel order)
         {
             orderLogic.CreateOrUpdate(new OrderBindingModel
             {
-                DishId = model.DishId,
-                Count = model.Count,
+                DishId = order.DishId,
+                Count = order.Count,
                 CreationDate = DateTime.Now,
                 Status = Status.Принят
             });
@@ -32,6 +32,7 @@ namespace RestaurantBusinessLogic.BusinessLogics
         public void TakeOrderInWork(ChangeStatusBindingModel model)
         {
             var order = orderLogic.Read(new OrderBindingModel { Id = model.OrderId })?[0];
+            var request = requestLogic.Read(new RequestBindingModel { Id = model.OrderId })?[0];
             if (order == null)
             {
                 throw new Exception("Не найден заказ");
@@ -41,6 +42,17 @@ namespace RestaurantBusinessLogic.BusinessLogics
             {
                 throw new Exception("Заказ не в статусе \"Принят\"");
             }
+
+            if (request.Status != RequestStatus.Готова)
+            {
+                throw new Exception("Продукты ещё не доставлены");
+            }
+
+            requestLogic.CreateOrUpdate(new RequestBindingModel
+            {
+                Status = RequestStatus.Использовано
+            });
+
             orderLogic.CreateOrUpdate(new OrderBindingModel
             {
                 Id = order.Id,

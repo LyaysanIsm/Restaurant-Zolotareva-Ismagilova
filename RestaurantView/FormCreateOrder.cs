@@ -21,12 +21,18 @@ namespace RestaurantView
         public new IUnityContainer Container { get; set; }
         private readonly IDishLogic logicP;
         private readonly MainLogic logicM;
+        private readonly IRequestLogic requestLogic;
+        private Dictionary<int, (string, int, bool)> requestFoods;
+        public int ID { set { Id = value; } }
+        private int? Id;
 
-        public FormCreateOrder(IDishLogic logicP, MainLogic logicM)
+        public FormCreateOrder(IDishLogic logicP, MainLogic logicM,
+            IRequestLogic requestLogic)
         {
             InitializeComponent();
             this.logicP = logicP;
             this.logicM = logicM;
+            this.requestLogic = requestLogic;
         }
 
         private void FormCreateOrder_Load(object sender, EventArgs e)
@@ -41,6 +47,22 @@ namespace RestaurantView
                     comboBoxProduct.ValueMember = "Id";
                     comboBoxProduct.DataSource = listDishses;
                     comboBoxProduct.SelectedItem = null;
+                }
+
+                if (Id.HasValue)
+                {
+                    RequestViewModel request = requestLogic.Read(new RequestBindingModel
+                    {
+                        Id = Id.Value
+                    })?[0];
+                    if (request != null)
+                    {
+                        requestFoods = request.Foods;
+                    }
+                }
+                else
+                {
+                    requestFoods = new Dictionary<int, (string, int, bool)>();
                 }
             }
             catch (Exception ex)
@@ -63,6 +85,10 @@ namespace RestaurantView
                     })?[0];
                     int count = Convert.ToInt32(textBoxCount.Text);
                     textBoxSum.Text = (count * product?.Price ?? 0).ToString();
+                    foreach (var p in product.DishFoods)
+                    {
+                        requestFoods.Add(p.Key, (product.DishFoods[p.Key].Item1, product.DishFoods[p.Key].Item2, false));
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -104,6 +130,24 @@ namespace RestaurantView
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;
                 Close();
+               
+                try
+                {
+                    logicM.CreateOrUpdateRequest(new RequestBindingModel
+                    {
+                        Id = Id,
+                        SupplierId = 1,
+                        Foods = requestFoods
+                    });
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(
+                        ex.Message,
+                        "Ошибка",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
             }
             catch (Exception ex)
             {

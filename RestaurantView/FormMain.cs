@@ -11,6 +11,10 @@ using Unity;
 using RestaurantBusinessLogic.Interfaces;
 using RestaurantBusinessLogic.BindingModels;
 using RestaurantBusinessLogic.BusinessLogics;
+using System.IO;
+using System.Xml.Serialization;
+using System.Runtime.Serialization;
+using RestaurantBusinessLogic.ViewModels;
 
 namespace RestaurantView
 {
@@ -163,6 +167,16 @@ namespace RestaurantView
         {
             var form = Container.Resolve<FormRequest>();
             form.ShowDialog();
+        }
+
+        private void xMLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void jSONToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+           
         }
     }
 }

@@ -8,6 +8,7 @@ namespace RestaurantBusinessLogic.Enums
     {
         Создана = 0,
         Выполняется = 1,
-        Готова = 2
+        Готова = 2,
+        Использовано = 3
     }
 }
