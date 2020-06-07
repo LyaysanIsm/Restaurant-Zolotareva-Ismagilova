@@ -6,8 +6,11 @@ using RestaurantBusinessLogic.ViewModels;
 using RestaurantDatabaseImplement.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Json;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace RestaurantDatabaseImplement.Implements
 {
@@ -144,6 +147,32 @@ namespace RestaurantDatabaseImplement.Implements
                 }
                 requestFoods.Inres = true;
                 context.SaveChanges();
+            }
+        }
+
+        public void SaveJson(string folderName)
+        {
+            string fileName = $"{folderName}\\request.json";
+            using (var context = new RestaurantDatabase())
+            {
+                DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(List<Request>));
+                using (FileStream fs = new FileStream(fileName, FileMode.Create))
+                {
+                    jsonFormatter.WriteObject(fs, context.Requests);
+                }
+            }
+        }
+
+        public void SaveXml(string folderName)
+        {
+            string fileNameDop = $"{folderName}\\request.xml";
+            using (var context = new RestaurantDatabase())
+            {
+                XmlSerializer fomatterXml = new XmlSerializer(typeof(DbSet<Request>));
+                using (FileStream fs = new FileStream(fileNameDop, FileMode.Create))
+                {
+                    fomatterXml.Serialize(fs, context.Requests);
+                }
             }
         }
     }

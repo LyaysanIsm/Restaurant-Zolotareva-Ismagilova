@@ -47,7 +47,6 @@ namespace RestaurantView
                     foreach (var order in dishFoods)
                     {
                         dataGridViewFoodToDish.Rows.Add(order.Key, "", "");
-                        decimal totalPrice = 0;
                         foreach (var dish in order.Value)
                         {
                             dataGridViewFoodToDish.Rows.Add("", dish.FoodName);
@@ -68,7 +67,7 @@ namespace RestaurantView
                 {
                     try
                     {
-                        logic.SaveFridgeFoodsToExcelFile(new ReportBindingModel
+                        logic.SaveOrdersToExcelFile(new ReportBindingModel
                         {
                             FileName = dialog.FileName
                         });

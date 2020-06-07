@@ -37,6 +37,8 @@
             this.textBoxSum = new System.Windows.Forms.TextBox();
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
+            this.comboBoxSupplier = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // labelProduct
@@ -100,7 +102,7 @@
             // buttonSave
             // 
             this.buttonSave.BackColor = System.Drawing.Color.AliceBlue;
-            this.buttonSave.Location = new System.Drawing.Point(162, 114);
+            this.buttonSave.Location = new System.Drawing.Point(162, 161);
             this.buttonSave.Margin = new System.Windows.Forms.Padding(4);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(103, 32);
@@ -112,7 +114,7 @@
             // buttonCancel
             // 
             this.buttonCancel.BackColor = System.Drawing.Color.AliceBlue;
-            this.buttonCancel.Location = new System.Drawing.Point(273, 114);
+            this.buttonCancel.Location = new System.Drawing.Point(273, 161);
             this.buttonCancel.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(102, 32);
@@ -121,12 +123,33 @@
             this.buttonCancel.UseVisualStyleBackColor = false;
             this.buttonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
             // 
+            // comboBoxSupplier
+            // 
+            this.comboBoxSupplier.FormattingEnabled = true;
+            this.comboBoxSupplier.Location = new System.Drawing.Point(115, 114);
+            this.comboBoxSupplier.Margin = new System.Windows.Forms.Padding(4);
+            this.comboBoxSupplier.Name = "comboBoxSupplier";
+            this.comboBoxSupplier.Size = new System.Drawing.Size(260, 24);
+            this.comboBoxSupplier.TabIndex = 18;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(18, 117);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(81, 17);
+            this.label2.TabIndex = 17;
+            this.label2.Text = "Поставщик";
+            // 
             // FormCreateOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.AliceBlue;
-            this.ClientSize = new System.Drawing.Size(388, 154);
+            this.ClientSize = new System.Drawing.Size(388, 206);
+            this.Controls.Add(this.comboBoxSupplier);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.textBoxSum);
@@ -156,5 +179,7 @@
         private System.Windows.Forms.TextBox textBoxSum;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.ComboBox comboBoxSupplier;
+        private System.Windows.Forms.Label label2;
     }
 }

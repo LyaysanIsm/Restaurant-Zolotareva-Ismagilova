@@ -1,6 +1,7 @@
 ﻿using RestaurantBusinessLogic.BindingModels;
 using RestaurantBusinessLogic.Enums;
 using RestaurantBusinessLogic.Interfaces;
+using RestaurantBusinessLogic.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,11 +12,13 @@ namespace RestaurantBusinessLogic.BusinessLogics
     {
         private readonly IOrderLogic orderLogic;
         private readonly IRequestLogic requestLogic;
+        private readonly IDishLogic dishLogic;
 
-        public MainLogic(IOrderLogic orderLogic, IRequestLogic requestLogic)
+        public MainLogic(IOrderLogic orderLogic, IRequestLogic requestLogic, IDishLogic dishLogic)
         {
             this.orderLogic = orderLogic;
             this.requestLogic = requestLogic;
+            this.dishLogic = dishLogic;
         }
 
         public void CreateOrder(OrderBindingModel order)
@@ -50,7 +53,7 @@ namespace RestaurantBusinessLogic.BusinessLogics
 
             requestLogic.CreateOrUpdate(new RequestBindingModel
             {
-                Status = RequestStatus.Использовано
+                Status = RequestStatus.Обработана
             });
 
             orderLogic.CreateOrUpdate(new OrderBindingModel
@@ -119,6 +122,26 @@ namespace RestaurantBusinessLogic.BusinessLogics
                 Status = RequestStatus.Создана,
                 Foods = model.Foods
             });
+        }
+
+        public List<ReportDishFoodViewModel> GetDishFoodsOrder()
+        {
+            var dishes = dishLogic.Read(null);
+            var list = new List<ReportDishFoodViewModel>();
+            foreach (var dish in dishes)
+            {
+                foreach (var pc in dish.DishFoods)
+                {
+                    var record = new ReportDishFoodViewModel
+                    {
+                        DishName = dish.DishName,
+                        FoodName = pc.Value.Item1,
+                        Count = pc.Value.Item2
+                    };
+                    list.Add(record);
+                }
+            }
+            return list;
         }
     }
 }

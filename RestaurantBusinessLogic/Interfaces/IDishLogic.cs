@@ -11,5 +11,7 @@ namespace RestaurantBusinessLogic.Interfaces
         List<DishViewModel> Read(DishBindingModel model);
         void CreateOrUpdate(DishBindingModel model);
         void Delete(DishBindingModel model);
+        void SaveJson(string folderName);
+        void SaveXml(string folderName);
     }
 }

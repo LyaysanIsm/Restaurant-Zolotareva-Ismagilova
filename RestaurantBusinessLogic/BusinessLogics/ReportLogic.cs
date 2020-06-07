@@ -6,6 +6,8 @@ using RestaurantBusinessLogic.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 
 namespace RestaurantBusinessLogic.BusinessLogics
 {
@@ -94,15 +96,40 @@ namespace RestaurantBusinessLogic.BusinessLogics
             .ToList();
         }
 
-        public void SaveDishesToWordFile(ReportBindingModel model)
+        public List<ReportOrdersViewModel> GetReportOrder(ReportBindingModel model)
         {
-            SaveToWord.CreateDoc(new WordInfo
+            var dishes = orderLogic.Read(null);
+            var list = new List<ReportOrdersViewModel>();
+            foreach (var dish in dishes)
             {
-                FileName = model.FileName,
-                Title = "Список продуктов",
-                Dishes = dishLogic.Read(null),
-                Fridges = null
-            });
+                var record = new ReportOrdersViewModel
+                {
+                    DishName = dish.DishName,
+                    Amount = dish.Sum,
+                    Count = dish.Count,
+                    CreationDate = dish.CreationDate,
+                    Status = dish.Status
+                };
+                list.Add(record);
+            }
+            return list;
+        }
+
+        public void SaveOrdersToWordFile(ReportBindingModel model)
+        {
+            try
+            {
+                SaveToWord.CreateDoc(new WordInfo
+                {
+                    FileName = model.FileName,
+                    Title = "Список приготовленных блюд",
+                    Orders = GetReportOrder(model),
+                    DishFoods = GetDishFoods()
+                });
+            } catch(Exception)
+            {
+                throw;
+            }
         }
 
         public void SaveOrdersToExcelFile(ReportBindingModel model)
@@ -110,9 +137,9 @@ namespace RestaurantBusinessLogic.BusinessLogics
             SaveToExcel.CreateDoc(new ExcelInfo
             {
                 FileName = model.FileName,
-                Title = "Список заказов",
-                Orders = GetOrders(model),
-                Fridges = null
+                Title = "Список приготовленных блюд",
+                Orders = GetReportOrder(model),
+                DishFoods = GetDishFoods()
             });
         }
 
@@ -127,37 +154,17 @@ namespace RestaurantBusinessLogic.BusinessLogics
             });
         }
 
-        public void SaveFridgesToWordFile(ReportBindingModel model)
+        public void SendMail(string email, string fileName, string subject)
         {
-            SaveToWord.CreateDoc(new WordInfo
-            {
-                FileName = model.FileName,
-                Title = "Список холодильников",
-                Dishes = null,
-                Fridges = fridgeLogic.Read(null)
-            });
-        }
-
-        public void SaveFridgeFoodsToExcelFile(ReportBindingModel model)
-        {
-            SaveToExcel.CreateDoc(new ExcelInfo
-            {
-                FileName = model.FileName,
-                Title = "Список продуктов в холодильниках",
-                Orders = null,
-                Fridges = fridgeLogic.Read(null)
-            });
-        }
-
-        public void SaveFoodsToPdfFile(ReportBindingModel model)
-        {
-            SaveToPdf.CreateDoc(new PdfInfo
-            {
-                FileName = model.FileName,
-                Title = "Список продуктов",
-                DishFoods = null,
-                FridgeFoods = GetFridgeFoods()
-            });
+            MailAddress from = new MailAddress("kristina.zolotareva.14@gmail.com", "Столовая Рога и Копыта");
+            MailAddress to = new MailAddress(email);
+            MailMessage m = new MailMessage(from, to);
+            m.Subject = subject;
+            m.Attachments.Add(new Attachment(fileName));
+            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+            smtp.Credentials = new NetworkCredential("kristina.zolotareva.14@gmail.com", "1");
+            smtp.EnableSsl = true;
+            smtp.Send(m);
         }
     }
 }

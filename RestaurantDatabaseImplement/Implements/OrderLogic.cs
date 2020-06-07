@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization.Json;
 using System.IO;
+using System.Xml.Serialization;
 
 namespace RestaurantDatabaseImplement.Implements
 {
@@ -78,6 +79,32 @@ namespace RestaurantDatabaseImplement.Implements
                 CompletionDate = rec.CompletionDate
             })
             .ToList();
+            }
+        }
+
+        public void SaveJson(string folderName)
+        {
+            string fileName = $"{folderName}\\order.json";
+            using (var context = new RestaurantDatabase())
+            {
+                DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(List<Order>));
+                using (FileStream fs = new FileStream(fileName, FileMode.Create))
+                {
+                    jsonFormatter.WriteObject(fs, context.Orders);
+                }
+            }
+        }
+
+        public void SaveXml(string folderName)
+        {
+            string fileName = $"{folderName}\\order.xml";
+            using (var context = new RestaurantDatabase())
+            {
+                XmlSerializer fomatter = new XmlSerializer(typeof(DbSet<Order>));
+                using (FileStream fs = new FileStream(fileName, FileMode.Create))
+                {
+                    fomatter.Serialize(fs, context.Orders);
+                }
             }
         }
     }

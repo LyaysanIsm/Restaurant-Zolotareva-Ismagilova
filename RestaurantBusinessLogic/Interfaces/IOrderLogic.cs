@@ -12,5 +12,6 @@ namespace RestaurantBusinessLogic.Interfaces
         void CreateOrUpdate(OrderBindingModel model);
         void Delete(OrderBindingModel model);
         void SaveJson(string folderName);
+        void SaveXml(string folderName);
     }
 }

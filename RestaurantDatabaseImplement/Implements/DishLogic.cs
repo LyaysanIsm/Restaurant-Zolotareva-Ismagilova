@@ -1,12 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RestaurantBusinessLogic.BindingModels;
+using RestaurantBusinessLogic.Enums;
 using RestaurantBusinessLogic.Interfaces;
 using RestaurantBusinessLogic.ViewModels;
 using RestaurantDatabaseImplement.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Json;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace RestaurantDatabaseImplement.Implements
 {
@@ -133,6 +137,32 @@ namespace RestaurantDatabaseImplement.Implements
                                             recPC.Food?.FoodName, recPC.Count
                                          ))
                 }).ToList();
+            }
+        }
+
+        public void SaveJson(string folderName)
+        {
+            string fileName = $"{folderName}\\dish.json";
+            using (var context = new RestaurantDatabase())
+            {
+                DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(List<Dish>));
+                using (FileStream fs = new FileStream(fileName, FileMode.Create))
+                {
+                    jsonFormatter.WriteObject(fs, context.Dishes);
+                }
+            }
+        }
+
+        public void SaveXml(string folderName)
+        {
+            string fileName = $"{folderName}\\dish.xml";
+            using (var context = new RestaurantDatabase())
+            {
+                XmlSerializer fomatter = new XmlSerializer(typeof(DbSet<Dish>));
+                using (FileStream fs = new FileStream(fileName, FileMode.Create))
+                {
+                    fomatter.Serialize(fs, context.Dishes);
+                }
             }
         }
     }

@@ -15,6 +15,9 @@ using System.IO;
 using System.Xml.Serialization;
 using System.Runtime.Serialization;
 using RestaurantBusinessLogic.ViewModels;
+using RestaurantDatabaseImplement;
+using RestaurantDatabaseImplement.Models;
+using System.Runtime.Serialization.Json;
 
 namespace RestaurantView
 {
@@ -24,14 +27,21 @@ namespace RestaurantView
         public new IUnityContainer Container { get; set; }
         private readonly MainLogic logic;
         private readonly IOrderLogic orderLogic;
+        private readonly IRequestLogic requestLogic;
+        private readonly IDishLogic dishLogic;
+        private readonly IFoodLogic foodLogic;
         private readonly ReportLogic report;
 
-        public FormMain(MainLogic logic, IOrderLogic orderLogic, ReportLogic report)
+        public FormMain(MainLogic logic, IOrderLogic orderLogic, ReportLogic report, 
+            IFoodLogic foodLogic, IRequestLogic requestLogic, IDishLogic dishLogic)
         {
             InitializeComponent();
             this.logic = logic;
             this.orderLogic = orderLogic;
             this.report = report;
+            this.dishLogic = dishLogic;
+            this.requestLogic = requestLogic;
+            this.foodLogic = foodLogic;
         }
 
         private void FormMain_Load(object sender, EventArgs e)
@@ -141,12 +151,19 @@ namespace RestaurantView
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    report.SaveDishesToWordFile(new ReportBindingModel
+                    try
                     {
-                        FileName = dialog.FileName
-                    });
-                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
-                   MessageBoxIcon.Information);
+                        report.SaveOrdersToWordFile(new ReportBindingModel
+                        {
+                            FileName = dialog.FileName
+                        });
+                        MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
+                       MessageBoxIcon.Information);
+                    } catch(Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                    }
                 }
             }
         }
@@ -171,12 +188,48 @@ namespace RestaurantView
 
         private void xMLToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            try
+            {
+                var fbd = new FolderBrowserDialog();
+                if (fbd.ShowDialog() == DialogResult.OK)
+                {
+                    orderLogic.SaveXml(fbd.SelectedPath);
+                    orderLogic.SaveXml(fbd.SelectedPath);
+                    foodLogic.SaveXml(fbd.SelectedPath);
+                    dishLogic.SaveXml(fbd.SelectedPath);
+                    requestLogic.SaveXml(fbd.SelectedPath);
+                    MessageBox.Show("Бекап создан", "Сообщение",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
+               MessageBoxIcon.Error);
+            }
         }
 
         private void jSONToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           
+            try
+            {
+                var fbd = new FolderBrowserDialog();
+                if (fbd.ShowDialog() == DialogResult.OK)
+                {
+                    orderLogic.SaveJson(fbd.SelectedPath);
+                    orderLogic.SaveJson(fbd.SelectedPath);
+                    foodLogic.SaveJson(fbd.SelectedPath);
+                    dishLogic.SaveJson(fbd.SelectedPath);
+                    requestLogic.SaveJson(fbd.SelectedPath);
+                    MessageBox.Show("Бекап создан", "Сообщение",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
+               MessageBoxIcon.Error);
+            }
         }
     }
 }

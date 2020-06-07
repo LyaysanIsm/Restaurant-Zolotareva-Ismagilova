@@ -1,6 +1,7 @@
 ﻿using RestaurantBusinessLogic.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace RestaurantBusinessLogic.HelperModels
@@ -15,5 +16,7 @@ namespace RestaurantBusinessLogic.HelperModels
         public string SupplierFIO { get; set; }
         public DateTime DateComplete { get; set; }
         public Dictionary<int, (string, int, bool)> RequestFoods { get; set; }
+        public List<ReportDishFoodViewModel> DishFoods { get; set; }
+        public List<ReportOrdersViewModel> Orders { get; set; }
     }
 }

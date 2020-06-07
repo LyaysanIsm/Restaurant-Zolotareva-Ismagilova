@@ -25,18 +25,21 @@ namespace RestaurantView
         private Dictionary<int, (string, int, bool)> requestFoods;
         public int ID { set { Id = value; } }
         private int? Id;
+        private readonly ISupplierLogic supplierLogic;
 
         public FormCreateOrder(IDishLogic logicP, MainLogic logicM,
-            IRequestLogic requestLogic)
+            IRequestLogic requestLogic, ISupplierLogic supplierLogic)
         {
             InitializeComponent();
             this.logicP = logicP;
             this.logicM = logicM;
             this.requestLogic = requestLogic;
+            this.supplierLogic = supplierLogic;
         }
 
         private void FormCreateOrder_Load(object sender, EventArgs e)
         {
+            LoadSuppliers();
             try
             {
                 //Логика загрузки списка компонент в выпадающий список
@@ -107,6 +110,29 @@ namespace RestaurantView
             CalcSum();
         }
 
+        private void LoadSuppliers()
+        {
+            try
+            {
+                List<SupplierViewModel> suppliersList = supplierLogic.Read(null);
+                if (suppliersList != null)
+                {
+                    comboBoxSupplier.DisplayMember = "Login";
+                    comboBoxSupplier.ValueMember = "Id";
+                    comboBoxSupplier.DataSource = suppliersList;
+                    comboBoxSupplier.SelectedItem = null;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    ex.Message,
+                    "Ошибка загрузки списка поставщиков",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
         private void ButtonSave_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(textBoxCount.Text))
@@ -117,6 +143,12 @@ namespace RestaurantView
             if (comboBoxProduct.SelectedValue == null)
             {
                 MessageBox.Show("Выберите продукт", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (comboBoxSupplier.SelectedValue == null)
+            {
+                MessageBox.Show("Выберите поставщика", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             try
@@ -136,7 +168,7 @@ namespace RestaurantView
                     logicM.CreateOrUpdateRequest(new RequestBindingModel
                     {
                         Id = Id,
-                        SupplierId = 1,
+                        SupplierId = Convert.ToInt32(comboBoxSupplier.SelectedValue),
                         Foods = requestFoods
                     });
                 }

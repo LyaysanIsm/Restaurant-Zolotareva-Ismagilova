@@ -1,10 +1,14 @@
-﻿using RestaurantBusinessLogic.BindingModels;
+﻿using Microsoft.EntityFrameworkCore;
+using RestaurantBusinessLogic.BindingModels;
 using RestaurantBusinessLogic.Interfaces;
 using RestaurantBusinessLogic.ViewModels;
 using RestaurantDatabaseImplement.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Json;
+using System.Xml.Serialization;
 
 namespace RestaurantDatabaseImplement.Implements
 {
@@ -69,6 +73,32 @@ namespace RestaurantDatabaseImplement.Implements
                     Price = rec.Price
                 })
                 .ToList();
+            }
+        }
+
+        public void SaveJson(string folderName)
+        {
+            string fileName = $"{folderName}\\food.json";
+            using (var context = new RestaurantDatabase())
+            {
+                DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(List<Food>));
+                using (FileStream fs = new FileStream(fileName, FileMode.Create))
+                {
+                    jsonFormatter.WriteObject(fs, context.Foods);
+                }
+            }
+        }
+
+        public void SaveXml(string folderName)
+        {
+            string fileName = $"{folderName}\\food.xml";
+            using (var context = new RestaurantDatabase())
+            {
+                XmlSerializer fomatter = new XmlSerializer(typeof(DbSet<Food>));
+                using (FileStream fs = new FileStream(fileName, FileMode.Create))
+                {
+                    fomatter.Serialize(fs, context.Foods);
+                }
             }
         }
     }
