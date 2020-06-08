@@ -1,5 +1,6 @@
 ﻿using RestaurantBusinessLogic.BindingModels;
 using RestaurantBusinessLogic.BusinessLogic;
+using RestaurantBusinessLogic.Enums;
 using RestaurantBusinessLogic.HelperModels;
 using RestaurantBusinessLogic.Interfaces;
 using RestaurantBusinessLogic.ViewModels;
@@ -15,13 +16,16 @@ namespace RestaurantBusinessLogic.BusinessLogics
     {
         private readonly IDishLogic dishLogic;
         private readonly IOrderLogic orderLogic;
-        private readonly IFridgeLogic fridgeLogic;
+        private readonly IFoodLogic foodLogic;
+        private readonly IRequestLogic requestLogic;
 
-        public ReportLogic(IDishLogic dishLogic, IOrderLogic orderLogic, IFridgeLogic fridgeLogic)
+        public ReportLogic(IDishLogic dishLogic, IOrderLogic orderLogic, 
+            IFoodLogic foodLogic, IRequestLogic requestLogic)
         {
             this.dishLogic = dishLogic;
             this.orderLogic = orderLogic;
-            this.fridgeLogic = fridgeLogic;
+            this.foodLogic = foodLogic;
+            this.requestLogic = requestLogic;
         }
 
         public List<ReportDishFoodViewModel> GetDishFoods()
@@ -44,56 +48,46 @@ namespace RestaurantBusinessLogic.BusinessLogics
             return list;
         }
 
-        public List<ReportFridgeFoodViewModel> GetFridgeFoods()
+        public List<ReportFoodViewModel> GetFoods(DateTime from, DateTime to)
         {
-            var fridges = fridgeLogic.Read(null);
-            var list = new List<ReportFridgeFoodViewModel>();
-            foreach (var fridge in fridges)
+            var foods = foodLogic.Read(null);
+            var requests = requestLogic.Read(null);
+            var list = new List<ReportFoodViewModel>();
+            foreach (var request in requests)
             {
-                foreach (var ff in fridge.Foods)
+                foreach (var requestFood in request.Foods)
                 {
-                    var record = new ReportFridgeFoodViewModel
+                    foreach (var food in foods) 
                     {
-                        FridgeName = fridge.FridgeName,
-                        FoodName = ff.Value.Item1,
-                        Count = ff.Value.Item2
-                    };
-                    list.Add(record);
+                        if (food.FoodName == requestFood.Value.Item1)
+                        {
+                            var record = new ReportFoodViewModel
+                            {
+                                FoodName = requestFood.Value.Item1,
+                                Count = requestFood.Value.Item2,
+                                Status = StatusFood(request.Status),
+                                CreationDate = DateTime.Now,
+                                Price = food.Price
+                            };
+                            list.Add(record);
+                        }
+                    }
                 }
             }
             return list;
         }
 
-        public List<IGrouping<DateTime, OrderViewModel>> GetOrders(ReportBindingModel model)
+        public string StatusFood(RequestStatus requestStatus)
         {
-            var list = orderLogic
-            .Read(new OrderBindingModel
-            {
-                DateFrom = model.DateFrom,
-                DateTo = model.DateTo
-            })
-            .GroupBy(rec => rec.CreationDate.Date)
-            .OrderBy(recG => recG.Key)
-            .ToList();
-            return list;
-        }
-
-        public List<ReportOrdersViewModel> GetOrder(ReportBindingModel model)
-        {
-            return orderLogic.Read(new OrderBindingModel
-            {
-                DateFrom = model.DateFrom,
-                DateTo = model.DateTo
-            })
-            .Select(x => new ReportOrdersViewModel
-            {
-                CreationDate = x.CreationDate,
-                DishName = x.DishName,
-                Count = x.Count,
-                Amount = x.Sum,
-                Status = x.Status
-            })
-            .ToList();
+            if (requestStatus == RequestStatus.Создана)
+                return "Ждут отправки";
+            if (requestStatus == RequestStatus.Выполняется)
+                return "В пути";
+            if (requestStatus == RequestStatus.Готова)
+                return "Поставлено";
+            if (requestStatus == RequestStatus.Обработана)
+                return "Использовано";
+            return "";
         }
 
         public List<ReportOrdersViewModel> GetReportOrder(ReportBindingModel model)
@@ -130,6 +124,7 @@ namespace RestaurantBusinessLogic.BusinessLogics
             {
                 throw;
             }
+            SendMail("kristina.zolotareva.14@gmail.com", model.FileName, "Список блюд с продуктами");
         }
 
         public void SaveOrdersToExcelFile(ReportBindingModel model)
@@ -141,28 +136,44 @@ namespace RestaurantBusinessLogic.BusinessLogics
                 Orders = GetReportOrder(model),
                 DishFoods = GetDishFoods()
             });
+            SendMail("kristina.zolotareva.14@gmail.com", model.FileName, "Список блюд с продуктами");
         }
 
-        public void SaveDishFoodsToPdfFile(ReportBindingModel model)
+        public void SaveFoodsToPdfFile(ReportBindingModel model)
         {
             SaveToPdf.CreateDoc(new PdfInfo
             {
                 FileName = model.FileName,
-                Title = "Список блюд с продуктами",
-                DishFoods = GetDishFoods(),
-                FridgeFoods = null
+                Title = "Движение продуктов",
+                Foods = GetFoods(model.DateFrom, model.DateTo)
             });
         }
 
         public void SendMail(string email, string fileName, string subject)
         {
-            MailAddress from = new MailAddress("kristina.zolotareva.14@gmail.com", "Столовая Рога и Копыта");
+            MailAddress from = new MailAddress("labwork15kafis@gmail.com", "Столовая Рога и Копыта");
             MailAddress to = new MailAddress(email);
             MailMessage m = new MailMessage(from, to);
             m.Subject = subject;
             m.Attachments.Add(new Attachment(fileName));
             SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
-            smtp.Credentials = new NetworkCredential("kristina.zolotareva.14@gmail.com", "1");
+            smtp.Credentials = new NetworkCredential("labwork15kafis@gmail.com", "passlab15");
+            smtp.EnableSsl = true;
+            smtp.Send(m);
+        }
+
+        public void SendMailReport(string email, string fileName, string subject, string type)
+        {
+            MailAddress from = new MailAddress("labwork15kafis@gmail.com", "Столовая Рога и Копыта");
+            MailAddress to = new MailAddress(email);
+            MailMessage m = new MailMessage(from, to);
+            m.Subject = subject;
+            m.Attachments.Add(new Attachment(fileName + "\\order." + type));
+            m.Attachments.Add(new Attachment(fileName + "\\request." + type));
+            m.Attachments.Add(new Attachment(fileName + "\\dish." + type));
+            m.Attachments.Add(new Attachment(fileName + "\\food." + type));
+            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+            smtp.Credentials = new NetworkCredential("labwork15kafis@gmail.com", "passlab15");
             smtp.EnableSsl = true;
             smtp.Send(m);
         }

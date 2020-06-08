@@ -157,7 +157,7 @@ namespace RestaurantView
                         {
                             FileName = dialog.FileName
                         });
-                        MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
+                        MessageBox.Show("Отчет отправлен на почту", "Успех", MessageBoxButtons.OK,
                        MessageBoxIcon.Information);
                     } catch(Exception ex)
                     {
@@ -198,7 +198,8 @@ namespace RestaurantView
                     foodLogic.SaveXml(fbd.SelectedPath);
                     dishLogic.SaveXml(fbd.SelectedPath);
                     requestLogic.SaveXml(fbd.SelectedPath);
-                    MessageBox.Show("Бекап создан", "Сообщение",
+                    report.SendMailReport("kristina.zolotareva.14@gmail.com", fbd.SelectedPath, "XML бекап", "xml");
+                    MessageBox.Show("Бекап отправлен на почту", "Сообщение",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
@@ -221,7 +222,8 @@ namespace RestaurantView
                     foodLogic.SaveJson(fbd.SelectedPath);
                     dishLogic.SaveJson(fbd.SelectedPath);
                     requestLogic.SaveJson(fbd.SelectedPath);
-                    MessageBox.Show("Бекап создан", "Сообщение",
+                    report.SendMailReport("kristina.zolotareva.14@gmail.com", fbd.SelectedPath, "JSON бекап", "json");
+                    MessageBox.Show("Бекап отправлен на почту", "Сообщение",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }

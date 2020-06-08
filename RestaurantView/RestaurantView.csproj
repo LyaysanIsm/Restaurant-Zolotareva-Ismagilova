@@ -360,9 +360,11 @@
     <None Include="Properties\DataSources\RestaurantBusinessLogic.ViewModels.DishFoodViewModel.datasource" />
     <None Include="Properties\DataSources\RestaurantBusinessLogic.ViewModels.DishViewModel.datasource" />
     <None Include="Properties\DataSources\RestaurantBusinessLogic.ViewModels.FoodViewModel.datasource" />
+    <None Include="Properties\DataSources\RestaurantBusinessLogic.ViewModels.FridgeAvailableViewModel.datasource" />
     <None Include="Properties\DataSources\RestaurantBusinessLogic.ViewModels.FridgeViewModel.datasource" />
     <None Include="Properties\DataSources\RestaurantBusinessLogic.ViewModels.OrderViewModel.datasource" />
     <None Include="Properties\DataSources\RestaurantBusinessLogic.ViewModels.ReportDishFoodViewModel.datasource" />
+    <None Include="Properties\DataSources\RestaurantBusinessLogic.ViewModels.ReportFoodViewModel.datasource" />
     <None Include="Properties\DataSources\RestaurantBusinessLogic.ViewModels.ReportFridgeFoodViewModel.datasource" />
     <None Include="Properties\DataSources\RestaurantBusinessLogic.ViewModels.ReportOrdersViewModel.datasource" />
     <None Include="Properties\DataSources\RestaurantBusinessLogic.ViewModels.RequestViewModel.datasource" />

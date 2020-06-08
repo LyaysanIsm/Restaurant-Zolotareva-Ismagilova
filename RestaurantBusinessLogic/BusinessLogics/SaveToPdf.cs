@@ -20,81 +20,40 @@ namespace RestaurantBusinessLogic.BusinessLogic
             paragraph.Style = "NormalTitle";
 
             var table = document.LastSection.AddTable();
-            List<string> columns = new List<string> { "7cm", "7cm", "3cm" };
+            List<string> columns = new List<string> { "4cm", "4cm", "4cm", "3cm", "3cm" };
 
             foreach (var elem in columns)
             {
                 table.AddColumn(elem);
             }
 
-            if (info.DishFoods != null)
+            if (info.Foods != null)
             {
                 CreateRow(new PdfRowParameters
                 {
                     Table = table,
-                    Texts = new List<string> { "Изделие", "Компонент", "Количество" },
+                    Texts = new List<string> { "Дата заказа", "Продукты", "Состояние", "Кол-во", "Стоимость"},
                     Style = "NormalTitle",
                     ParagraphAlignment = ParagraphAlignment.Center
                 });
 
-                foreach (var pc in info.DishFoods)
+                foreach (var pc in info.Foods)
                 {
                     CreateRow(new PdfRowParameters
                     {
                         Table = table,
                         Texts = new List<string>
                     {
+                        pc.CreationDate.ToString(),
                         pc.FoodName,
-                        pc.DishName,
-                        pc.Count.ToString()
+                        pc.Status,
+                        pc.Count.ToString(),
+                        pc.Price.ToString()
                     },
                         Style = "Normal",
                         ParagraphAlignment = ParagraphAlignment.Left
                     });
                 }
-            }
-            else if (info.FridgeFoods != null)
-            {
-                int sum = 0;
-
-                CreateRow(new PdfRowParameters
-                {
-                    Table = table,
-                    Texts = new List<string> { "Компонент", "Склад", "Количество" },
-                    Style = "NormalTitle",
-                    ParagraphAlignment = ParagraphAlignment.Center
-                });
-
-                foreach (var wc in info.FridgeFoods)
-                {
-                    CreateRow(new PdfRowParameters
-                    {
-                        Table = table,
-                        Texts = new List<string>
-                    {
-                        wc.FoodName,
-                        wc.FridgeName,
-                        wc.Count.ToString()
-                    },
-                        Style = "Normal",
-                        ParagraphAlignment = ParagraphAlignment.Left
-                    });
-
-                    sum += wc.Count;
-                }
-
-                CreateRow(new PdfRowParameters
-                {
-                    Table = table,
-                    Texts = new List<string>
-                    {
-                        "Всего",
-                        "",
-                        sum.ToString()
-                    },
-                    Style = "Normal",
-                    ParagraphAlignment = ParagraphAlignment.Left
-                });
             }
 
             PdfDocumentRenderer renderer = new PdfDocumentRenderer(true, PdfSharp.Pdf.PdfFontEmbedding.Always) { Document = document };

@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormReportMovingPdf));
+            this.ReportOrdersViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.buttonCreate = new System.Windows.Forms.Button();
             this.buttonCreateToPdf = new System.Windows.Forms.Button();
             this.reportViewer = new Microsoft.Reporting.WinForms.ReportViewer();
@@ -38,9 +39,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dateTimePickerFrom = new System.Windows.Forms.DateTimePicker();
-            this.ReportOrdersViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.ReportFoodViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.ReportOrdersViewModelBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ReportFoodViewModelBindingSource)).BeginInit();
             this.SuspendLayout();
+            // 
+            // ReportOrdersViewModelBindingSource
+            // 
+            this.ReportOrdersViewModelBindingSource.DataSource = typeof(RestaurantBusinessLogic.ViewModels.ReportOrdersViewModel);
             // 
             // buttonCreate
             // 
@@ -69,7 +75,7 @@
             // reportViewer
             // 
             reportDataSource1.Name = "DataSetMoving";
-            reportDataSource1.Value = this.ReportOrdersViewModelBindingSource;
+            reportDataSource1.Value = this.ReportFoodViewModelBindingSource;
             this.reportViewer.LocalReport.DataSources.Add(reportDataSource1);
             this.reportViewer.LocalReport.ReportEmbeddedResource = "RestaurantView.ReportMoving.rdlc";
             this.reportViewer.Location = new System.Drawing.Point(13, 55);
@@ -116,9 +122,9 @@
             this.dateTimePickerFrom.Size = new System.Drawing.Size(161, 22);
             this.dateTimePickerFrom.TabIndex = 11;
             // 
-            // ReportOrdersViewModelBindingSource
+            // ReportFoodViewModelBindingSource
             // 
-            this.ReportOrdersViewModelBindingSource.DataSource = typeof(RestaurantBusinessLogic.ViewModels.ReportOrdersViewModel);
+            this.ReportFoodViewModelBindingSource.DataSource = typeof(RestaurantBusinessLogic.ViewModels.ReportFoodViewModel);
             // 
             // FormReportMovingPdf
             // 
@@ -140,6 +146,7 @@
             this.Text = "Движение продуктов";
             this.Load += new System.EventHandler(this.FormReportDishFoods_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ReportOrdersViewModelBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ReportFoodViewModelBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -154,5 +161,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker dateTimePickerFrom;
+        private System.Windows.Forms.BindingSource ReportFoodViewModelBindingSource;
     }
 }

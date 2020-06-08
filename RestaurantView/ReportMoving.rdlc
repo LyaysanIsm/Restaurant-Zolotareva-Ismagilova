@@ -6,24 +6,24 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>3.1223cm</Width>
+              <Width>3.1604cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.1223cm</Width>
+              <Width>3.1604cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.1223cm</Width>
+              <Width>3.1604cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.1223cm</Width>
+              <Width>3.1604cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.1223cm</Width>
+              <Width>3.1604cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
             <TablixRow>
-              <Height>1.46783cm</Height>
+              <Height>1.24558cm</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -64,7 +64,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Dish Name</Value>
+                              <Value>Food Name</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -87,7 +87,7 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox5">
+                    <Textbox Name="Textbox7">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -101,7 +101,7 @@
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox5</rd:DefaultName>
+                      <rd:DefaultName>Textbox7</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -147,21 +147,21 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox7">
+                    <Textbox Name="Textbox11">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Amount</Value>
+                              <Value>Price</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox7</rd:DefaultName>
+                      <rd:DefaultName>Textbox11</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -178,7 +178,7 @@
               </TablixCells>
             </TablixRow>
             <TablixRow>
-              <Height>1.46783cm</Height>
+              <Height>1.24558cm</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -212,21 +212,21 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="DishName">
+                    <Textbox Name="FoodName">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!DishName.Value</Value>
+                              <Value>=Fields!FoodName.Value</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>DishName</rd:DefaultName>
+                      <rd:DefaultName>FoodName</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -302,21 +302,21 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Amount">
+                    <Textbox Name="Price">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!Amount.Value</Value>
+                              <Value>=Fields!Price.Value</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Amount</rd:DefaultName>
+                      <rd:DefaultName>Price</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -354,10 +354,10 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSetMoving</DataSetName>
-        <Top>1.2192cm</Top>
-        <Left>0.54187cm</Left>
-        <Height>2.93567cm</Height>
-        <Width>15.6115cm</Width>
+        <Top>0.9652cm</Top>
+        <Left>0.35137cm</Left>
+        <Height>2.49117cm</Height>
+        <Width>15.802cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -386,7 +386,7 @@
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>48b4dcc3-8c49-4a12-b332-c32036e3756f</rd:DataSourceID>
+      <rd:DataSourceID>f0961eae-bf93-49f6-aeb7-62ea8e0b600c</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
@@ -396,10 +396,6 @@
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
-        <Field Name="Amount">
-          <DataField>Amount</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
         <Field Name="Count">
           <DataField>Count</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
@@ -408,19 +404,23 @@
           <DataField>CreationDate</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
-        <Field Name="DishName">
-          <DataField>DishName</DataField>
+        <Field Name="FoodName">
+          <DataField>FoodName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Price">
+          <DataField>Price</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
         <Field Name="Status">
           <DataField>Status</DataField>
-          <rd:TypeName>RestaurantBusinessLogic.Enums.Status</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>RestaurantBusinessLogic.ViewModels</rd:DataSetName>
-        <rd:TableName>ReportOrdersViewModel</rd:TableName>
-        <rd:ObjectDataSourceType>RestaurantBusinessLogic.ViewModels.ReportOrdersViewModel, RestaurantBusinessLogic, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+        <rd:TableName>ReportFoodViewModel</rd:TableName>
+        <rd:ObjectDataSourceType>RestaurantBusinessLogic.ViewModels.ReportFoodViewModel, RestaurantBusinessLogic, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>

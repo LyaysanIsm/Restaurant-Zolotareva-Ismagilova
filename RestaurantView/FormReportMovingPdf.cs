@@ -35,22 +35,10 @@ namespace RestaurantView
             }
             try
             {
-                var dict = logic.GetOrder(new ReportBindingModel { DateFrom = dateTimePickerFrom.Value.Date, DateTo = dateTimePickerTo.Value.Date });
-                List<DateTime> dates = new List<DateTime>();
-                foreach (var order in dict)
-                {
-                    if (!dates.Contains(order.CreationDate.Date))
-                    {
-                        dates.Add(order.CreationDate.Date);
-                    }
-                }
-                
-                if (dict != null)
-                {
-                    ReportDataSource source = new ReportDataSource("DataSetMoving", dict);
-                    reportViewer.LocalReport.DataSources.Add(source);
-                    reportViewer.RefreshReport();
-                }
+                var dataSource = logic.GetFoods(dateTimePickerFrom.Value.Date, dateTimePickerTo.Value.Date);
+                ReportDataSource source = new ReportDataSource("DataSetMoving", dataSource);
+                reportViewer.LocalReport.DataSources.Add(source);
+                reportViewer.RefreshReport();
             }
             catch (Exception ex)
             {
@@ -66,11 +54,13 @@ namespace RestaurantView
                 {
                     try
                     {
-                        logic.SaveDishFoodsToPdfFile(new ReportBindingModel
+                        logic.SaveFoodsToPdfFile(new ReportBindingModel
                         {
-                            FileName = dialog.FileName
+                            FileName = dialog.FileName,
+                            DateTo = dateTimePickerFrom.Value.Date,
+                            DateFrom = dateTimePickerTo.Value.Date
                         });
-                        MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Отчет отправлен на почту", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     catch (Exception ex)
                     {
