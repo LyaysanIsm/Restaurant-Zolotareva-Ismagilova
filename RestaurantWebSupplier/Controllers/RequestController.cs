@@ -4,6 +4,7 @@ using RestaurantBusinessLogic.BindingModels;
 using RestaurantBusinessLogic.BusinessLogics;
 using RestaurantBusinessLogic.HelperModels;
 using RestaurantBusinessLogic.Interfaces;
+using RestaurantBusinessLogic.ViewModels;
 using RestaurantWebSupplier.Models;
 using System;
 using System.Collections.Generic;
@@ -32,11 +33,34 @@ namespace RestaurantWebSupplier.Controllers
             {
                 return new UnauthorizedResult();
             }
-            var кequests = requestLogic.Read(new RequestBindingModel
+            var requests = requestLogic.Read(new RequestBindingModel
             {
                 SupplierId = Program.Supplier.Id
             });
-            return View(кequests);
+            return View(requests);
+        }
+
+        public IActionResult Report(ReportModel model)
+        {
+            var requests = new List<RequestViewModel>();
+            requests = requestLogic.Read(new RequestBindingModel
+            {
+                SupplierId = Program.Supplier.Id,
+                DateFrom = model.From,
+                DateTo = model.To
+            });
+            ViewBag.Requests = requests;
+            string fileName = "D:\\data\\Reportpdf.pdf";
+            if (model.SendMail)
+            {
+                reportLogic.SaveFoodsToPdfFile(fileName, new RequestBindingModel
+                {
+                    SupplierId = Program.Supplier.Id,
+                    DateFrom = model.From,
+                    DateTo = model.To
+                }, Program.Supplier.Login);
+            }
+            return View();
         }
 
         public IActionResult RequestView(int ID)

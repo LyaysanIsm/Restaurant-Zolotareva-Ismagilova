@@ -42,6 +42,7 @@ namespace RestaurantDatabaseImplement.Implements
                                 updFood.Inres = model.Foods[updFood.FoodId].Item3;
                                 model.Foods.Remove(updFood.FoodId);
                             }
+                            request.CompletionDate = model.CompletionDate;
                             context.SaveChanges();
                         }
                         else
@@ -118,13 +119,15 @@ namespace RestaurantDatabaseImplement.Implements
             {
                 return context.Requests
                     .Include(rec => rec.Supplier)
-                    .Where(rec => model == null || rec.Id == model.Id || rec.SupplierId == model.SupplierId)
+                    .Where(rec => model == null || rec.Id == model.Id || (rec.SupplierId == model.SupplierId) && (model.DateFrom == null && model.DateTo == null ||
+                    rec.CompletionDate >= model.DateFrom && rec.CompletionDate <= model.DateTo && rec.Status == RequestStatus.Готова))
                     .ToList()
                     .Select(rec => new RequestViewModel
                     {
                         Id = rec.Id,
                         SupplierFIO = rec.Supplier.SupplierFIO,
                         SupplierId = rec.SupplierId,
+                        CompletionDate = rec.CompletionDate,
                         Status = rec.Status,
                         Foods = context.RequestFoods
                             .Include(recRF => recRF.Food)

@@ -1,5 +1,6 @@
 ﻿using RestaurantBusinessLogic.BindingModels;
 using RestaurantBusinessLogic.BusinessLogic;
+using RestaurantBusinessLogic.Enums;
 using RestaurantBusinessLogic.HelperModels;
 using RestaurantBusinessLogic.Interfaces;
 using RestaurantBusinessLogic.ViewModels;
@@ -15,9 +16,11 @@ namespace RestaurantBusinessLogic.BusinessLogics
     public class SupplierReportLogic
     {
         private readonly IRequestLogic requestLogic;
-        public SupplierReportLogic(IRequestLogic requestLogic)
+        private readonly IFoodLogic foodLogic;
+        public SupplierReportLogic(IRequestLogic requestLogic, IFoodLogic foodLogic)
         {
             this.requestLogic = requestLogic;
+            this.foodLogic = foodLogic;
         }
 
         public Dictionary<int, (string, int, bool)> GetRequestFoods(int requestId)
@@ -29,12 +32,41 @@ namespace RestaurantBusinessLogic.BusinessLogics
             return requestFoods;
         }
 
+        public List<ReportFoodViewModel> GetFoods(DateTime? from, DateTime? to)
+        {
+            var foods = foodLogic.Read(null);
+            var requests = requestLogic.Read(null);
+            var list = new List<ReportFoodViewModel>();
+            foreach (var request in requests)
+            {
+                foreach (var requestFood in request.Foods)
+                {
+                    foreach (var food in foods)
+                    {
+                        if (food.FoodName == requestFood.Value.Item1)
+                        {
+                            var record = new ReportFoodViewModel
+                            {
+                                SupplierFIO = request.SupplierFIO,
+                                FoodName = requestFood.Value.Item1,
+                                Count = requestFood.Value.Item2,
+                                Status = StatusFood(request.Status),
+                                CompletionDate = request.CompletionDate,
+                                Price = food.Price
+                            };
+                            list.Add(record);
+                        }
+                    }
+                }
+            }
+            return list;
+        }
+
         public void SaveNeedFoodToWordFile(WordInfo wordInfo, string email)
         {
             string title = "Список требуемых продуктов по заявке №" + wordInfo.RequestId;
             wordInfo.Title = title;
             wordInfo.FileName = wordInfo.FileName;
-            wordInfo.DateComplete = DateTime.Now;
             wordInfo.RequestFoods = GetRequestFoods(wordInfo.RequestId);
             SupplierSaveToWord.CreateDoc(wordInfo);
             SendMail(email, wordInfo.FileName, title);
@@ -45,10 +77,34 @@ namespace RestaurantBusinessLogic.BusinessLogics
             string title = "Список требуемых продуктов по заявке №" + excelInfo.RequestId;
             excelInfo.Title = title;
             excelInfo.FileName = excelInfo.FileName;
-            excelInfo.DateComplete = DateTime.Now;
             excelInfo.RequestFoods = GetRequestFoods(excelInfo.RequestId);
             SupplierSaveToExcel.CreateDoc(excelInfo);
             SendMail(email, excelInfo.FileName, title);
+        }
+
+        public void SaveFoodsToPdfFile(string fileName, RequestBindingModel model, string email)
+        {
+            string title = "Список продуктов в период с " + model.DateFrom.ToString() + " по " + model.DateTo.ToString();
+            SupplierSaveToPdf.CreateDoc(new PdfInfo
+            {
+                FileName = fileName,
+                Title = title,
+                Foods = GetFoods(model.DateFrom, model.DateTo)
+            });
+            SendMail(email, fileName, title);
+        }
+
+        public string StatusFood(RequestStatus requestStatus)
+        {
+            if (requestStatus == RequestStatus.Создана)
+                return "Ждут отправки";
+            if (requestStatus == RequestStatus.Выполняется)
+                return "В пути";
+            if (requestStatus == RequestStatus.Готова)
+                return "Поставлено";
+            if (requestStatus == RequestStatus.Обработана)
+                return "Использовано";
+            return "";
         }
 
         public void SendMail(string email, string fileName, string subject)

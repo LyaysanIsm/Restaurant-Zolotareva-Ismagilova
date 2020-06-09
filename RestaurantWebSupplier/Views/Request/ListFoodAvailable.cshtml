@@ -38,7 +38,7 @@
                     @Html.DisplayFor(modelItem => item.Count)
                 </td>
                 <td class="text-center">
-                    <a class="btn btn-primary btn-sm" asp-controller="Fridge"
+                    <a class="btn btn-primary btn-sm btn-block" asp-controller="Fridge"
                        asp-action="ReserveFoods" asp-route-fridgeId="@item.FridgeId"
                        asp-route-foodId="@ViewBag.FoodId" asp-route-count="@ViewBag.Count"
                        asp-route-requestId="@ViewBag.RequestId">

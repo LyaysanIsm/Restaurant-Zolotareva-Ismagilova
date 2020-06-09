@@ -130,7 +130,8 @@ namespace RestaurantDatabaseImplement.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SupplierId = table.Column<int>(nullable: false),
-                    Status = table.Column<int>(nullable: false)
+                    Status = table.Column<int>(nullable: false),
+                    CompletionDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {

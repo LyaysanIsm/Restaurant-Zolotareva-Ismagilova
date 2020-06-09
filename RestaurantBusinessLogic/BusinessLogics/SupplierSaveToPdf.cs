@@ -6,21 +6,19 @@ using System.Collections.Generic;
 
 namespace RestaurantBusinessLogic.BusinessLogic
 {
-    class SaveToPdf
+    class SupplierSaveToPdf
     {
         public static void CreateDoc(PdfInfo info)
         {
             Document document = new Document();
             DefineStyles(document);
-
             Section section = document.AddSection();
             Paragraph paragraph = section.AddParagraph(info.Title);
             paragraph.Format.SpaceAfter = "1cm";
             paragraph.Format.Alignment = ParagraphAlignment.Center;
             paragraph.Style = "NormalTitle";
-
             var table = document.LastSection.AddTable();
-            List<string> columns = new List<string> { "4cm", "4cm", "4cm", "3cm", "3cm" };
+            List<string> columns = new List<string> { "3cm", "5cm", "3cm", "2cm", "2cm", "2cm" };
 
             foreach (var elem in columns)
             {
@@ -32,7 +30,7 @@ namespace RestaurantBusinessLogic.BusinessLogic
                 CreateRow(new PdfRowParameters
                 {
                     Table = table,
-                    Texts = new List<string> { "Дата заказа", "Продукты", "Состояние", "Кол-во", "Стоимость"},
+                    Texts = new List<string> { "Дата", "Поставщик", "Продукт", "Статус", "Количество", "Стоимость" },
                     Style = "NormalTitle",
                     ParagraphAlignment = ParagraphAlignment.Center
                 });
@@ -45,6 +43,7 @@ namespace RestaurantBusinessLogic.BusinessLogic
                         Texts = new List<string>
                     {
                         pc.CompletionDate.ToString(),
+                        pc.SupplierFIO,
                         pc.FoodName,
                         pc.Status,
                         pc.Count.ToString(),
@@ -55,7 +54,6 @@ namespace RestaurantBusinessLogic.BusinessLogic
                     });
                 }
             }
-
             PdfDocumentRenderer renderer = new PdfDocumentRenderer(true, PdfSharp.Pdf.PdfFontEmbedding.Always) { Document = document };
             renderer.RenderDocument();
             renderer.PdfDocument.Save(info.FileName);
@@ -65,7 +63,7 @@ namespace RestaurantBusinessLogic.BusinessLogic
         {
             Style style = document.Styles["Normal"];
             style.Font.Name = "Times New Roman";
-            style.Font.Size = 14;
+            style.Font.Size = 9;
             style = document.Styles.AddStyle("NormalTitle", "Normal");
             style.Font.Bold = true;
         }
@@ -73,7 +71,6 @@ namespace RestaurantBusinessLogic.BusinessLogic
         private static void CreateRow(PdfRowParameters rowParameters)
         {
             Row row = rowParameters.Table.AddRow();
-
             for (int i = 0; i < rowParameters.Texts.Count; ++i)
             {
                 FillCell(new PdfCellParameters
@@ -90,12 +87,10 @@ namespace RestaurantBusinessLogic.BusinessLogic
         private static void FillCell(PdfCellParameters cellParameters)
         {
             cellParameters.Cell.AddParagraph(cellParameters.Text);
-
             if (!string.IsNullOrEmpty(cellParameters.Style))
             {
                 cellParameters.Cell.Style = cellParameters.Style;
             }
-
             cellParameters.Cell.Borders.Left.Width = cellParameters.BorderWidth;
             cellParameters.Cell.Borders.Right.Width = cellParameters.BorderWidth;
             cellParameters.Cell.Borders.Top.Width = cellParameters.BorderWidth;

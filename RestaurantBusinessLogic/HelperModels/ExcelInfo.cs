@@ -13,7 +13,6 @@ namespace RestaurantBusinessLogic.HelperModels
         public List<FridgeViewModel> Fridges { get; set; }
         public int RequestId { get; set; }
         public string SupplierFIO { get; set; }
-        public DateTime DateComplete { get; set; }
         public Dictionary<int, (string, int, bool)> RequestFoods { get; set; }
         public List<ReportDishFoodViewModel> DishFoods { get; set; }
     }

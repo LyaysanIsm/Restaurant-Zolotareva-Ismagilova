@@ -16,6 +16,9 @@
             <li class="nav-item">
                 <a class="nav-link text-light" asp-area="" asp-controller="BackUp" asp-action="BackUp">Бэкап</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" asp-area="" asp-action="Report">Отчет по продуктам</a>
+            </li>
         </ul>
     </div>
 }
@@ -55,11 +58,11 @@
                 <td>
                     @if (item.Status == RestaurantBusinessLogic.Enums.RequestStatus.Выполняется)
                     {
-                        <a class="btn btn-outline-info btn-sm" asp-action="RequestView" asp-route-id="@item.Id">Просмотр заявки</a>
+                        <a class="btn btn-primary btn-sm btn-block" asp-action="RequestView" asp-route-id="@item.Id">Просмотр заявки</a>
                     }
                     @if (item.Status == RestaurantBusinessLogic.Enums.RequestStatus.Создана)
                     {
-                        <a class="btn btn-outline-info btn-sm" asp-action="AcceptRequest" asp-route-id="@item.Id">Принять в обработку</a>
+                        <a class="btn btn-primary btn-sm btn-block" asp-action="AcceptRequest" asp-route-id="@item.Id">Принять в обработку</a>
                     }
                 </td>
             </tr>

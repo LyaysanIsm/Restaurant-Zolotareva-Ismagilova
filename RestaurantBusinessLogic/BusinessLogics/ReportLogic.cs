@@ -66,7 +66,7 @@ namespace RestaurantBusinessLogic.BusinessLogics
                                 FoodName = requestFood.Value.Item1,
                                 Count = requestFood.Value.Item2,
                                 Status = StatusFood(request.Status),
-                                CreationDate = DateTime.Now,
+                                CompletionDate = DateTime.Now,
                                 Price = food.Price
                             };
                             list.Add(record);

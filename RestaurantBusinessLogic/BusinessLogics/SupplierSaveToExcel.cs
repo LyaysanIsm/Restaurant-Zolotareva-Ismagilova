@@ -55,15 +55,6 @@ namespace RestaurantBusinessLogic.BusinessLogics
                     Text = "Поставщик:" + " " + info.SupplierFIO,
                     StyleIndex = 0U
                 });
-                InsertCellInWorksheet(new ExcelCellParameters
-                {
-                    Worksheet = worksheetPart.Worksheet,
-                    ShareStringPart = shareStringPart,
-                    ColumnName = "A",
-                    RowIndex = 3,
-                    Text = "Дата выполнения:" + " " + info.DateComplete.ToString(),
-                    StyleIndex = 0U
-                });
                 MergeCells(new ExcelMergeParameters
                 {
                     Worksheet = worksheetPart.Worksheet,
@@ -76,18 +67,12 @@ namespace RestaurantBusinessLogic.BusinessLogics
                     CellFromName = "A2",
                     CellToName = "C2"
                 });
-                MergeCells(new ExcelMergeParameters
-                {
-                    Worksheet = worksheetPart.Worksheet,
-                    CellFromName = "A3",
-                    CellToName = "C3"
-                });
                 InsertCellInWorksheet(new ExcelCellParameters
                 {
                     Worksheet = worksheetPart.Worksheet,
                     ShareStringPart = shareStringPart,
                     ColumnName = "A",
-                    RowIndex = 4,
+                    RowIndex = 3,
                     Text = "№ продукта",
                     StyleIndex = 0U
                 });
@@ -96,7 +81,7 @@ namespace RestaurantBusinessLogic.BusinessLogics
                     Worksheet = worksheetPart.Worksheet,
                     ShareStringPart = shareStringPart,
                     ColumnName = "B",
-                    RowIndex = 4,
+                    RowIndex = 3,
                     Text = "Продукт",
                     StyleIndex = 0U
                 });
@@ -105,7 +90,7 @@ namespace RestaurantBusinessLogic.BusinessLogics
                     Worksheet = worksheetPart.Worksheet,
                     ShareStringPart = shareStringPart,
                     ColumnName = "C",
-                    RowIndex = 4,
+                    RowIndex = 3,
                     Text = "Количество",
                     StyleIndex = 0U
                 });
@@ -117,7 +102,7 @@ namespace RestaurantBusinessLogic.BusinessLogics
                         Worksheet = worksheetPart.Worksheet,
                         ShareStringPart = shareStringPart,
                         ColumnName = "A",
-                        RowIndex = i + 4,
+                        RowIndex = i + 3,
                         Text = food.Key.ToString(),
                         StyleIndex = 0U
                     });
@@ -126,7 +111,7 @@ namespace RestaurantBusinessLogic.BusinessLogics
                         Worksheet = worksheetPart.Worksheet,
                         ShareStringPart = shareStringPart,
                         ColumnName = "B",
-                        RowIndex = i + 4,
+                        RowIndex = i + 3,
                         Text = food.Value.Item1,
                         StyleIndex = 0U
                     });
@@ -135,7 +120,7 @@ namespace RestaurantBusinessLogic.BusinessLogics
                         Worksheet = worksheetPart.Worksheet,
                         ShareStringPart = shareStringPart,
                         ColumnName = "C",
-                        RowIndex = i + 4,
+                        RowIndex = i + 3,
                         Text = food.Value.Item2.ToString(),
                         StyleIndex = 0U
                     });
