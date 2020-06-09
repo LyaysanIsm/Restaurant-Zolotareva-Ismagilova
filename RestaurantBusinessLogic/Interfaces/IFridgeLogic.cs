@@ -14,5 +14,9 @@ namespace RestaurantBusinessLogic.Interfaces
         void AddFood(RequestFoodBindingModel model);
         void ReserveFoods(RequestFoodBindingModel model);
         List<FridgeAvailableViewModel> GetFridgeAvailable(RequestFoodBindingModel model);
+        void SaveJsonFridge(string folderName);
+        void SaveJsonFridgeFood(string folderName);
+        void SaveXmlFridge(string filderName);
+        void SaveXmlFridgeFood(string filderName);
     }
 }

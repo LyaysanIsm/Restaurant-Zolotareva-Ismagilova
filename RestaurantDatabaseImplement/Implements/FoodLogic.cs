@@ -76,12 +76,12 @@ namespace RestaurantDatabaseImplement.Implements
             }
         }
 
-        public void SaveJson(string folderName)
+        public void SaveJsonFood(string folderName)
         {
-            string fileName = $"{folderName}\\food.json";
+            string fileName = $"{folderName}\\Food.json";
             using (var context = new RestaurantDatabase())
             {
-                DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(List<Food>));
+                DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(IEnumerable<Food>));
                 using (FileStream fs = new FileStream(fileName, FileMode.Create))
                 {
                     jsonFormatter.WriteObject(fs, context.Foods);
@@ -89,9 +89,9 @@ namespace RestaurantDatabaseImplement.Implements
             }
         }
 
-        public void SaveXml(string folderName)
+        public void SaveXmlFood(string folderName)
         {
-            string fileName = $"{folderName}\\food.xml";
+            string fileName = $"{folderName}\\Food.xml";
             using (var context = new RestaurantDatabase())
             {
                 XmlSerializer fomatter = new XmlSerializer(typeof(DbSet<Food>));

@@ -12,7 +12,9 @@ namespace RestaurantBusinessLogic.Interfaces
         void CreateOrUpdate(RequestBindingModel model);
         void Delete(RequestBindingModel model);
         void Reserve(ReserveFoodsBindingModel model);
-        void SaveJson(string folderName);
-        void SaveXml(string folderName);
+        void SaveJsonRequest(string folderName);
+        void SaveJsonRequestFood(string folderName);
+        void SaveXmlRequest(string folderName);
+        void SaveXmlRequestFood(string folderName);
     }
 }

@@ -11,7 +11,7 @@ namespace RestaurantBusinessLogic.Interfaces
         List<FoodViewModel> Read(FoodBindingModel model);
         void CreateOrUpdate(FoodBindingModel model);
         void Delete(FoodBindingModel model);
-        void SaveJson(string folderName);
-        void SaveXml(string folderName);
+        void SaveJsonFood(string folderName);
+        void SaveXmlFood(string folderName);
     }
 }

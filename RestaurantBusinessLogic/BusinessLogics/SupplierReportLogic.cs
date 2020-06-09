@@ -63,5 +63,23 @@ namespace RestaurantBusinessLogic.BusinessLogics
             smtp.EnableSsl = true;
             smtp.Send(m);
         }
+
+        public void SendMailBackup(string email, string fileName, string subject, string type)
+        {
+            MailAddress from = new MailAddress("lyaysanlabs@gmail.com", "Столовая Рога и Копыта");
+            MailAddress to = new MailAddress(email);
+            MailMessage m = new MailMessage(from, to);
+            m.Subject = subject;
+            m.Attachments.Add(new Attachment(fileName + "\\Request." + type));
+            m.Attachments.Add(new Attachment(fileName + "\\RequestFood." + type));
+            m.Attachments.Add(new Attachment(fileName + "\\Fridge." + type));
+            m.Attachments.Add(new Attachment(fileName + "\\FridgeFood." + type));
+            m.Attachments.Add(new Attachment(fileName + "\\Supplier." + type));
+            m.Attachments.Add(new Attachment(fileName + "\\Food." + type));
+            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+            smtp.Credentials = new NetworkCredential("lyaysanlabs@gmail.com", "987-654lL");
+            smtp.EnableSsl = true;
+            smtp.Send(m);
+        }
     }
 }

@@ -150,12 +150,12 @@ namespace RestaurantDatabaseImplement.Implements
             }
         }
 
-        public void SaveJson(string folderName)
+        public void SaveJsonRequest(string folderName)
         {
-            string fileName = $"{folderName}\\request.json";
+            string fileName = $"{folderName}\\Request.json";
             using (var context = new RestaurantDatabase())
             {
-                DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(List<Request>));
+                DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(IEnumerable<Request>));
                 using (FileStream fs = new FileStream(fileName, FileMode.Create))
                 {
                     jsonFormatter.WriteObject(fs, context.Requests);
@@ -163,15 +163,41 @@ namespace RestaurantDatabaseImplement.Implements
             }
         }
 
-        public void SaveXml(string folderName)
+        public void SaveJsonRequestFood(string folderName)
         {
-            string fileNameDop = $"{folderName}\\request.xml";
+            string fileName = $"{folderName}\\RequestFood.json";
+            using (var context = new RestaurantDatabase())
+            {
+                DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(IEnumerable<RequestFood>));
+                using (FileStream fs = new FileStream(fileName, FileMode.Create))
+                {
+                    jsonFormatter.WriteObject(fs, context.RequestFoods);
+                }
+            }
+        }
+
+        public void SaveXmlRequest(string folderName)
+        {
+            string fileNameDop = $"{folderName}\\Request.xml";
             using (var context = new RestaurantDatabase())
             {
                 XmlSerializer fomatterXml = new XmlSerializer(typeof(DbSet<Request>));
                 using (FileStream fs = new FileStream(fileNameDop, FileMode.Create))
                 {
                     fomatterXml.Serialize(fs, context.Requests);
+                }
+            }
+        }
+
+        public void SaveXmlRequestFood(string folderName)
+        {
+            string fileNameDop = $"{folderName}\\RequestFood.xml";
+            using (var context = new RestaurantDatabase())
+            {
+                XmlSerializer fomatterXml = new XmlSerializer(typeof(DbSet<RequestFood>));
+                using (FileStream fs = new FileStream(fileNameDop, FileMode.Create))
+                {
+                    fomatterXml.Serialize(fs, context.RequestFoods);
                 }
             }
         }

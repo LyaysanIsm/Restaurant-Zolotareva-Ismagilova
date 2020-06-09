@@ -6,7 +6,10 @@ using RestaurantDatabaseImplement.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
+using System.Runtime.Serialization.Json;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace RestaurantDatabaseImplement.Implements
 {
@@ -178,6 +181,58 @@ namespace RestaurantDatabaseImplement.Implements
                 else
                 {
                     throw new Exception("В холодильнике не существует таких продуктов");
+                }
+            }
+        }
+
+        public void SaveJsonFridge(string folderName)
+        {
+            string fileName = $"{folderName}\\Fridge.json";
+            using (var context = new RestaurantDatabase())
+            {
+                DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(IEnumerable<Fridge>));
+                using (FileStream fs = new FileStream(fileName, FileMode.Create))
+                {
+                    jsonFormatter.WriteObject(fs, context.Fridges);
+                }
+            }
+        }
+
+        public void SaveJsonFridgeFood(string folderName)
+        {
+            string fileName = $"{folderName}\\FridgeFood.json";
+            using (var context = new RestaurantDatabase())
+            {
+                DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(IEnumerable<FridgeFood>));
+                using (FileStream fs = new FileStream(fileName, FileMode.Create))
+                {
+                    jsonFormatter.WriteObject(fs, context.FridgeFoods);
+                }
+            }
+        }
+
+        public void SaveXmlFridge(string folderName)
+        {
+            string fileNameDop = $"{folderName}\\Fridge.xml";
+            using (var context = new RestaurantDatabase())
+            {
+                XmlSerializer fomatterXml = new XmlSerializer(typeof(DbSet<Fridge>));
+                using (FileStream fs = new FileStream(fileNameDop, FileMode.Create))
+                {
+                    fomatterXml.Serialize(fs, context.Fridges);
+                }
+            }
+        }
+
+        public void SaveXmlFridgeFood(string folderName)
+        {
+            string fileNameDop = $"{folderName}\\FridgeFood.xml";
+            using (var context = new RestaurantDatabase())
+            {
+                XmlSerializer fomatterXml = new XmlSerializer(typeof(DbSet<FridgeFood>));
+                using (FileStream fs = new FileStream(fileNameDop, FileMode.Create))
+                {
+                    fomatterXml.Serialize(fs, context.FridgeFoods);
                 }
             }
         }

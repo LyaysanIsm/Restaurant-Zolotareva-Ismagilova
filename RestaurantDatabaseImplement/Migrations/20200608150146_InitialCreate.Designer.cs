@@ -10,7 +10,7 @@ using RestaurantDatabaseImplement;
 namespace RestaurantDatabaseImplement.Migrations
 {
     [DbContext(typeof(RestaurantDatabase))]
-    [Migration("20200605185647_InitialCreate")]
+    [Migration("20200608150146_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

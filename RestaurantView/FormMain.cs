@@ -32,7 +32,7 @@ namespace RestaurantView
         private readonly IFoodLogic foodLogic;
         private readonly ReportLogic report;
 
-        public FormMain(MainLogic logic, IOrderLogic orderLogic, ReportLogic report, 
+        public FormMain(MainLogic logic, IOrderLogic orderLogic, ReportLogic report,
             IFoodLogic foodLogic, IRequestLogic requestLogic, IDishLogic dishLogic)
         {
             InitializeComponent();
@@ -159,7 +159,8 @@ namespace RestaurantView
                         });
                         MessageBox.Show("Отчет отправлен на почту", "Успех", MessageBoxButtons.OK,
                        MessageBoxIcon.Information);
-                    } catch(Exception ex)
+                    }
+                    catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
                         MessageBoxIcon.Error);
@@ -195,9 +196,9 @@ namespace RestaurantView
                 {
                     orderLogic.SaveXml(fbd.SelectedPath);
                     orderLogic.SaveXml(fbd.SelectedPath);
-                    foodLogic.SaveXml(fbd.SelectedPath);
+                    foodLogic.SaveXmlFood(fbd.SelectedPath);
                     dishLogic.SaveXml(fbd.SelectedPath);
-                    requestLogic.SaveXml(fbd.SelectedPath);
+                    requestLogic.SaveXmlRequest(fbd.SelectedPath);
                     report.SendMailReport("kristina.zolotareva.14@gmail.com", fbd.SelectedPath, "XML бекап", "xml");
                     MessageBox.Show("Бекап отправлен на почту", "Сообщение",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -219,9 +220,9 @@ namespace RestaurantView
                 {
                     orderLogic.SaveJson(fbd.SelectedPath);
                     orderLogic.SaveJson(fbd.SelectedPath);
-                    foodLogic.SaveJson(fbd.SelectedPath);
+                    foodLogic.SaveJsonFood(fbd.SelectedPath);
                     dishLogic.SaveJson(fbd.SelectedPath);
-                    requestLogic.SaveJson(fbd.SelectedPath);
+                    requestLogic.SaveJsonRequest(fbd.SelectedPath);
                     report.SendMailReport("kristina.zolotareva.14@gmail.com", fbd.SelectedPath, "JSON бекап", "json");
                     MessageBox.Show("Бекап отправлен на почту", "Сообщение",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
