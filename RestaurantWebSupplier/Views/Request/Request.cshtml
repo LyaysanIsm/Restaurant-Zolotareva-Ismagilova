@@ -11,13 +11,13 @@
                 <a class="nav-link text-light" asp-area="" asp-controller="Fridge" asp-action="ListFridges">Холодильники</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-light" asp-area="" asp-controller="Supplier" asp-action="Logout">Выход</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link text-light" asp-area="" asp-controller="BackUp" asp-action="BackUp">Бэкап</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-light" asp-area="" asp-action="Report">Отчет по продуктам</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" asp-area="" asp-controller="Supplier" asp-action="Logout">Выход</a>
             </li>
         </ul>
     </div>
@@ -42,6 +42,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Status)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sum)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -54,6 +57,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sum)
                 </td>
                 <td>
                     @if (item.Status == RestaurantBusinessLogic.Enums.RequestStatus.Выполняется)

@@ -10,7 +10,6 @@ namespace RestaurantBusinessLogic.BindingModels
         public int? Id { get; set; }
         public string SupplierFIO { get; set; }
         public int SupplierId { get; set; }
-        public decimal Sum { get; set; }
         public RequestStatus Status { get; set; }
         public Dictionary<int, (string, int, bool)> Foods { get; set; }
         public DateTime? DateFrom { get; set; }

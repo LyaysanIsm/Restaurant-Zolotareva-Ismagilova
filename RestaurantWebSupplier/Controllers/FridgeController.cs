@@ -213,7 +213,7 @@ namespace RestaurantWebSupplier.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AddFood([Bind("FridgeId, FoodId, Count")] RequestFoodBindingModel model)
+        public IActionResult AddFood([Bind("FridgeId, FoodId, Count, Price")] RequestFoodBindingModel model)
         {
             if (Program.Supplier == null)
             {

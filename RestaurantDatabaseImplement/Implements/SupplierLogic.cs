@@ -66,8 +66,8 @@ namespace RestaurantDatabaseImplement.Implements
             using (var context = new RestaurantDatabase())
             {
                 return context.Suppliers
-                 .Where(rec => model == null || rec.Id == model.Id || (rec.Login == model.Login) &&
-                 (model.Password == null || rec.Password == model.Password))
+                 .Where(rec => model == null || rec.Id == model.Id || ((rec.Login == model.Login) &&
+                 (rec.Password == model.Password)))
                 .Select(rec => new SupplierViewModel
                 {
                     Id = rec.Id,

@@ -17,6 +17,8 @@ namespace RestaurantBusinessLogic.ViewModels
         public RequestStatus Status { get; set; }
         [DisplayName("Дата выполнения")]
         public DateTime CompletionDate { get; set; }
+        [DisplayName("Сумма")]
+        public decimal Sum { get; set; }
         public Dictionary<int, (string, int, bool)> Foods { get; set; }
     }
 }
