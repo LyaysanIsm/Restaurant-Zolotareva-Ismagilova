@@ -155,6 +155,10 @@ namespace RestaurantDatabaseImplement.Implements
                 {
                     fridgeFoods.Free += model.Count;
                 }
+
+                Food element = context.Foods.FirstOrDefault(rec =>
+                    rec.Id == model.FoodId);
+                element.Price = model.Count;
                 context.SaveChanges();
             }
         }
