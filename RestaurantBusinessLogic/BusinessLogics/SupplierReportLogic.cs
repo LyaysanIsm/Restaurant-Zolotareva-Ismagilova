@@ -32,10 +32,10 @@ namespace RestaurantBusinessLogic.BusinessLogics
             return requestFoods;
         }
 
-        public List<ReportFoodViewModel> GetFoods(DateTime? from, DateTime? to)
+        public List<ReportFoodViewModel> GetFoods(RequestBindingModel model)
         {
             var foods = foodLogic.Read(null);
-            var requests = requestLogic.Read(null);
+            var requests = requestLogic.Read(model);
             var list = new List<ReportFoodViewModel>();
             foreach (var request in requests)
             {
@@ -89,7 +89,7 @@ namespace RestaurantBusinessLogic.BusinessLogics
             {
                 FileName = fileName,
                 Title = title,
-                Foods = GetFoods(model.DateFrom, model.DateTo)
+                Foods = GetFoods(model)
             });
             SendMail(email, fileName, title);
         }

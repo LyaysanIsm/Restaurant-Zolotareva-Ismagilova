@@ -17,14 +17,16 @@ namespace RestaurantWebSupplier.Controllers
     {
         private readonly IRequestLogic requestLogic;
         private readonly IFridgeLogic fridgeLogic;
+        private readonly IFoodLogic foodLogic;
         private readonly SupplierBusinessLogic supplierLogic;
         private readonly SupplierReportLogic reportLogic;
-        public RequestController(IRequestLogic requestLogic, IFridgeLogic fridgeLogic, SupplierBusinessLogic supplierLogic, SupplierReportLogic reportLogic)
+        public RequestController(IRequestLogic requestLogic, IFridgeLogic fridgeLogic, SupplierBusinessLogic supplierLogic, SupplierReportLogic reportLogic, IFoodLogic foodLogic)
         {
             this.requestLogic = requestLogic;
             this.fridgeLogic = fridgeLogic;
             this.supplierLogic = supplierLogic;
             this.reportLogic = reportLogic;
+            this.foodLogic = foodLogic;
         }
 
         public IActionResult Request()
@@ -137,6 +139,21 @@ namespace RestaurantWebSupplier.Controllers
                 Count = count
             });
             return View(fridges);
+        }
+
+        private int CalculateSum(List<RequestFoodBindingModel> requestfoods)
+        {
+            decimal sum = 0;
+            foreach (var food in requestfoods)
+            {
+                var foodData = foodLogic.Read(new FoodBindingModel { Id = food.FoodId }).FirstOrDefault();
+                if (foodData != null)
+                {
+                    for (int i = 0; i < food.Count; i++)
+                        sum += foodData.Price;
+                }
+            }
+            return Convert.ToInt32(sum);
         }
 
         public IActionResult SendWordReport(int id)

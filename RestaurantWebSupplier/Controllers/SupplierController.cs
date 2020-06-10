@@ -62,13 +62,8 @@ namespace RestaurantWebSupplier.Controllers
         [HttpPost]
         public IActionResult Registration(RegistrationModel supplier)
         {
-            var existSupplier = supplierLogic.Read(new SupplierBindingModel
+            if (!ModelState.IsValid)
             {
-                Login = supplier.Login
-            }).FirstOrDefault();
-            if (existSupplier != null)
-            {
-                ModelState.AddModelError("", "Такая почта уже существует");
                 return View(supplier);
             }
             if (String.IsNullOrEmpty(supplier.SupplierFIO)
@@ -77,12 +72,19 @@ namespace RestaurantWebSupplier.Controllers
             {
                 return View(supplier);
             }
-            supplierLogic.CreateOrUpdate(new SupplierBindingModel
+            try
             {
-                SupplierFIO = supplier.SupplierFIO,
-                Login = supplier.Login,
-                Password = supplier.Password
-            });
+                supplierLogic.CreateOrUpdate(new SupplierBindingModel
+                {
+                    SupplierFIO = supplier.SupplierFIO,
+                    Login = supplier.Login,
+                    Password = supplier.Password
+                });
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("Такая почта уже существует", ex.Message);
+            }
             return RedirectToAction("Index", "Home");
         }
     }
