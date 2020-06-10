@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormReportMovingPdf));
             this.ReportOrdersViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.buttonCreate = new System.Windows.Forms.Button();
@@ -51,7 +50,7 @@
             // buttonCreate
             // 
             this.buttonCreate.BackColor = System.Drawing.Color.AliceBlue;
-            this.buttonCreate.Location = new System.Drawing.Point(509, 13);
+            this.buttonCreate.Location = new System.Drawing.Point(658, 13);
             this.buttonCreate.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCreate.Name = "buttonCreate";
             this.buttonCreate.Size = new System.Drawing.Size(133, 34);
@@ -63,7 +62,7 @@
             // buttonCreateToPdf
             // 
             this.buttonCreateToPdf.BackColor = System.Drawing.Color.AliceBlue;
-            this.buttonCreateToPdf.Location = new System.Drawing.Point(671, 13);
+            this.buttonCreateToPdf.Location = new System.Drawing.Point(799, 13);
             this.buttonCreateToPdf.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCreateToPdf.Name = "buttonCreateToPdf";
             this.buttonCreateToPdf.Size = new System.Drawing.Size(121, 34);
@@ -74,21 +73,17 @@
             // 
             // reportViewer
             // 
-            reportDataSource1.Name = "DataSetMoving";
-            reportDataSource1.Value = this.ReportFoodViewModelBindingSource;
-            this.reportViewer.LocalReport.DataSources.Add(reportDataSource1);
             this.reportViewer.LocalReport.ReportEmbeddedResource = "RestaurantView.ReportMoving.rdlc";
             this.reportViewer.Location = new System.Drawing.Point(13, 55);
             this.reportViewer.Margin = new System.Windows.Forms.Padding(4);
             this.reportViewer.Name = "reportViewer";
             this.reportViewer.ServerReport.BearerToken = null;
-            this.reportViewer.Size = new System.Drawing.Size(779, 372);
+            this.reportViewer.Size = new System.Drawing.Size(907, 372);
             this.reportViewer.TabIndex = 4;
-            this.reportViewer.Load += new System.EventHandler(this.FormReportDishFoods_Load);
             // 
             // dateTimePickerTo
             // 
-            this.dateTimePickerTo.Location = new System.Drawing.Point(310, 17);
+            this.dateTimePickerTo.Location = new System.Drawing.Point(489, 22);
             this.dateTimePickerTo.Margin = new System.Windows.Forms.Padding(4);
             this.dateTimePickerTo.Name = "dateTimePickerTo";
             this.dateTimePickerTo.Size = new System.Drawing.Size(161, 22);
@@ -97,7 +92,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(247, 22);
+            this.label2.Location = new System.Drawing.Point(457, 27);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(24, 17);
@@ -107,7 +102,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 22);
+            this.label1.Location = new System.Drawing.Point(263, 27);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(17, 17);
@@ -116,7 +111,7 @@
             // 
             // dateTimePickerFrom
             // 
-            this.dateTimePickerFrom.Location = new System.Drawing.Point(64, 17);
+            this.dateTimePickerFrom.Location = new System.Drawing.Point(288, 22);
             this.dateTimePickerFrom.Margin = new System.Windows.Forms.Padding(4);
             this.dateTimePickerFrom.Name = "dateTimePickerFrom";
             this.dateTimePickerFrom.Size = new System.Drawing.Size(161, 22);
@@ -131,7 +126,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.AliceBlue;
-            this.ClientSize = new System.Drawing.Size(805, 442);
+            this.ClientSize = new System.Drawing.Size(931, 442);
             this.Controls.Add(this.dateTimePickerTo);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -144,7 +139,6 @@
             this.Name = "FormReportMovingPdf";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Движение продуктов";
-            this.Load += new System.EventHandler(this.FormReportDishFoods_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ReportOrdersViewModelBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ReportFoodViewModelBindingSource)).EndInit();
             this.ResumeLayout(false);

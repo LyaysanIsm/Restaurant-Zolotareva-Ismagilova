@@ -140,12 +140,12 @@ namespace RestaurantDatabaseImplement.Implements
             }
         }
 
-        public void SaveJson(string folderName)
+        public void SaveJsonDish(string folderName)
         {
-            string fileName = $"{folderName}\\dish.json";
+            string fileName = $"{folderName}\\Dish.json";
             using (var context = new RestaurantDatabase())
             {
-                DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(List<Dish>));
+                DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(IEnumerable<Dish>));
                 using (FileStream fs = new FileStream(fileName, FileMode.Create))
                 {
                     jsonFormatter.WriteObject(fs, context.Dishes);
@@ -153,15 +153,41 @@ namespace RestaurantDatabaseImplement.Implements
             }
         }
 
-        public void SaveXml(string folderName)
+        public void SaveJsonDishFood(string folderName)
         {
-            string fileName = $"{folderName}\\dish.xml";
+            string fileName = $"{folderName}\\DishFood.json";
+            using (var context = new RestaurantDatabase())
+            {
+                DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(IEnumerable<DishFood>));
+                using (FileStream fs = new FileStream(fileName, FileMode.Create))
+                {
+                    jsonFormatter.WriteObject(fs, context.DishFoods);
+                }
+            }
+        }
+
+        public void SaveXmlDish(string folderName)
+        {
+            string fileName = $"{folderName}\\Dish.xml";
             using (var context = new RestaurantDatabase())
             {
                 XmlSerializer fomatter = new XmlSerializer(typeof(DbSet<Dish>));
                 using (FileStream fs = new FileStream(fileName, FileMode.Create))
                 {
                     fomatter.Serialize(fs, context.Dishes);
+                }
+            }
+        }
+
+        public void SaveXmlDishFood(string folderName)
+        {
+            string fileName = $"{folderName}\\DishFood.xml";
+            using (var context = new RestaurantDatabase())
+            {
+                XmlSerializer fomatter = new XmlSerializer(typeof(DbSet<DishFood>));
+                using (FileStream fs = new FileStream(fileName, FileMode.Create))
+                {
+                    fomatter.Serialize(fs, context.DishFoods);
                 }
             }
         }

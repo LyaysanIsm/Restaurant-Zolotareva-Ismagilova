@@ -57,10 +57,10 @@ namespace RestaurantView
                         logic.SaveFoodsToPdfFile(new ReportBindingModel
                         {
                             FileName = dialog.FileName,
-                            DateTo = dateTimePickerFrom.Value.Date,
-                            DateFrom = dateTimePickerTo.Value.Date
+                            DateTo = dateTimePickerTo.Value.Date,
+                            DateFrom = dateTimePickerFrom.Value.Date
                         });
-                        MessageBox.Show("Отчет отправлен на почту", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Отчет сохранен и отправлен на почту", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     catch (Exception ex)
                     {
@@ -72,6 +72,7 @@ namespace RestaurantView
 
         private void FormReportDishFoods_Load(object sender, EventArgs e)
         {
+
             this.reportViewer.RefreshReport();
         }
     }

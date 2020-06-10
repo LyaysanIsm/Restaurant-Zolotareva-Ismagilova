@@ -55,21 +55,24 @@ namespace RestaurantBusinessLogic.BusinessLogics
             var list = new List<ReportFoodViewModel>();
             foreach (var request in requests)
             {
-                foreach (var requestFood in request.Foods)
+                if (request.CreationDate >= from && request.CreationDate.AddDays(-1) <= to)
                 {
-                    foreach (var food in foods) 
+                    foreach (var requestFood in request.Foods)
                     {
-                        if (food.FoodName == requestFood.Value.Item1)
+                        foreach (var food in foods)
                         {
-                            var record = new ReportFoodViewModel
+                            if (food.FoodName == requestFood.Value.Item1)
                             {
-                                FoodName = requestFood.Value.Item1,
-                                Count = requestFood.Value.Item2,
-                                Status = StatusFood(request.Status),
-                                CompletionDate = DateTime.Now,
-                                Price = food.Price
-                            };
-                            list.Add(record);
+                                var record = new ReportFoodViewModel
+                                {
+                                    FoodName = requestFood.Value.Item1,
+                                    Count = requestFood.Value.Item2,
+                                    Status = StatusFood(request.Status),
+                                    CreationDate = request.CreationDate,
+                                    Price = food.Price
+                                };
+                                list.Add(record);
+                            }
                         }
                     }
                 }
@@ -144,9 +147,12 @@ namespace RestaurantBusinessLogic.BusinessLogics
             SaveToPdf.CreateDoc(new PdfInfo
             {
                 FileName = model.FileName,
-                Title = "Движение продуктов",
-                Foods = GetFoods(model.DateFrom, model.DateTo)
+                Title = "Отчет по движению продуктов",
+                Foods = GetFoods(model.DateFrom, model.DateTo),
+                DateTo = model.DateTo,
+                DateFrom = model.DateFrom
             });
+            SendMail("kristina.zolotareva.14@gmail.com", model.FileName, "Отчет по движению продуктов");
         }
 
         public void SendMail(string email, string fileName, string subject)
@@ -168,10 +174,12 @@ namespace RestaurantBusinessLogic.BusinessLogics
             MailAddress to = new MailAddress(email);
             MailMessage m = new MailMessage(from, to);
             m.Subject = subject;
-            m.Attachments.Add(new Attachment(fileName + "\\order." + type));
-            m.Attachments.Add(new Attachment(fileName + "\\request." + type));
-            m.Attachments.Add(new Attachment(fileName + "\\dish." + type));
-            m.Attachments.Add(new Attachment(fileName + "\\food." + type));
+            m.Attachments.Add(new Attachment(fileName + "\\Order." + type));
+            m.Attachments.Add(new Attachment(fileName + "\\Request." + type));
+            m.Attachments.Add(new Attachment(fileName + "\\RequestFood." + type));
+            m.Attachments.Add(new Attachment(fileName + "\\Dish." + type));
+            m.Attachments.Add(new Attachment(fileName + "\\DishFood." + type));
+            m.Attachments.Add(new Attachment(fileName + "\\Food." + type));
             SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
             smtp.Credentials = new NetworkCredential("labwork15kafis@gmail.com", "passlab15");
             smtp.EnableSsl = true;

@@ -31,7 +31,7 @@ namespace RestaurantView
                 dataGridViewComponents.DataSource = listRequest;
                 dataGridViewComponents.Columns[0].Visible = false;
                 dataGridViewComponents.Columns[1].Visible = false;
-                dataGridViewComponents.Columns[4].Visible = false;
+                dataGridViewComponents.Columns[5].Visible = false;
                 dataGridViewComponents.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             }
             dataGridViewComponents.Update();

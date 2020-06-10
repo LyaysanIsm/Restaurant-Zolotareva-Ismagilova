@@ -157,7 +157,7 @@ namespace RestaurantView
                         {
                             FileName = dialog.FileName
                         });
-                        MessageBox.Show("Отчет отправлен на почту", "Успех", MessageBoxButtons.OK,
+                        MessageBox.Show("Отчет сохранен и отправлен на почту", "Успех", MessageBoxButtons.OK,
                        MessageBoxIcon.Information);
                     }
                     catch (Exception ex)
@@ -194,13 +194,14 @@ namespace RestaurantView
                 var fbd = new FolderBrowserDialog();
                 if (fbd.ShowDialog() == DialogResult.OK)
                 {
-                    orderLogic.SaveXml(fbd.SelectedPath);
-                    orderLogic.SaveXml(fbd.SelectedPath);
-                    foodLogic.SaveXmlFood(fbd.SelectedPath);
-                    dishLogic.SaveXml(fbd.SelectedPath);
                     requestLogic.SaveXmlRequest(fbd.SelectedPath);
+                    requestLogic.SaveXmlRequestFood(fbd.SelectedPath);
+                    dishLogic.SaveXmlDish(fbd.SelectedPath);
+                    dishLogic.SaveXmlDishFood(fbd.SelectedPath);
+                    orderLogic.SaveXmlOrder(fbd.SelectedPath);
+                    foodLogic.SaveXmlFood(fbd.SelectedPath);
                     report.SendMailReport("kristina.zolotareva.14@gmail.com", fbd.SelectedPath, "XML бекап", "xml");
-                    MessageBox.Show("Бекап отправлен на почту", "Сообщение",
+                    MessageBox.Show("Бекап сохранен и отправлен на почту", "Сообщение",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
@@ -218,13 +219,14 @@ namespace RestaurantView
                 var fbd = new FolderBrowserDialog();
                 if (fbd.ShowDialog() == DialogResult.OK)
                 {
-                    orderLogic.SaveJson(fbd.SelectedPath);
-                    orderLogic.SaveJson(fbd.SelectedPath);
-                    foodLogic.SaveJsonFood(fbd.SelectedPath);
-                    dishLogic.SaveJson(fbd.SelectedPath);
                     requestLogic.SaveJsonRequest(fbd.SelectedPath);
+                    requestLogic.SaveJsonRequestFood(fbd.SelectedPath);
+                    dishLogic.SaveJsonDish(fbd.SelectedPath);
+                    dishLogic.SaveJsonDishFood(fbd.SelectedPath);
+                    orderLogic.SaveJsonOrder(fbd.SelectedPath);
+                    foodLogic.SaveJsonFood(fbd.SelectedPath);
                     report.SendMailReport("kristina.zolotareva.14@gmail.com", fbd.SelectedPath, "JSON бекап", "json");
-                    MessageBox.Show("Бекап отправлен на почту", "Сообщение",
+                    MessageBox.Show("Бекап сохранен и отправлен на почту", "Сообщение",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }

@@ -41,7 +41,7 @@
             // buttonOk
             // 
             this.buttonOk.BackColor = System.Drawing.Color.AliceBlue;
-            this.buttonOk.Location = new System.Drawing.Point(435, 291);
+            this.buttonOk.Location = new System.Drawing.Point(617, 292);
             this.buttonOk.Margin = new System.Windows.Forms.Padding(4);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(96, 30);
@@ -53,11 +53,11 @@
             // groupBoxComponents
             // 
             this.groupBoxComponents.Controls.Add(this.dataGridViewComponents);
-            this.groupBoxComponents.Location = new System.Drawing.Point(22, 13);
+            this.groupBoxComponents.Location = new System.Drawing.Point(17, 13);
             this.groupBoxComponents.Margin = new System.Windows.Forms.Padding(4);
             this.groupBoxComponents.Name = "groupBoxComponents";
             this.groupBoxComponents.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBoxComponents.Size = new System.Drawing.Size(520, 270);
+            this.groupBoxComponents.Size = new System.Drawing.Size(696, 270);
             this.groupBoxComponents.TabIndex = 11;
             this.groupBoxComponents.TabStop = false;
             this.groupBoxComponents.Text = "Продукты";
@@ -66,17 +66,17 @@
             // 
             this.dataGridViewComponents.BackgroundColor = System.Drawing.Color.AliceBlue;
             this.dataGridViewComponents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewComponents.Location = new System.Drawing.Point(10, 21);
+            this.dataGridViewComponents.Location = new System.Drawing.Point(5, 21);
             this.dataGridViewComponents.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridViewComponents.Name = "dataGridViewComponents";
             this.dataGridViewComponents.RowHeadersWidth = 51;
-            this.dataGridViewComponents.Size = new System.Drawing.Size(499, 241);
+            this.dataGridViewComponents.Size = new System.Drawing.Size(678, 241);
             this.dataGridViewComponents.TabIndex = 0;
             // 
             // buttonUpdate
             // 
             this.buttonUpdate.BackColor = System.Drawing.Color.AliceBlue;
-            this.buttonUpdate.Location = new System.Drawing.Point(319, 291);
+            this.buttonUpdate.Location = new System.Drawing.Point(501, 292);
             this.buttonUpdate.Margin = new System.Windows.Forms.Padding(4);
             this.buttonUpdate.Name = "buttonUpdate";
             this.buttonUpdate.Size = new System.Drawing.Size(96, 30);
@@ -88,7 +88,7 @@
             // buttonContent
             // 
             this.buttonContent.BackColor = System.Drawing.Color.AliceBlue;
-            this.buttonContent.Location = new System.Drawing.Point(22, 291);
+            this.buttonContent.Location = new System.Drawing.Point(13, 292);
             this.buttonContent.Margin = new System.Windows.Forms.Padding(4);
             this.buttonContent.Name = "buttonContent";
             this.buttonContent.Size = new System.Drawing.Size(148, 30);
@@ -102,7 +102,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.AliceBlue;
-            this.ClientSize = new System.Drawing.Size(555, 335);
+            this.ClientSize = new System.Drawing.Size(728, 335);
             this.Controls.Add(this.buttonContent);
             this.Controls.Add(this.buttonUpdate);
             this.Controls.Add(this.buttonOk);

@@ -16,6 +16,10 @@ namespace RestaurantDatabaseImplement.Models
         [ForeignKey("RequestId")]
         public virtual List<RequestFood> RequestFoods { get; set; }
         public virtual Supplier Supplier { get; set; }
-        public DateTime CompletionDate { get; set; }
+        public DateTime? CompletionDate { get; set; }
+        [Required]
+        public DateTime CreationDate { get; set; }
+        [Required]
+        public decimal Sum { get; set; }
     }
 }

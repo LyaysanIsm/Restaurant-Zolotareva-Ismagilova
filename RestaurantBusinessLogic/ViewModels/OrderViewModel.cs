@@ -9,18 +9,18 @@ namespace RestaurantBusinessLogic.ViewModels
     public class OrderViewModel
     {
         public int Id { get; set; }
-        [DisplayName("Количество")]
-        public int Count { get; set; }
-        [DisplayName("Сумма")]
-        public decimal Sum { get; set; }
+        public int DishId { get; set; }
+        [DisplayName("Название блюда")]
+        public string DishName { get; set; }
+        [DisplayName("Статус")]
+        public Status Status { get; set; }
         [DisplayName("Дата создания")]
         public DateTime CreationDate { get; set; }
         [DisplayName("Дата завершения")]
         public DateTime? CompletionDate { get; set; }
-        [DisplayName("Статус")]
-        public Status Status { get; set; }
-        public int DishId { get; set; }
-        [DisplayName("Название блюда")]
-        public string DishName { get; set; }
+        [DisplayName("Количество")]
+        public int Count { get; set; }
+        [DisplayName("Сумма")]
+        public decimal Sum { get; set; }
     }
 }

@@ -159,27 +159,15 @@ namespace RestaurantView
                     Count = Convert.ToInt32(textBoxCount.Text),
                     Sum = Convert.ToDecimal(textBoxSum.Text)
                 });
+                logicM.CreateOrUpdateRequest(new RequestBindingModel
+                {
+                    Id = Id,
+                    SupplierId = Convert.ToInt32(comboBoxSupplier.SelectedValue),
+                    Foods = requestFoods
+                });
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;
                 Close();
-               
-                try
-                {
-                    logicM.CreateOrUpdateRequest(new RequestBindingModel
-                    {
-                        Id = Id,
-                        SupplierId = Convert.ToInt32(comboBoxSupplier.SelectedValue),
-                        Foods = requestFoods
-                    });
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(
-                        ex.Message,
-                        "Ошибка",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
-                }
             }
             catch (Exception ex)
             {

@@ -34,7 +34,8 @@ namespace RestaurantBusinessLogic.BusinessLogics
                 Id = request.Id,
                 SupplierId = request.SupplierId,
                 Status = RequestStatus.Выполняется,
-                Foods = request.Foods
+                Foods = request.Foods,
+                CreationDate = request.CreationDate
             });
         }
 

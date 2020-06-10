@@ -51,6 +51,8 @@ namespace RestaurantDatabaseImplement.Implements
                             context.Requests.Add(request);
                         }
                         request.SupplierId = model.SupplierId;
+                        request.Sum = model.Sum;
+                        request.CreationDate = model.CreationDate;
                         request.Status = model.Status;
                         context.SaveChanges();
                         foreach (var Food in model.Foods)
@@ -120,7 +122,7 @@ namespace RestaurantDatabaseImplement.Implements
                 return context.Requests
                     .Include(rec => rec.Supplier)
                     .Where(rec => model == null || rec.Id == model.Id || (rec.SupplierId == model.SupplierId) && (model.DateFrom == null && model.DateTo == null ||
-                    rec.CompletionDate >= model.DateFrom && rec.CompletionDate <= model.DateTo && rec.Status == RequestStatus.Готова))
+                    rec.CreationDate >= model.DateFrom && rec.CreationDate <= model.DateTo && rec.Status == RequestStatus.Готова))
                     .ToList()
                     .Select(rec => new RequestViewModel
                     {
@@ -128,7 +130,9 @@ namespace RestaurantDatabaseImplement.Implements
                         SupplierFIO = rec.Supplier.SupplierFIO,
                         SupplierId = rec.SupplierId,
                         CompletionDate = rec.CompletionDate,
+                        CreationDate = rec.CreationDate,
                         Status = rec.Status,
+                        Sum = rec.Sum,
                         Foods = context.RequestFoods
                             .Include(recRF => recRF.Food)
                             .Where(recRF => recRF.RequestId == rec.Id)

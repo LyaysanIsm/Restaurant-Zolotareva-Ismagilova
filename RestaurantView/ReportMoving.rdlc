@@ -34,7 +34,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Creation Date</Value>
+                              <Value>Дата создания заказа</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -64,7 +64,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Food Name</Value>
+                              <Value>Название продукта</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -94,7 +94,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Status</Value>
+                              <Value>Статус</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -124,7 +124,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Count</Value>
+                              <Value>Количество</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -154,7 +154,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Price</Value>
+                              <Value>Цена</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -356,7 +356,7 @@
         <DataSetName>DataSetMoving</DataSetName>
         <Top>0.9652cm</Top>
         <Left>0.35137cm</Left>
-        <Height>2.49117cm</Height>
+        <Height>2.49116cm</Height>
         <Width>15.802cm</Width>
         <Style>
           <Border>

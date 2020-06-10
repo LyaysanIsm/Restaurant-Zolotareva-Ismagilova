@@ -158,7 +158,7 @@ namespace RestaurantDatabaseImplement.Implements
 
                 Food element = context.Foods.FirstOrDefault(rec =>
                     rec.Id == model.FoodId);
-                element.Price = model.Count;
+                element.Price = model.Price;
                 context.SaveChanges();
             }
         }
