@@ -23,7 +23,7 @@ namespace RestaurantBusinessLogic.BusinessLogic
             paragraph1.Style = "NormalTitle";
 
             var table = document.LastSection.AddTable();
-            List<string> columns = new List<string> { "4cm", "4cm", "4cm", "4cm", "3cm", "3cm" };
+            List<string> columns = new List<string> { "3cm", "3cm", "3cm", "4cm", "2cm", "3cm" };
 
             foreach (var elem in columns)
             {
