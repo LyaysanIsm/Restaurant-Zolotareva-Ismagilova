@@ -19,7 +19,7 @@ namespace RestaurantBusinessLogic.ViewModels
         public DateTime CreationDate { get; set; }
         public Dictionary<int, (string, int, bool)> Foods { get; set; }
         [DisplayName("Дата выполнения")]
-        public DateTime? CompletionDate { get; set; }
+        public DateTime CompletionDate { get; set; }
         [DisplayName("Сумма")]
         public decimal Sum { get; set; }
     }

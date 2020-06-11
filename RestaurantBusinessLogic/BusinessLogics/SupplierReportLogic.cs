@@ -47,12 +47,14 @@ namespace RestaurantBusinessLogic.BusinessLogics
                         {
                             var record = new ReportFoodViewModel
                             {
+                                RequestId = request.Id,
                                 SupplierFIO = request.SupplierFIO,
                                 FoodName = requestFood.Value.Item1,
                                 Count = requestFood.Value.Item2,
                                 Status = StatusFood(request.Status),
                                 CompletionDate = request.CompletionDate,
-                                Price = food.Price
+                                Price = food.Price,
+                                Sum = request.Sum
                             };
                             list.Add(record);
                         }

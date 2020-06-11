@@ -18,7 +18,7 @@ namespace RestaurantBusinessLogic.BusinessLogic
             paragraph.Format.Alignment = ParagraphAlignment.Center;
             paragraph.Style = "NormalTitle";
             var table = document.LastSection.AddTable();
-            List<string> columns = new List<string> { "3cm", "5cm", "3cm", "2cm", "2cm", "2cm" };
+            List<string> columns = new List<string> { "1cm", "3cm", "5cm", "2cm", "2cm", "2cm", "1cm", "2cm" };
 
             foreach (var elem in columns)
             {
@@ -30,7 +30,7 @@ namespace RestaurantBusinessLogic.BusinessLogic
                 CreateRow(new PdfRowParameters
                 {
                     Table = table,
-                    Texts = new List<string> { "Дата", "Поставщик", "Продукт", "Статус", "Количество", "Стоимость" },
+                    Texts = new List<string> { "Номер", "Дата", "Поставщик", "Продукт", "Статус", "Количество", "Цена", "Сумма" },
                     Style = "NormalTitle",
                     ParagraphAlignment = ParagraphAlignment.Center
                 });
@@ -42,12 +42,14 @@ namespace RestaurantBusinessLogic.BusinessLogic
                         Table = table,
                         Texts = new List<string>
                     {
+                        pc.RequestId.ToString(),
                         pc.CompletionDate.ToString(),
                         pc.SupplierFIO,
                         pc.FoodName,
                         pc.Status,
                         pc.Count.ToString(),
-                        pc.Price.ToString()
+                        pc.Price.ToString(),
+                        pc.Sum.ToString()
                     },
                         Style = "Normal",
                         ParagraphAlignment = ParagraphAlignment.Left
