@@ -10,8 +10,8 @@ using RestaurantDatabaseImplement;
 namespace RestaurantDatabaseImplement.Migrations
 {
     [DbContext(typeof(RestaurantDatabase))]
-    [Migration("20200610205116_two")]
-    partial class two
+    [Migration("20200611121950_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -182,7 +182,8 @@ namespace RestaurantDatabaseImplement.Migrations
                     b.Property<DateTime?>("CompletionDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("CreationDate")
+                    b.Property<DateTime?>("CreationDate")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Status")

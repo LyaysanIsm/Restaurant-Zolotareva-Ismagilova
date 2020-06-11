@@ -52,9 +52,9 @@ namespace RestaurantBusinessLogic.BusinessLogics
                                 FoodName = requestFood.Value.Item1,
                                 Count = requestFood.Value.Item2,
                                 Status = StatusFood(request.Status),
+                                CreationDate = request.CreationDate,
                                 CompletionDate = request.CompletionDate,
-                                Price = food.Price,
-                                Sum = request.Sum
+                                Price = food.Price * requestFood.Value.Item2
                             };
                             list.Add(record);
                         }
