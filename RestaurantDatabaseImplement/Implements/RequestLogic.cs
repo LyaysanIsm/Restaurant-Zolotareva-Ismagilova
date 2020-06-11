@@ -122,7 +122,7 @@ namespace RestaurantDatabaseImplement.Implements
                 return context.Requests
                     .Include(rec => rec.Supplier)
                     .Where(rec => model == null || rec.Id == model.Id || (rec.SupplierId == model.SupplierId) && (model.DateFrom == null && model.DateTo == null ||
-                    rec.CreationDate >= model.DateFrom && rec.CreationDate <= model.DateTo && rec.Status == RequestStatus.Готова))
+                    rec.CompletionDate >= model.DateFrom && rec.CompletionDate <= model.DateTo && rec.Status == RequestStatus.Готова))
                     .ToList()
                     .Select(rec => new RequestViewModel
                     {
@@ -132,12 +132,15 @@ namespace RestaurantDatabaseImplement.Implements
                         CompletionDate = rec.CompletionDate,
                         CreationDate = rec.CreationDate,
                         Status = rec.Status,
-                        Sum = rec.Sum,
                         Foods = context.RequestFoods
                             .Include(recRF => recRF.Food)
                             .Where(recRF => recRF.RequestId == rec.Id)
                             .ToDictionary(recRF => recRF.FoodId, recRF =>
-                            (recRF.Food?.FoodName, recRF.Count, recRF.Inres))
+                            (recRF.Food?.FoodName, recRF.Count, recRF.Inres)),
+                        Sum = Decimal.Round(context.RequestFoods
+                            .Include(recRF => recRF.Food)
+                            .Where(recRF => recRF.RequestId == rec.Id)
+                            .Sum(recRF => recRF.Food.Price * recRF.Count), 2)
                     })
                     .ToList();
             }

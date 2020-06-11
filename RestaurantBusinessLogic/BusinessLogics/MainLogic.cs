@@ -120,8 +120,7 @@ namespace RestaurantBusinessLogic.BusinessLogics
                 Id = model.Id,
                 SupplierId = model.SupplierId,
                 Status = RequestStatus.Создана,
-                Foods = model.Foods,
-                Sum = model.Sum,
+                Foods = model.Foods,                
                 CreationDate = DateTime.Now
             });
         }

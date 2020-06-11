@@ -6,6 +6,7 @@ using RestaurantWebSupplier.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace RestaurantWebSupplier.Controllers
@@ -13,6 +14,8 @@ namespace RestaurantWebSupplier.Controllers
     public class SupplierController : Controller
     {
         private readonly ISupplierLogic supplierLogic;
+        private readonly int passwordMinLength = 5;
+        private readonly int passwordMaxLength = 25;
 
         public SupplierController(ISupplierLogic supplierLogic)
         {
@@ -62,8 +65,27 @@ namespace RestaurantWebSupplier.Controllers
         [HttpPost]
         public IActionResult Registration(RegistrationModel supplier)
         {
-            if (!ModelState.IsValid)
+            var existSupplier = supplierLogic.Read(new SupplierBindingModel
             {
+                Login = supplier.Login
+            }).FirstOrDefault();
+            if (existSupplier != null)
+            {
+                ModelState.AddModelError("", "Такая почта уже существует");
+                return View(supplier);
+            }
+            if (supplier.Password.Length > passwordMaxLength ||
+                supplier.Password.Length < passwordMinLength ||
+                !Regex.IsMatch(supplier.Password,
+                @"^((\w+\d+\W+)|(\w+\W+\d+)|(\d+\w+\W+)|(\d+\W+\w+)|(\W+\w+\d+)|(\W+\d+\w+))[\w\d\W]*$")
+                )
+            {
+                ModelState.AddModelError("", $"Пароль не соответствует требованиям:  длина от {passwordMinLength} до {passwordMaxLength} символов, необходимы небуквенные символы, цифры, буквы.");
+                return View(supplier);
+            }
+            if (!Regex.IsMatch(supplier.Login, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"))
+            {
+                ModelState.AddModelError("", "Почта введена некорректно");
                 return View(supplier);
             }
             if (String.IsNullOrEmpty(supplier.SupplierFIO)
@@ -72,19 +94,12 @@ namespace RestaurantWebSupplier.Controllers
             {
                 return View(supplier);
             }
-            try
+            supplierLogic.CreateOrUpdate(new SupplierBindingModel
             {
-                supplierLogic.CreateOrUpdate(new SupplierBindingModel
-                {
-                    SupplierFIO = supplier.SupplierFIO,
-                    Login = supplier.Login,
-                    Password = supplier.Password
-                });
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("Такая почта уже существует", ex.Message);
-            }
+                SupplierFIO = supplier.SupplierFIO,
+                Login = supplier.Login,
+                Password = supplier.Password
+            });
             return RedirectToAction("Index", "Home");
         }
     }

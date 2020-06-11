@@ -15,6 +15,7 @@ namespace RestaurantBusinessLogic.BindingModels
         public DateTime? DateFrom { get; set; }
         public DateTime? DateTo { get; set; }
         public DateTime? CompletionDate { get; set; }
-        public DateTime CreationDate { get; set; }
+        public DateTime? CreationDate { get; set; }
+        public decimal Sum { get; set; }
     }
 }

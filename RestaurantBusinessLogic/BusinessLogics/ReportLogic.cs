@@ -55,7 +55,7 @@ namespace RestaurantBusinessLogic.BusinessLogics
             var list = new List<ReportFoodViewModel>();
             foreach (var request in requests)
             {
-                if (request.CreationDate >= from && request.CreationDate.AddDays(-1) <= to)
+                if (request.CreationDate >= from && request.CreationDate <= to)
                 {
                     foreach (var requestFood in request.Foods)
                     {
