@@ -137,10 +137,10 @@ namespace RestaurantDatabaseImplement.Implements
                             .Where(recRF => recRF.RequestId == rec.Id)
                             .ToDictionary(recRF => recRF.FoodId, recRF =>
                             (recRF.Food?.FoodName, recRF.Count, recRF.Inres)),
-                        Sum = context.RequestFoods
+                        Sum = Decimal.Round(context.RequestFoods
                             .Include(recRF => recRF.Food)
                             .Where(recRF => recRF.RequestId == rec.Id)
-                            .Sum(recRF => recRF.Food.Price * recRF.Count)
+                            .Sum(recRF => recRF.Food.Price * recRF.Count), 2)
                     })
                     .ToList();
             }

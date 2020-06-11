@@ -83,6 +83,11 @@ namespace RestaurantWebSupplier.Controllers
                 ModelState.AddModelError("", $"Пароль не соответствует требованиям:  длина от {passwordMinLength} до {passwordMaxLength} символов, необходимы небуквенные символы, цифры, буквы.");
                 return View(supplier);
             }
+            if (!Regex.IsMatch(supplier.Login, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"))
+            {
+                ModelState.AddModelError("", "Почта введена некорректно");
+                return View(supplier);
+            }
             if (String.IsNullOrEmpty(supplier.SupplierFIO)
             || String.IsNullOrEmpty(supplier.Login)
             || String.IsNullOrEmpty(supplier.Password))
