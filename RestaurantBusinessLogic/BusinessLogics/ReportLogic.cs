@@ -69,6 +69,7 @@ namespace RestaurantBusinessLogic.BusinessLogics
                                     Count = requestFood.Value.Item2,
                                     Status = StatusFood(request.Status),
                                     CreationDate = request.CreationDate,
+                                    CompletionDate = request.CompletionDate,
                                     Price = food.Price * requestFood.Value.Item2
                                 };
                                 list.Add(record);
