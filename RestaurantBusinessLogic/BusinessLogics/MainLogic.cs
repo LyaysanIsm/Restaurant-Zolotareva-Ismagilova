@@ -28,7 +28,8 @@ namespace RestaurantBusinessLogic.BusinessLogics
                 DishId = order.DishId,
                 Count = order.Count,
                 CreationDate = DateTime.Now,
-                Status = Status.Принят
+                Status = Status.Принят,
+                Sum = order.Sum
             });
         }
 
