@@ -14,11 +14,12 @@ namespace RestaurantView
 {
     public partial class FormLogin : Form
     {
-        string password = "1";
-        string login = "1";
+        string password = "1password?";
+        string login = "kristina.zolotareva.14@gmail.com";
         public FormLogin()
         {
             InitializeComponent();
+            textBoxPassword.PasswordChar = '*';
         }
 
         private void buttonEnter_Click(object sender, EventArgs e)

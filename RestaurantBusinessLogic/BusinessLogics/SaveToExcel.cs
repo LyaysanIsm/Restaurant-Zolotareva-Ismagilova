@@ -67,50 +67,49 @@ namespace RestaurantBusinessLogic.BusinessLogic
                 });
 
                 
-
-                InsertCellInWorksheet(new ExcelCellParameters
-                {
-                    Worksheet = worksheetPart.Worksheet,
-                    ShareStringPart = shareStringPart,
-                    ColumnName = "B",
-                    RowIndex = 2,
-                    Text = "Статус блюда",
-                    StyleIndex = 2U
-                });
-
-                InsertCellInWorksheet(new ExcelCellParameters
-                {
-                    Worksheet = worksheetPart.Worksheet,
-                    ShareStringPart = shareStringPart,
-                    ColumnName = "C",
-                    RowIndex = 2,
-                    Text = "Количество",
-                    StyleIndex = 2U
-                });
-
-                InsertCellInWorksheet(new ExcelCellParameters
-                {
-                    Worksheet = worksheetPart.Worksheet,
-                    ShareStringPart = shareStringPart,
-                    ColumnName = "D",
-                    RowIndex = 2,
-                    Text = "Сумма",
-                    StyleIndex = 2U
-                });
-
-                InsertCellInWorksheet(new ExcelCellParameters
-                {
-                    Worksheet = worksheetPart.Worksheet,
-                    ShareStringPart = shareStringPart,
-                    ColumnName = "E",
-                    RowIndex = 2,
-                    Text = "Дата создания",
-                    StyleIndex = 2U
-                });
-
-                uint rowIndex = 2;
                 if (info.Orders != null)
                 {
+                    InsertCellInWorksheet(new ExcelCellParameters
+                    {
+                        Worksheet = worksheetPart.Worksheet,
+                        ShareStringPart = shareStringPart,
+                        ColumnName = "B",
+                        RowIndex = 2,
+                        Text = "Статус блюда",
+                        StyleIndex = 2U
+                    });
+
+                    InsertCellInWorksheet(new ExcelCellParameters
+                    {
+                        Worksheet = worksheetPart.Worksheet,
+                        ShareStringPart = shareStringPart,
+                        ColumnName = "C",
+                        RowIndex = 2,
+                        Text = "Количество",
+                        StyleIndex = 2U
+                    });
+
+                    InsertCellInWorksheet(new ExcelCellParameters
+                    {
+                        Worksheet = worksheetPart.Worksheet,
+                        ShareStringPart = shareStringPart,
+                        ColumnName = "D",
+                        RowIndex = 2,
+                        Text = "Сумма",
+                        StyleIndex = 2U
+                    });
+
+                    InsertCellInWorksheet(new ExcelCellParameters
+                    {
+                        Worksheet = worksheetPart.Worksheet,
+                        ShareStringPart = shareStringPart,
+                        ColumnName = "E",
+                        RowIndex = 2,
+                        Text = "Дата создания",
+                        StyleIndex = 2U
+                    });
+
+                    uint rowIndex = 2;
                     foreach (var date in info.Orders)
                     {
                         if ((date.Status == Enums.Status.Оплачен) || (date.Status == Enums.Status.Готов))
