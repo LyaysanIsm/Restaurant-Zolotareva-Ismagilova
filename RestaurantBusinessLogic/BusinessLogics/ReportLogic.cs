@@ -55,7 +55,7 @@ namespace RestaurantBusinessLogic.BusinessLogics
             var list = new List<ReportFoodViewModel>();
             foreach (var request in requests)
             {
-                if (request.CreationDate >= from && request.CreationDate <= to)
+                if (request.CreationDate >= from && request.CreationDate.Value.AddDays(-1) <= to)
                 {
                     foreach (var requestFood in request.Foods)
                     {
@@ -69,7 +69,7 @@ namespace RestaurantBusinessLogic.BusinessLogics
                                     Count = requestFood.Value.Item2,
                                     Status = StatusFood(request.Status),
                                     CreationDate = request.CreationDate,
-                                    Price = food.Price
+                                    Price = food.Price * requestFood.Value.Item2
                                 };
                                 list.Add(record);
                             }

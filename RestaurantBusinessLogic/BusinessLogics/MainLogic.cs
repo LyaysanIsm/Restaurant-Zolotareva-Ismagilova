@@ -53,7 +53,12 @@ namespace RestaurantBusinessLogic.BusinessLogics
 
             requestLogic.CreateOrUpdate(new RequestBindingModel
             {
-                Status = RequestStatus.Обработана
+                Id = request.Id,
+                SupplierId = request.SupplierId,
+                Foods = request.Foods,
+                CreationDate = request.CreationDate,
+                Status = RequestStatus.Обработана,
+                CompletionDate = request.CompletionDate
             });
 
             orderLogic.CreateOrUpdate(new OrderBindingModel

@@ -15,8 +15,6 @@ using System.IO;
 using System.Xml.Serialization;
 using System.Runtime.Serialization;
 using RestaurantBusinessLogic.ViewModels;
-using RestaurantDatabaseImplement;
-using RestaurantDatabaseImplement.Models;
 using System.Runtime.Serialization.Json;
 
 namespace RestaurantView
