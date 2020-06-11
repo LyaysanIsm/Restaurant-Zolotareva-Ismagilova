@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RestaurantDatabaseImplement;
 
 namespace RestaurantDatabaseImplement.Migrations
 {
     [DbContext(typeof(RestaurantDatabase))]
-    partial class RestaurantDatabaseModelSnapshot : ModelSnapshot
+    [Migration("20200610204208_one")]
+    partial class one
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -177,7 +179,7 @@ namespace RestaurantDatabaseImplement.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("CompletionDate")
+                    b.Property<DateTime>("CompletionDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("CreationDate")

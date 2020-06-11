@@ -10,8 +10,8 @@ using RestaurantDatabaseImplement;
 namespace RestaurantDatabaseImplement.Migrations
 {
     [DbContext(typeof(RestaurantDatabase))]
-    [Migration("20200609134127_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20200610205116_two")]
+    partial class two
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -179,11 +179,17 @@ namespace RestaurantDatabaseImplement.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("CompletionDate")
+                    b.Property<DateTime?>("CompletionDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("Sum")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("SupplierId")
                         .HasColumnType("int");

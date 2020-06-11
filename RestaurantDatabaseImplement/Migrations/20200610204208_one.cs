@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RestaurantDatabaseImplement.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class one : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -131,7 +131,9 @@ namespace RestaurantDatabaseImplement.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SupplierId = table.Column<int>(nullable: false),
                     Status = table.Column<int>(nullable: false),
-                    CompletionDate = table.Column<DateTime>(nullable: false)
+                    CompletionDate = table.Column<DateTime>(nullable: false),
+                    CreationDate = table.Column<DateTime>(nullable: false),
+                    Sum = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
