@@ -10,7 +10,7 @@ using RestaurantDatabaseImplement;
 namespace RestaurantDatabaseImplement.Migrations
 {
     [DbContext(typeof(RestaurantDatabase))]
-    [Migration("20200610232927_InitialCreate")]
+    [Migration("20200611052120_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -179,7 +179,7 @@ namespace RestaurantDatabaseImplement.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("CompletionDate")
+                    b.Property<DateTime?>("CompletionDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("CreationDate")

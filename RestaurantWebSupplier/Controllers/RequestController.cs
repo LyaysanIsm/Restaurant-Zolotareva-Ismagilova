@@ -141,21 +141,6 @@ namespace RestaurantWebSupplier.Controllers
             return View(fridges);
         }
 
-        private int CalculateSum(List<RequestFoodBindingModel> requestfoods)
-        {
-            decimal sum = 0;
-            foreach (var food in requestfoods)
-            {
-                var foodData = foodLogic.Read(new FoodBindingModel { Id = food.FoodId }).FirstOrDefault();
-                if (foodData != null)
-                {
-                    for (int i = 0; i < food.Count; i++)
-                        sum += foodData.Price;
-                }
-            }
-            return Convert.ToInt32(sum);
-        }
-
         public IActionResult SendWordReport(int id)
         {
             string fileName = "D:\\data\\" + id + ".docx";
